@@ -1,0 +1,13 @@
+{
+  "name": "zzz",
+  "scripts": {
+    "start": "meteor --settings settings.json"
+  },
+  "engines": {
+    "node": "0.10.36"
+  },
+  "repository": {
+	  "type": "git",
+	  "url": "git://github.com/hurley87/hurlzzz.git"
+	}
+}                                                                         
