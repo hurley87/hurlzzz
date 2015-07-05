@@ -1,0 +1,34 @@
+.hash-list {
+  height: 528px;
+  overflow: scroll;
+}
+
+.value-text {
+ font-size: 5em;
+}
+
+.redText {
+ color: #E74C3C;
+}
+
+.textYellow {
+	color: #FFB606;
+}
+
+.textOrange {
+	color: #E67E22;
+}
+
+.galleryItem {
+	display: inline-block;
+}
+
+.gOverlay {
+  background-color: #9B59B6;
+  color: white;
+  position: relative;
+  bottom: 11px;
+  width: 100px;
+  left: 33px;
+  border-radius: 25px;
+}

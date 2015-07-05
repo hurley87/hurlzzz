@@ -1,0 +1,28 @@
+<template name="navigation">
+    <aside id="menu">
+        <div id="navigation">
+            <ul class="nav" id="side-menu">
+<!--                 <li class="{{isActiveRoute regex='dashboard'}}">
+                    <a href="/"> <span class="nav-label">Home</span></a>
+                </li> -->
+                {{#if unlock}}
+                <li>
+                    <a data-toggle="modal" data-target="#leaderboardModal"> <span class="nav-label">Leaderboard</span><span class="label label-success pull-right"><i class='fa fa-lock'></i></span> </a>
+                </li>
+                {{else}}
+                    {{#if currentUser}}
+                    <li class="{{isActiveRoute regex='leaderboard'}}">
+                        <a href="{{pathFor route='leaderboard'}}"><span class="nav-label">Leaderboard</span></a>
+                    </li>
+                    {{/if}}
+                {{/if}}
+                <li class="{{isActiveRoute regex='about'}}">
+                    <a href="{{pathFor route='about'}}"> <span class="nav-label">About</span></a>
+                </li>
+                <li class="{{isActiveRoute regex='faq'}}">
+                    <a href="{{pathFor route='faq'}}"> <span class="nav-label">FAQ</span></a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+</template>

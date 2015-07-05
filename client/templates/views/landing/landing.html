@@ -1,0 +1,19 @@
+<template name='landingPage'>
+	{{#if currentUser }}
+	  {{> header }}
+	  {{> navigation }}
+	  <div class='wrapper'>
+      {{> profile}}
+      </div>
+    {{else}}
+      {{> hey}}
+    {{/if}}
+</template>	
+
+<template name="hey">
+  <button class='insta'>Login with Instagram</button>
+</template>
+
+<template name='bye'>
+	<button>Say goodbye</button>
+</template>
