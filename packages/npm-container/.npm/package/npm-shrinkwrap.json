@@ -1,8 +1,5 @@
 {
   "dependencies": {
-    "fibers": {
-      "version": "1.0.5"
-    },
     "instagram-node": {
       "version": "0.5.7",
       "dependencies": {
