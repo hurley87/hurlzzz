@@ -291,7 +291,7 @@
                 min: 0,
                 max: max
             },
-            colors: [ "#E74C3C", "#efefef"],
+            colors: [ "#3498DB", "#efefef"],
         }
         ;
 

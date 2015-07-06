@@ -8,15 +8,15 @@
 }
 
 .redText {
- color: #E74C3C;
+ color: #3498DB;
 }
 
 .textYellow {
-	color: #FFB606;
+	color: #3498DB;
 }
 
 .textOrange {
-	color: #E67E22;
+	color: #3498DB;
 }
 
 .galleryItem {
@@ -24,7 +24,7 @@
 }
 
 .gOverlay {
-  background-color: #9B59B6;
+  background-color: #3498DB;
   color: white;
   position: relative;
   bottom: 11px;
