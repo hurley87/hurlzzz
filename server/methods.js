@@ -30,7 +30,7 @@ Meteor.methods({
 	      likeTotal += posts[i].likes.count;
 	    }
 
-      	return likeTotal / posts.length;
+      	return (likeTotal / posts.length).toFixed(2);
     },
     comments: function(posts) {
     	var commentLikes = [];
@@ -49,7 +49,7 @@ Meteor.methods({
 	      commentTotal += posts[i].comments.count;
 	    }
 
-      	return commentTotal / posts.length;
+      	return (commentTotal / posts.length).toFixed(2);
     },
     engagement: function(posts, user) {
       var avgComments = Meteor.call('avgComments', posts);
@@ -66,21 +66,6 @@ Meteor.methods({
     	var value = Meteor.call('postValue', posts, user);
     	var engagement = Meteor.call('engagement', posts, user);
     	return (engagement / value).toFixed(2);
-    },
-    followingRatio: function(user) {
-    	var stats = user.profile.stats;
-    	return stats.followed_by / stats.follows;
-    },
-    hashtagList: function(posts) {
-    	var tags = [];
-
-		for(var i = 0; i < posts.length; i++ ) {
-			tags.push(posts[i].tags);
-		}
-
-		tags = _.flatten(tags);
-
-    	return _.uniq(tags);
     },
     postValue: function(posts, user) {
     	return parseInt(11.7318*Math.pow(Meteor.call('avgLikes', posts), 0.1793)*Math.pow(user.followed_by, 0.1684));
