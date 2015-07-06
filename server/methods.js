@@ -7,7 +7,6 @@ Meteor.methods({
 			comments: Meteor.call('comments', posts),
 			avgComments: Meteor.call('avgComments', posts),
 			engagement: Meteor.call('engagement', posts, user),
-			// hashtagList: Meteor.call('hashtagList', posts),
 			postValue: Meteor.call('postValue', posts, user),
 			engagementValue: Meteor.call('engagementValue', posts, user),
 			impressionValue: Meteor.call('impressionValue', posts, user)
@@ -53,11 +52,11 @@ Meteor.methods({
       	return commentTotal / posts.length;
     },
     engagement: function(posts, user) {
-       	var avgComments = Meteor.call('avgComments', posts);
+      var avgComments = Meteor.call('avgComments', posts);
     	var avgLikes = Meteor.call('avgLikes', posts);
     	var value = Meteor.call('postValue', posts, user);
 
-      	return (avgComments + avgLikes) / value;
+      return avgComments + avgLikes;
     }, 
     impressionValue: function(posts, user) {
     	var value = Meteor.call('postValue', posts, user);
@@ -91,15 +90,24 @@ Meteor.methods({
     check(argument, Object);
     check(user, Object);
 
-    try {
-      Meteor.users.update({_id: user._id}, {$set: {
-      	'profile.other.location' : argument.city,
-      	'profile.other.gender' : argument.sex,
-      	'profile.other.age': argument.dob
-      }});	
-      Router.go('/leaderboard');
-    } catch(exception) {
-      return exception;
+    if (argument.city == '' || argument.sex == '' || argument.dob == '') {
+      alert('Please fill out form completely');
+      Router.go('/');
+    } else {
+        try {
+
+          Meteor.users.update({_id: user._id}, {$set: {
+            'profile.other.city' : argument.city,
+            'profile.other.country' : argument.country,
+            'profile.other.email' : argument.email,
+            'profile.other.gender' : argument.sex,
+            'profile.other.age': argument.dob
+          }});
+
+          Router.go('/leaderboard');
+        } catch(exception) {
+          return exception;
+      }
     }
   }
 });

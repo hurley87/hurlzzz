@@ -37,23 +37,13 @@ Accounts.onCreateUser(function(options, user) {
   user.profile.stats = stats.wait();
   user.profile.posts = recentPosts.wait();
   user.profile.data = data.wait();
-  
-  // var hashtags = user.profile.data.hashtagList;
-  // var tags = [];
-  // for(var i = 0; i < hashtags.length; i++) {
-  //   var hash = new Future();
-  //   ig.tag(hashtags[i], function(err, result, remaining, limit) {
-  //     hash.return(result);
-  //   });
-  //   tags.push(hash.wait());
-  // }
-
-  // user.profile.hashtags = tags;
 
   var other = {
     age: '',
-    location: '',
-    gender: ''
+    city: '',
+    country: '',
+    gender: '',
+    email: ''
   };
 
   user.profile.other = other;

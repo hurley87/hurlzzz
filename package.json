@@ -1,7 +1,8 @@
 {
   "name": "zzz",
   "scripts": {
-    "start": "meteor --settings settings.json"
+    "start": "meteor --settings settings.json",
+    "restart": "meteor reset"
   },
   "engines": {
     "node": "0.10.36"

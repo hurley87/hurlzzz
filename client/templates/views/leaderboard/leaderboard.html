@@ -17,8 +17,9 @@
             <thead>
             <tr>
                 <th>Handle</th>
-                <th>Location</th>
-                <th>Age</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Birthdate</th>
                 <th>Gender</th>
                 <th>Followers</th>
                 <th>Average Likes</th>
@@ -32,6 +33,7 @@
                <tr>
                     <td>@dhurlz</td>
                     <td>Toronto</td>
+                    <td>Canada</td>
                     <td>27</td>
                     <td>Male</td>
                     <td>265</td>
@@ -44,7 +46,8 @@
              {{#each users}}
                 <tr>
                     <td><a href="https://instagram.com/{{profile.username}}">@{{profile.username}}</a></td>
-                    <td>{{profile.other.location}}</td>
+                    <td>{{profile.other.city}}</td>
+                    <td>{{profile.other.country}}</td>
                     <td>{{profile.other.age}}</td>
                     <td>{{profile.other.gender}}</td>
                     <td>{{profile.stats.followed_by}}</td>

@@ -16,12 +16,7 @@
   Template.myStats.helpers({
     user: function() {
       return Meteor.users.findOne(Meteor.userId());
-    },
-    finishedProfile: function() {
-      var user = Meteor.users.findOne(Meteor.userId()).profile.other ;
-      return user.age != "" && user.gender != "" && user.location != '';
     }
-
   });
 
   Template.tour.events({
@@ -75,16 +70,29 @@
         tour.init();
         tour.restart();
     }
-  })
+  });
+
+  Template.myStatsForm.helpers({
+    finishedProfile: function() {
+      var user = Meteor.users.findOne(Meteor.userId()).profile.other;
+      if (user.age == '' || user.gender == '' || user.city == ''){
+        return false;
+      } else {
+        return true;
+      }
+    }
+  });
 
   Template.myStatsForm.events({
     'click #updateProfile': function(evt, temp) {
       evt.preventDefault();
       var user = Meteor.users.findOne(Meteor.userId());
       var arguments = {
-        city: $('#location').text(),
+        city: $('#city').text(),
+        country: $('#country').text(),
+        email: $('#email').text(),
         sex: $('#sex').text(),
-        dob: $('#birthdate').text()[10]
+        dob: $('#birthdate').text()
       };
 
       Meteor.call('updateUser', arguments, user, function() {
@@ -98,16 +106,27 @@
     // Defaults
     $.fn.editable.defaults.url = '#';
 
-    $('#location').editable({
+    $('#city').editable({
         validate: function(value) {
             if($.trim(value) == '') return 'This field is required';
         }
     });
 
-    $('#location').on('save.newuser', function() {
+    $('#city').on('save.newuser', function() {
+      $('#country').editable('show');
+      checkProgress();
+    });    
+
+    $('#country').editable({
+        validate: function(value) {
+            if($.trim(value) == '') return 'This field is required';
+        }
+    });
+
+    $('#country').on('save.newuser', function() {
       $('#sex').editable('show');
       checkProgress();
-    })
+    });
 
     $('#sex').editable({
         prepend: "not selected",
@@ -124,14 +143,39 @@
 
     $('#birthdate').editable();
 
-    $('#birthdate').on('save.newuser', function() {  
+    $('#birthdate').on('save.newuser', function() { 
+      $('#email').editable('show'); 
       checkProgress();
     });
 
-    function checkProgress(progress) {
+    $('#email').editable({
+        validate: function(value) {
+            if($.trim(value) == '') return 'This field is required';
+        }
+    });
+
+    $('#email').on('save.newuser', function() { 
+      checkProgress();
+    });
+
+    function checkProgress() {
       var progress = $('#progressbar').attr('style');
 
-      if(progress == 'width: 70%') {
+      if(progress == 'width: 50%') {
+        $("#progressbar").css({
+          width: '60%',
+        }, 500);
+        $('#progressbar').text('60%');
+      } 
+
+      if(progress == 'width: 60%;') {
+        $("#progressbar").css({
+          width: '70%',
+        }, 500);
+        $('#progressbar').text('70%');
+      }       
+
+      if(progress == 'width: 70%;') {
         $("#progressbar").css({
           width: '80%',
         }, 500);
@@ -170,14 +214,22 @@
         return age;
       }
     },
-    location: function() {
-      var location =  Meteor.users.findOne(Meteor.userId()).profile.other.location;
+    city: function() {
+      var location =  Meteor.users.findOne(Meteor.userId()).profile.other.city;
       if(location == '') {
         return 'city';
       } else {
         return location;
       }
     },
+    country: function() {
+      var country =  Meteor.users.findOne(Meteor.userId()).profile.other.country;
+      if(country == '') {
+        return 'country';
+      } else {
+        return country;
+      }
+    },    
     gender: function() {
       var gender =  Meteor.users.findOne(Meteor.userId()).profile.other.gender;
       if(gender == '') {
@@ -185,13 +237,15 @@
       } else {
         return gender;
       }
-    }
-  });
-
-  Template.hashtags.helpers({
-    hashtags: function() {
-        return Meteor.users.findOne(Meteor.userId()).profile.hashtags;
-    }
+    },
+    email: function() {
+      var email =  Meteor.users.findOne(Meteor.userId()).profile.other.email;
+      if(email == '') {
+        return 'not selected';
+      } else {
+        return email;
+      }
+    },    
   });
 
   Template.analytics.helpers({

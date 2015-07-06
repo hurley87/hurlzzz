@@ -29,7 +29,7 @@ Template.navigation.helpers({
     unlock: function() {
         if(Meteor.userId()) {
             var user = Meteor.users.findOne(Meteor.userId()).profile.other;
-            return user.age == '' && user.gender == '' && user.location == '';
+            return user.age == '' || user.gender == '' || user.city == '';
         } else {
             return false;
         } 
