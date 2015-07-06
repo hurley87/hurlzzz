@@ -18,11 +18,21 @@ Template.header.events({
 
 });
 
-  Template.header.helpers({
-    user: function() {
-      return Meteor.users.findOne(Meteor.userId()).profile;
-    },
-    stats: function() {
-      return Meteor.users.findOne(Meteor.userId()).profile.stats;
-    }
-  });
+Template.header.onRendered(function() {
+  if(Meteor.userId()) {
+    $("body").removeClass("hide-sidebar");
+    $("body").addClass("show-sidebar");
+  } else {
+    $("body").addClass("hide-sidebar");
+  }
+  
+});
+
+Template.header.helpers({
+  user: function() {
+    return Meteor.users.findOne(Meteor.userId()).profile;
+  },
+  stats: function() {
+    return Meteor.users.findOne(Meteor.userId()).profile.stats;
+  }
+});
