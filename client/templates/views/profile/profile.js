@@ -104,6 +104,7 @@
   Template.myStatsForm.onRendered(function() {
 
     // Defaults
+    $.fn.editable.defaults.mode = 'inline';
     $.fn.editable.defaults.url = '#';
 
     $('#city').editable({
@@ -209,7 +210,7 @@
     age: function() {
       var age =  Meteor.users.findOne(Meteor.userId()).profile.other.age;
       if(age == '') {
-        return 'not selected';
+        return 'edit';
       } else {
         return age;
       }
@@ -217,7 +218,7 @@
     city: function() {
       var location =  Meteor.users.findOne(Meteor.userId()).profile.other.city;
       if(location == '') {
-        return 'city';
+        return 'edit';
       } else {
         return location;
       }
@@ -225,7 +226,7 @@
     country: function() {
       var country =  Meteor.users.findOne(Meteor.userId()).profile.other.country;
       if(country == '') {
-        return 'country';
+        return 'edit';
       } else {
         return country;
       }
@@ -233,7 +234,7 @@
     gender: function() {
       var gender =  Meteor.users.findOne(Meteor.userId()).profile.other.gender;
       if(gender == '') {
-        return 'not selected';
+        return 'edit';
       } else {
         return gender;
       }
@@ -241,7 +242,7 @@
     email: function() {
       var email =  Meteor.users.findOne(Meteor.userId()).profile.other.email;
       if(email == '') {
-        return 'not selected';
+        return 'edit';
       } else {
         return email;
       }
