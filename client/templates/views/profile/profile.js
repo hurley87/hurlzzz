@@ -30,36 +30,50 @@
             },
             steps: [
                 {
-                    element: ".horange",
-                    title: "Tour title",
+                    element: ".tour1",
+                    title: "The Start",
                     content: "Add any components you want from the Homer theme - graphs, tables, calendars, lists, create your unique app view with Homer.",
-                    placement: "top"
+                    placement: "bottom"
 
                 },
                 {
-                    element: ".hyellow",
-                    title: "Tour title",
+                    element: ".tour2",
+                    title: "Followers",
                     content: "This is a 2 step on our tour. You can easy set a placement of tour tooltip.",
                     placement: "top"
 
                 },
                 {
-                    element: ".hred",
-                    title: "Tour title",
+                    element: ".tour3",
+                    title: "Posts",
                     content: "In this 3 step is a description of how to use tour directive.",
                     placement: "top"
 
                 },
                 {
-                    element: ".hviolet",
-                    title: "Tour title",
+                    element: ".tour4",
+                    title: "Likes and Comments",
                     content: "In this 3 step is a description of how to use tour directive.",
                     placement: "top"
 
                 },
                 {
-                    element: "#formTour",
-                    title: "Tour title",
+                    element: ".tour5",
+                    title: "Engagement Value",
+                    content: "In this 3 step is a description of how to use tour directive.",
+                    placement: "top"
+
+                },
+                {
+                    element: ".tour6",
+                    title: "Impression Value",
+                    content: "In this 3 step is a description of how to use tour directive.",
+                    placement: "top"
+
+                },
+                {
+                    element: ".tour7",
+                    title: "The End",
                     content: "In this 3 step is a description of how to use tour directive.",
                     placement: "top"
 

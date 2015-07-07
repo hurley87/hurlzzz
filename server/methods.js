@@ -30,7 +30,7 @@ Meteor.methods({
 	      likeTotal += posts[i].likes.count;
 	    }
 
-      	return (likeTotal / posts.length).toFixed(2);
+      	return likeTotal / posts.length
     },
     comments: function(posts) {
     	var commentLikes = [];
@@ -49,7 +49,7 @@ Meteor.methods({
 	      commentTotal += posts[i].comments.count;
 	    }
 
-      	return (commentTotal / posts.length).toFixed(2);
+      	return commentTotal / posts.length
     },
     engagement: function(posts, user) {
       var avgComments = Meteor.call('avgComments', posts);

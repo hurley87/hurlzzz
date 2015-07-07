@@ -28,92 +28,23 @@
 
 <template name='tour'>
   <div class='col-lg-12'>
-    {{#panel title="Take the tour"}}
+    {{#panel title="Take the tour!"}}
       <p>
-         Hey super cool human being,
+        You can learn a lot from a person when you look at their Instagram account. Just from looking at yours I can see your pretty cool. I don't want to overwhelm you right now with how action packed your profile is, so I created this tour to walk you through it.
       </p>
-      <p>
-        You can learn a lot from a person when you look at their Instagram account. 
-      </p>
-      <button id='startTour' class='btn btn-success'> Start </button>
+      <button id='startTour' class='btn btn-success'> Start tour </button>
     {{/panel}}
   </div>
 </template> 
 
-<template name='analytics'>
-    <div class="col-lg-6">
-
-        {{#panel panelClass="stats"  color="hblue"}}
-            <div class="stats-title pull-left">
-                <h4>Impression Value</h4>
-            </div>
-            <div class="stats-icon pull-right textOrange">
-                <i class="pe-7s-look fa-4x"></i>
-            </div>
-            <div class="m-t-xl">
-                <h1 class="textOrange">${{user.profile.data.impressionValue}}</h1>
-            </div> 
-        {{/panel}}
-
-    </div>
-    <div class="col-lg-6">
-
-        {{#panel panelClass="stats" color="hblue"}}
-            <div class="stats-title pull-left">
-                <h4>Engagement Value</h4>
-            </div>
-            <div class="stats-icon pull-right textYellow">
-                <i class="pe-7s-gleam fa-4x"></i>
-            </div>
-            <div class="m-t-xl">
-                <h1 class="textYellow">${{user.profile.data.engagementValue}}</h1>
-            </div> 
-        {{/panel}}
-
-    </div>
-    <div class="col-lg-12">
-      <div class="hpanel hblue">
-        {{#panel footerRight="Last update: 21.05.2015" }}
-            <div class="row">
-                <div class="col-md-3 text-center">
-                    <div>
-                        <h1 class="m-t-lg redText"><i class="fa fa-heart-o"></i></h1>
-                        <h1 class="redText">
-                            {{avgLikes}}
-                        </h1>
-                        <small>Average likes per post</small>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="text-center small">
-                        <i class="fa fa-laptop"></i> data taken from last 20 posts
-                    </div>
-                    <div class="flot-chart" style="height: 160px">
-                        <div class="flot-chart-content" id="flot-line-chart"></div>
-                    </div>
-                </div>
-                <div class="col-md-3 text-center">
-                    <div>
-                      <h1 class="m-t-lg redText"><i class="fa fa-comment-o"></i></h1>
-                      <h1 class="redText">
-                          {{avgComments}} 
-                      </h1>
-                      <small>Average comments per post</small>
-                    </div>
-                </div>
-            </div> 
-        {{/panel}}
-      </div>
-    </div>
-</template>  
-
 <template name='myStats'>
       <div class="hpanel hblue">
-          <div class="panel-body">
+          <div class="panel-body tour1">
               <div class="pull-right text-right">
                 <small>Your Instagram is worth</small>
                 <h1 class='font-extra-bold text-success value-text'>${{user.profile.data.postValue}}</h1>
-                <small>per post</small>
+                <small><a href="/faq">per post <i class="fa fa-question-circle"></i></a></small>
+    
               </div>
               <img alt="logo" class="img-circle m-b" src="{{user.profile.profile_picture}}">
               <h3><a href="">{{user.profile.full_name}}</a></h3>
@@ -122,11 +53,11 @@
                  {{user.profile.bio}}
               </p>
           </div>
-          <div class="panel-body">
+          <div class="panel-body tour7">
             {{> myStatsForm}}
           </div>
           <div class="panel-footer contact-footer">
-              <div class="row">
+              <div class="row tour2">
                   <div class="col-md-4 border-right">
                       <div class="contact-stat"><span>Posts: </span> <strong>{{user.profile.stats.media}}</strong></div>
                   </div>
@@ -143,7 +74,6 @@
 </template>
 
 <template name='myStatsForm'>
-
     {{#if finishedProfile}}
       <h3>Update Profile</h3>
       {{> form}}
@@ -217,12 +147,79 @@
       <hr>      
     </dl>
   </div>
-</template>  
+</template> 
+
+<template name='analytics'>
+    <div class="col-lg-6">
+
+        {{#panel panelClass="stats tour6"  color="hblue"}}
+            <div class="stats-title pull-left">
+                <h4><a href="/faq">Impression Value <i class="fa fa-question-circle"></i></a></h4>
+            </div>
+            <div class="stats-icon pull-right textOrange">
+                <i class="pe-7s-look fa-4x"></i>
+            </div>
+            <div class="m-t-xl">
+                <h1 class="textOrange">${{user.profile.data.impressionValue}}</h1>
+            </div> 
+        {{/panel}}
+
+    </div>
+    <div class="col-lg-6">
+
+        {{#panel panelClass="stats tour5" color="hblue"}}
+            <div class="stats-title pull-left">
+                <h4><a href="/faq">Engagement Value <i class="fa fa-question-circle"></i></a></h4>
+            </div>
+            <div class="stats-icon pull-right textYellow">
+                <i class="pe-7s-gleam fa-4x"></i>
+            </div>
+            <div class="m-t-xl">
+                <h1 class="textYellow">${{user.profile.data.engagementValue}}</h1>
+            </div> 
+        {{/panel}}
+
+    </div>
+    <div class="col-lg-12">
+      <div class="hpanel hblue tour4">
+        {{#panel footerRight="Last update: 21.05.2015" }}
+            <div class="row">
+                <div class="col-md-3 text-center">
+                    <div>
+                        <h1 class="m-t-lg redText"><i class="fa fa-heart-o"></i></h1>
+                        <h1 class="redText">
+                            {{avgLikes}}
+                        </h1>
+                        <small><a href="/faq">Average likes / post <i class="fa fa-question-circle"></i></a></small>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-center small">
+                        <i class="fa fa-laptop"></i> data taken from last 20 posts
+                    </div>
+                    <div class="flot-chart" style="height: 160px">
+                        <div class="flot-chart-content" id="flot-line-chart"></div>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div>
+                      <h1 class="m-t-lg redText"><i class="fa fa-comment-o"></i></h1>
+                      <h1 class="redText">
+                          {{avgComments}} 
+                      </h1>
+                      <small><a href="/faq">Average comments / post <i class="fa fa-question-circle"></i></a></small>
+                    </div>
+                </div>
+            </div> 
+        {{/panel}}
+      </div>
+    </div>
+</template>   
 
 <template name='gallery'>
   <div class='col-lg-12'>
     <div class="hpanel hblue">
-        <div class="panel-body">
+        <div class="panel-body tour3">
           <div class="lightBoxGallery">
               {{#each posts}}
                 <div class='galleryItem'>

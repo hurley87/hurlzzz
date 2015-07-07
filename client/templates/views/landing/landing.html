@@ -4,14 +4,19 @@
 	  {{> navigation }}
 	  <div class='wrapper'>
       {{> profile}}
-      </div>
+    </div>
     {{else}}
       {{> hey}}
     {{/if}}
 </template>	
 
 <template name="hey">
-  <button class='insta'>Login with Instagram</button>
+  <div class='content text-center' >
+    <h1 class='m-t-xxxl'>&nbsp;</h1>
+    <h1 class='m-t-xxxl font-bold'>How much are you worth over Instagram?</h1>
+    <h3>We can help you figure that out.</h3>    
+    <h1 class='m-t-xxxl'><button class='insta btn btn-success btn-lg'>Login with Instagram</button></h1>
+  </div>
 </template>
 
 <template name='bye'>

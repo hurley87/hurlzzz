@@ -20,6 +20,7 @@
                 <span class="text-primary">Brand Name</span>
             </div>
             {{/if}}
+            {{#if currentUser}}
             <div class="navbar-right">
                 <ul class="nav navbar-nav no-borders">
                     <li class="dropdown">
@@ -29,6 +30,7 @@
                     </li>
                 </ul>
             </div>
+            {{/if}}
         </nav>
     </div>
 </template>
