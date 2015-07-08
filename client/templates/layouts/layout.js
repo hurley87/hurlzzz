@@ -3,11 +3,11 @@ Template.layout.onRendered(function(){
     $(window).bind("resize click", function () {
 
         // Add special class to minimalize page elements when screen is less than 768px
-        setBodySmall();
+        // setBodySmall();
 
         // Wait until metisMenu, collapse effect finish and set wrapper height
         setTimeout(function () {
-            fixWrapperHeight();
+            // fixWrapperHeight();
         }, 300);
     });
 
