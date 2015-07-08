@@ -4,6 +4,14 @@
     },
     stats: function() {
       return Meteor.users.findOne(Meteor.userId()).profile.stats;
+    },
+    unfinishedProfile: function() {
+      var user = Meteor.users.findOne(Meteor.userId()).profile.other;
+      if (user.age == '' || user.gender == '' || user.city == ''){
+        return true;
+      } else {
+        return false;
+      }
     }
   });
 
@@ -32,49 +40,49 @@
                 {
                     element: ".tour1",
                     title: "The Start",
-                    content: "Add any components you want from the Homer theme - graphs, tables, calendars, lists, create your unique app view with Homer.",
+                    content: "The value of your post is just a number. How we calculate that number is more important.",
                     placement: "bottom"
 
                 },
                 {
                     element: ".tour2",
                     title: "Followers",
-                    content: "This is a 2 step on our tour. You can easy set a placement of tour tooltip.",
+                    content: "Followers are important. The more followers you have the more your worth but followers isn't the whole story. ",
                     placement: "top"
 
                 },
                 {
                     element: ".tour3",
                     title: "Posts",
-                    content: "In this 3 step is a description of how to use tour directive.",
+                    content: "Likes and comments are also important! We call this engagment. How often are your followers engaging on your posts?",
                     placement: "top"
 
                 },
                 {
                     element: ".tour4",
                     title: "Likes and Comments",
-                    content: "In this 3 step is a description of how to use tour directive.",
+                    content: "Calculating engagment is easy, we take your average comments and likes per post and add those values together.",
                     placement: "top"
 
                 },
                 {
                     element: ".tour5",
                     title: "Engagement Value",
-                    content: "In this 3 step is a description of how to use tour directive.",
+                    content: "There's value in each like or comment you get on a post. The higher the numer here the better.",
                     placement: "top"
 
                 },
                 {
                     element: ".tour6",
                     title: "Impression Value",
-                    content: "In this 3 step is a description of how to use tour directive.",
+                    content: "There's value with how many people see your post. The lower the number here the better.",
                     placement: "top"
 
                 },
                 {
                     element: ".tour7",
                     title: "The End",
-                    content: "In this 3 step is a description of how to use tour directive.",
+                    content: "Hope you enjoyed the tour. Fill out this form to continue the fun. Thanks!",
                     placement: "top"
 
                 }

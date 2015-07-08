@@ -4,7 +4,7 @@
             <div class="col-lg-12">
                 <div class="hpanel blog-article-box">
                     <div class="panel-heading">
-                        <h1>The market for Instagram influencers.</h1>
+                        <h1>The Market for Instagram Influencers</h1>
                         <small>I collected some data at work and calculated how much your account is worth, per post, on Instagram.</small>
                         <div class="text-muted small">
                             Written by: <a href="https://ca.linkedin.com/in/davidhurley1"><span class="font-bold">David Hurley</span></a>
@@ -12,42 +12,61 @@
                     </div>
                     <div class="panel-body">
                         <p>
-                            Maecenas placerat facilisis interdum. Mauris eu dolor nisi. Suspendisse ullamcorper purus nec nibh maximus, ut sollicitudin enim venenatis.
-                            Nullam interdum, odio sit amet dapibus mollis, ligula diam pretium sapien, eget suscipit felis ipsum sed lorem. <br/>
-    
+                           I work for a startup called <a href="http://www.hashtagpaid.com">#paid</a> and we are building a marketplace for Instagram influencers. Believe it or not, if your famous on Instagram, there are businesses willing to pay you to post about them. I’m sure you’ve already seen these types of ads in your feed but if you haven’t here’s an example,
                         </p>
                         <br/>
-                        <blockquote class="pull-left" style="max-width: 250px">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <blockquote>
+                            <p><a href="https://instagram.com/p/4zxwt8t5yK/">Click here to see a Tilt ad created by @torriwebster.</a></p>
                         </blockquote>
+                        <br/>
                         <p>
-                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-                            some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum...
+                            <a href="https://www.tilt.com/">Tilt</a> paid @torriwebster to post this in an stragtegic attempt to gain followers. Take a look at Tilt's <a href="https://instagram.com/explore/tags/gettilted/">#getTILTED</a> hashtag. They use this to create a following in order to boost their own account. If you look through that hashtag you won't see another post with over 1,000 likes. @torriwebster was able to get over 12,000 likes or in other words, she was able to introduce #getTILTED to over 12,000 new people.
                         </p>
                         <br/>
 
                         <p>
-                            Duis rutrum felis at lorem scelerisque, vel iaculis risus viverra. Integer sed gravida libero. Maecenas sit amet lacus et erat rhoncus sodales quis non nunc. Morbi in
-                            mattis massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus bibendum posuere sapien eget vehicula. Nulla sit amet
-                            laoreet ante, sed ornare mauris. In interdum ex et leo suscipit sagittis. Pellentesque ac eleifend quam. Nam eu lacinia lacus. Vestibulum lacinia nisl lectus, fringilla
-                            molestie diam imperdiet dignissim.
+                            I won't tell you how much @torriwebster was paid to do this but our team facilated the deal. We made the introduction, put her and Tilt in a chat room, and they figured out the rest. Tilt pays us and we in turn, pay our influencer. The only hard part in this process is determining how much an influencer should charge in the first place. 
                         </p>
                         <br/>
-                        <blockquote class="pull-right" style="max-width: 250px">
-                            <p>Fusce ac tellus eu nisl lobortis maximus</p>
+                        <p>
+                            When influencers sign up to our platform most don't really know how much they are worth. For the last year we've been manually helping them determine this. By 'manually' I mean we have two members on our team, <a href="https://instagram.com/yourgirlmax/">@yourgirlmax</a> and <a href="https://instagram.com/lifewithpedro/">@lifwithpedro</a>, help them figure it out. I asked and they told me their value depends on an account's followers and their engagement. Let me be clear,
+                        </p>
+                        <br/>
+                        <blockquote>
+                            <p>There's a relationship between value, followers, likes and comments.</p>
                         </blockquote>
-                        <p>
-                            Praesent eget euismod nibh. Fusce ac tellus eu nisl lobortis maximus ac eget sapien. Nulla malesuada mauris non nulla imperdiet ullamcorper.
-                        </p>
                         <br/>
 
                         <p>
-                            Sed porta libero metus, nec feugiat enim pharetra vel. Sed vel sagittis augue. Donec hendrerit nibh ac dolor lobortis, eu varius odio sollicitudin. Proin non condimentum
-                            nulla, quis dictum leo. Vestibulum lobortis urna eu mauris viverra porttitor. Cras consequat leo condimentum lacus viverra sollicitudin. Donec dignissim ornare est, nec
-                            scelerisque purus mollis eu. Phasellus dictum suscipit ligula. Donec malesuada gravida velit. Nulla egestas diam in ligula mollis, nec tincidunt diam porta. Proin eleifend
-                            lacinia diam quis pretium. Sed lacinia varius nisi et euismod. Ut ac arcu vulputate, porta nibh non, ultricies erat. Nulla facilisi.
+                            Followers, likes and comments are all public information so that's easy to get. It's harder to get value per paid post but #paid has been collecting that data for awhile now. With some help I was able to collect the money spend on ads through our platform and the influencer data associated with these ads. I put all the data into Excel and started trying to pin down some relationship.
                         </p>
-
+                        <br/>
+                        <p>
+                            For someone with a degree in Math this process should have been much easier and I'm sure my younger self would have been laughing at me. Instead of pulling my hair out I was able to send an email to my favorite applied mathematician, my father. He's published papers on determining a football fantasy player's value based on their statistics from the previous. He got back to me pretty quickly with some interesting results. 
+                        </p>
+                        <br/>
+                        <p>
+                            Without gettig too technical there does exist exist a postive logarithmic relationship between comments, likes, followers and how much an influencer charges on our platform. If you want to get some specfics on this statistical analysis feel free to shoot me an email at dhurley@hashtagpaid.com. He sent me back this formula,
+                        </p>
+                        <br/>
+                        <blockquote>
+                            <p><img src="algorithm.png"></p>
+                        </blockquote>
+                        <br/>
+                        <p>
+                            I was excited that now I had a formula to work with. I decided it would make sense to build an app to test this hypothesis. The app I build is the one your using right now. I may not have been been able to come up with the algorithm but I can build it into an MVP pretty quickly. For all you code nerds the code is public on Gitub,
+                        </p>
+                        <br/>
+                        <blockquote>
+                            <p><a href="https://github.com/hurley87/hurlzzz">Find it on Github</a> - and if you can't find it just ask.</p>
+                        </blockquote>
+                        <br/>
+                        <p>
+                            My Dad and I agree that we don't yet know all the relevant variables but that's what makes this fun, the path to discovery. We are in the process of collecting more data on both sides of the market to optimize the current algorithm and I guarantee it's different then the one you just saw. If you have any ideas about the work we are doing or if you'd like to help send me an email at dhurley@hashtagpaid.com.
+                        </p>
+                        <p>    
+                            We may never figure out how much your worth on Instagram but there are two things I do know - if you like a business, don’t be afraid to promote it and if your a business, start figuring out a cool way to leverage this kind of value. 
+                        </p>
                     </div>
                 </div>
             </div>

@@ -68,7 +68,7 @@ Meteor.methods({
     	return (engagement / value).toFixed(2);
     },
     postValue: function(posts, user) {
-    	return parseInt(11.7318*Math.pow(Meteor.call('avgLikes', posts), 0.1793)*Math.pow(user.followed_by, 0.1684));
+    	return parseInt(12.533*Math.pow(user.followed_by, 0.1724)*Math.pow(Meteor.call('avgLikes', posts), 0.1522)*Math.pow(Meteor.call('avgComments', posts), 0.0304));
     },
    	updateUser: function(argument, user){
 
