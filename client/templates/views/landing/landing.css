@@ -29,8 +29,3 @@ footer a {
 .theLanding {
 	/*height: 100%;*/
 }
-
-#wrapper {
-	position: none !important;
-	min-height: none !important;
-}

@@ -2,24 +2,8 @@
     <div id="header">
         <div class="color-line">
         </div>
-        <div id="logo" class="light-version">
-        {{#if currentUser}}    
-        <span><a href="/">{{user.username}}</a></span>
-        {{else}}
-        <span><a href="/">Brand Name</a></span>
-        {{/if}}
-        </div>
         <nav role="navigation">
             <div class="header-link hide-menu"><i class="fa fa-bars"></i> Menu</div>
-            {{#if currentUser}}
-            <div class="small-logo">
-                <span class="text-primary">{{user.username}}</span>
-            </div>
-            {{else}}
-            <div class="small-logo">
-                <span class="text-primary">Brand Name</span>
-            </div>
-            {{/if}}
             {{#if currentUser}}
             <div class="navbar-right">
                 <ul class="nav navbar-nav no-borders">
