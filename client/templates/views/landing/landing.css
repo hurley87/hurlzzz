@@ -29,3 +29,7 @@ footer a {
 .theLanding {
 	/*height: 100%;*/
 }
+
+.hpanel {
+	height: 300px !important;
+}
