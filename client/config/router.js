@@ -3,18 +3,14 @@ Router.configure({
     notFoundTemplate: 'notFound'
 });
 
-//
-// Landing page route
-//
-
-// Router.route('/', function () {
-//     this.render('landingPage');
-//     this.layout('landingLayout');
-// });
-
-Router.route('/', function () {
-    this.render('dashboard');
+Router.route('/', {
+  template: 'dashboard',
+  loadingTemplate: 'loading',
+  subscriptions: function() {
+    this.subscribe('allLeaderboardUsers');
+  }
 });
+
 
 Router.route('/faq', function () {
     this.render('faq');
@@ -24,7 +20,7 @@ Router.route('/about', function () {
     this.render('about');
 });
 
-Router.route('/leaderboard', {
+Router.route('/elites', {
 	template: 'leaderboard',
 	loadingTemplate: 'loading',
 	subscriptions: function() {
@@ -32,20 +28,32 @@ Router.route('/leaderboard', {
 	}
 });
 
-var OnBeforeActions;
 
-OnBeforeActions = {
-    loginRequired: function(pause) {
-      if (!Meteor.userId()) {
-        this.render('dashboard');
-        return pause();
-      } else {
-        this.render('dashboard');
-      }
-    }
-};
-
-Router.onBeforeAction(OnBeforeActions.loginRequired, {
-    only: ['settings', 'anotherPriveRoute']
+Router.route('/elites/:_id', {
+  template: 'profile2',
+  loadingTemplate: 'loading',
+  data: function() {
+    return Meteor.users.findOne({ username: this.params._id });
+  },
+  waitOn: function() {
+    return [Meteor.subscribe('allLeaderboardUsers')];
+  }
 });
 
+// var mustBeSignedIn = function(pause) {
+//   if (!(Meteor.user() || Meteor.loggingIn())) {
+//     Router.go('landingPage');
+//     this.next();
+//   }
+// };
+
+// var goToProfile = function(pause) {
+//   if (Meteor.user()) {
+//     console.log(Meteor.user());
+//     Router.go('/');
+//     this.next();
+//   }
+// };
+
+// Router.onBeforeAction(mustBeSignedIn, {except: ['signin']});
+// Router.onBeforeAction(goToProfile, {only: ['landingPage']});

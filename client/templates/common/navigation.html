@@ -3,29 +3,26 @@
         <div id="navigation">
             <ul class="nav" id="side-menu">
                 {{#if currentUser}}
-                <li class="{{isActiveRoute regex='dashboard'}}">
-                    <a href="/"> <span class="nav-label">Profile</span></a>
+                <li >
+                    <a href="/elites/{{currentUser._id}}"> <span class="nav-label">Profile</span></a>
                 </li>
                 {{else}}
-                <li class="{{isActiveRoute regex='dashboard'}}">
+                <li >
                     <a href="/"> <span class="nav-label">Home</span></a>
                 </li>
                 {{/if}}
-                {{#if unlock}}
+                {{#if currentUser}}
                 <li>
-                    <a data-toggle="modal" data-target="#leaderboardModal"> <span class="nav-label">Leaderboard</span><span class="label label-success pull-right"><i class='fa fa-lock'></i></span> </a>
+                    <a data-toggle="modal" data-target="#leaderboardModal"> <span class="nav-label">edit</span> </a>
                 </li>
-                {{else}}
-                    {{#if currentUser}}
-                    <li class="{{isActiveRoute regex='leaderboard'}}">
-                        <a href="{{pathFor route='leaderboard'}}"><span class="nav-label">Leaderboard</span></a>
-                    </li>
-                    {{/if}}
+                <li>
+                    <a href="/"><span class="nav-label">Elites</span></a>
+                </li>
                 {{/if}}
-                <li class="{{isActiveRoute regex='about'}}">
+                <li>
                     <a href="{{pathFor route='about'}}"> <span class="nav-label">About</span></a>
                 </li>
-                <li class="{{isActiveRoute regex='faq'}}">
+                <li>
                     <a href="{{pathFor route='faq'}}"> <span class="nav-label">FAQ</span></a>
                 </li>
             </ul>

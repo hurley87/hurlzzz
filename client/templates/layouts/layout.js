@@ -1,55 +1,25 @@
-Template.layout.onRendered(function(){
-
-    $(window).bind("resize click", function () {
-
-        // Add special class to minimalize page elements when screen is less than 768px
-        // setBodySmall();
-
-        // Wait until metisMenu, collapse effect finish and set wrapper height
-        setTimeout(function () {
-            // fixWrapperHeight();
-        }, 300);
-    });
-
-    // FIXED SIDEBAR
-    // $('body').addClass('fixed-sidebar');
-
-    // FIXED NAVBAR
-    // $('body').addClass('fixed-navbar');
-
-
+Template.updateUser.onRendered(function() {
+    $('#datapicker2').datepicker();
 });
 
-function fixWrapperHeight() {
-
-    // Get and set current height
-    var headerH = 62;
-    var navigationH = $("#navigation").height();
-    var contentH = $(".content").height();
-
-    // Set new height when content height is less then navigation
-    if (contentH < navigationH) {
-        $("#wrapper").css("min-height", navigationH + 'px');
+Template.updateUser.helpers({
+    user: function() {
+      return Meteor.users.findOne(Meteor.userId()).profile;
     }
+});
 
-    // Set new height when content height is less then navigation and navigation is less then window
-    if (contentH < navigationH && navigationH < $(window).height()) {
-        $("#wrapper").css("min-height", $(window).height() - headerH  + 'px');
+Template.updateUser.events({
+    'click #update': function(evt, temp) {
+        evt.preventDefault();
+        var userDetails = {
+                city: $('#city').val(),
+                country: $('#country').val(),
+                email: $('#email').val(),
+                sex: $("#gender").val(),
+                dob: $('#datapicker2').val()
+            };
+        var user = Meteor.users.findOne(Meteor.userId());
+        Meteor.call('updateUser', userDetails, user);
+        Router.go('/');
     }
-
-    // Set new height when content is higher then navigation but less then window
-    if (contentH > navigationH && contentH < $(window).height()) {
-        $("#wrapper").css("min-height", $(window).height() - headerH + 'px');
-    }
-}
-
-
-function setBodySmall() {
-    if ($(window).width() < 769) {
-        $('body').addClass('page-small');
-    } else {
-        $('body').removeClass('page-small');
-        $('body').removeClass('show-sidebar');
-    }
-}
-
+});

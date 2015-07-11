@@ -23,14 +23,3 @@ Template.navigation.events({
     }
 
 });
-
-Template.navigation.helpers({
-    unlock: function() {
-        if (Meteor.userId() == null) {
-            return true;
-        } else {
-            var user = Meteor.users.findOne(Meteor.userId()).profile.other;
-            return user.gender == '' || user.country == '';
-        }
-    }
-});

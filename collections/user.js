@@ -3,17 +3,12 @@
 */
 
 Meteor.users.allow({
-  insert: function(){
-    // Disallow user inserts on the client by default.
-    return false;
-  },
-  update: function(){
-    // Disallow user updates on the client by default.
-    return false;
-  },
-  remove: function(){
-    // Disallow user removes on the client by default.
-    return false;
+  update: function (userId, user, fields, modifier) {
+    if(user._id === userId) {
+      Meteor.users.update({_id: userId}, modifier);
+      return true;
+    }
+    else return false;
   }
 });
 

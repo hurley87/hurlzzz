@@ -12,10 +12,8 @@ TabularTables.Users = new Tabular.Table({
     {data: "profile.other.age", title: "Birthdate"},
     {data: "profile.other.gender", title: "Gender"},
     {data: "profile.stats.followed_by", title: "Followers"},
-    {data: "profile.data.avgLikes", title: "Likes"},
-    {data: "profile.data.avgComments", title: "Comments"},
-    {data: "profile.data.engagementValue", title: "Engagement"},
-    {data: "profile.data.impressionValue", title: "Impression"},
+    {data: "profile.data.avgLikes", title: "Avg Likes"},
+    {data: "profile.data.avgComments", title: "Avg Comments"},
     {data: "profile.data.postValue", title: "Value"}
   ]
 });
