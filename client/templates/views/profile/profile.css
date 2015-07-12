@@ -28,6 +28,5 @@
 }
 
 .grid-item {
-	width: 330px;
-	margin: auto;
+	min-width: 330px;
 }
