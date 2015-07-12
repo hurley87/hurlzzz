@@ -8,7 +8,7 @@
                     </div>
                 </div>
                 {{#staggering}} 
-                    <div class='grid'>                     
+                    <div class='row'>                     
                         {{#each users}}
                             {{> user}}
                         {{/each}}
@@ -20,7 +20,7 @@
 </template>	
 
 <template name='user'>  
-    <div class="grid-item col-lg-3">
+    <div class="col-lg-3 col-md-6 col-sm-12">
         <a href="elites/{{_id}}">
             <div class="hpanel hblue contact-panel">
                 <div class="panel-body text-left ">
