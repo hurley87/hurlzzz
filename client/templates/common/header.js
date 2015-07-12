@@ -13,6 +13,7 @@ Template.header.events({
 });
 
 Template.header.onRendered(function() {
+  $("body").addClass("hide-sidebar");
 });
 
 Template.header.helpers({

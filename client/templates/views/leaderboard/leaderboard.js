@@ -13,4 +13,13 @@ Template.profile2.helpers({
       var id = Router.current().params._id;		
       return Meteor.users.findOne(id).profile.stats;
     }
-})
+});
+
+Template.leaderboard.onRendered(function() {
+  $('.grid').isotope({
+    itemSelector: '.grid-item',
+    masonry: {
+      columnWidth: 20
+    }
+  });
+});

@@ -26,3 +26,7 @@
   max-width: 150px;
   left: 5px;
 }
+
+.grid-item {
+	width: 330px;
+}
