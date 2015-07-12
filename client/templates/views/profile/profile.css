@@ -29,5 +29,6 @@
 
 .grid-item {
 	min-width: 300px;
+	width: 20%;
 	float: left;
 }
