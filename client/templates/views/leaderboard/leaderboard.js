@@ -19,7 +19,7 @@ Template.leaderboard.onRendered(function() {
   $('.grid').isotope({
     itemSelector: '.grid-item',
     masonry: {
-      columnWidth: 5
+      columnWidth: 15
     }
   });
 });
