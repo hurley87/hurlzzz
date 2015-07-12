@@ -31,3 +31,13 @@
 	min-width: 300px;
 	width: 20%;
 }
+
+.card-row {
+	height: 325px;
+}
+
+@media (max-width: 480px) {
+	.card-row {
+		height: 400px;
+	}
+}
