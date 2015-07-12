@@ -8,7 +8,6 @@
         } else {
           console.log('login failed ' + err);
         }
-        $("body").removeClass("hide-sidebar").addClass("show-sidebar");
         Router.go('/'); 
       });
     }
