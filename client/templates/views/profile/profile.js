@@ -78,11 +78,20 @@
 
 });
 
+Template.dashboard.onRendered(function() {
+    $('.grid').isotope({
+      itemSelector: '.grid-item',
+      masonry: {
+        columnWidth: 10
+      }
+    });
+});  
+
   Meteor.Spinner.options = {
     lines: 5, 
     length: 15, // The length of each line
     width: 10, // The line thickness
-    radius: 35, // The radius of the inner circle
+    radius: 15, // The radius of the inner circle
     corners: 1, // Corner roundness (0..1)
     rotate: 0, // The rotation offset
     direction: 1, // 1: clockwise, -1: counterclockwise
