@@ -20,7 +20,7 @@
 </template>	
 
 <template name='user'>  
-    <div class="col-lg-3 grid-item">
+    <div class="grid-item">
         <a href="elites/{{_id}}">
             <div class="hpanel hblue contact-panel">
                 <div class="panel-body text-left ">
@@ -28,10 +28,11 @@
                     <br class='clear'>
                     <div>
                     <h3><a href="">{{profile.username}}</a></h3>
-                    <div class="text-muted font-bold m-b-xs">{{profile.other.city}}</div>
+                    <div class="text-muted font-bold m-b-xs">{{profile.other.city}}, {{profile.other.country}}</div>
                     <p>
                         {{profile.bio}}
                     </p>
+                    <p>{{profile.other.age}}</p>
                     </div>
                 </div>
                 <div class="panel-footer contact-footer">
