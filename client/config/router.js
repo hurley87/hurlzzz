@@ -8,6 +8,7 @@ Router.route('/', {
   loadingTemplate: 'loading',
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
+    this.subscribe('elites');
   }
 });
 
@@ -19,15 +20,6 @@ Router.route('/faq', function () {
 Router.route('/about', function () {
     this.render('about');
 });
-
-Router.route('/elites', {
-	template: 'leaderboard',
-	loadingTemplate: 'loading',
-	subscriptions: function() {
-		this.subscribe('allLeaderboardUsers');
-	}
-});
-
 
 Router.route('/elites/:_id', {
   template: 'profile2',
