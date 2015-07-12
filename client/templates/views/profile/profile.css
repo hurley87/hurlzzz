@@ -28,5 +28,6 @@
 }
 
 .grid-item {
-	width: 330px;
+	min-width: 300px;
+	width: 20%;
 }
