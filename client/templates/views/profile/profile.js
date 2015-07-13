@@ -20,6 +20,11 @@
     user: function() {
       var id = Router.current().params._id;
       return Meteor.users.findOne(id).profile;
+    },
+    thisUser: function() {
+      var thisId = Router.current().params._id;
+      var myId = Meteor.userId();
+      return thisId == myId;
     }
   });
 
