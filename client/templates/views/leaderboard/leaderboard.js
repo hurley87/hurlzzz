@@ -25,6 +25,9 @@ Template.leaderboard.helpers({
     {
       sort: { 'profile.data.postValue': -1 }
     });   
+  },
+  eliteCount: function() {
+    return Meteor.users.find().count();
   } 
 });
 
