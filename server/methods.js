@@ -93,6 +93,6 @@ Meteor.methods({
 
     } catch(exception) {
       return exception;
-  }
+    }
   }
 });
