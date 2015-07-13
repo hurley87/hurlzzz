@@ -7,5 +7,8 @@ EasySearch.createSearchIndex('users', {
     var query = EasySearch.getSearcher(this.use).defaultQuery(this, searchString);
 
     return query;
+  },
+  sort: function() {
+    return { 'profile.data.postValue': -1 };
   }
 });
