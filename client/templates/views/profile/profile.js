@@ -27,7 +27,7 @@
   Template.analytics.helpers({
     user: function() {
       var id = Router.current().params._id;
-      return Meteor.users.findOne(id);
+      return Meteor.users.findOne(id).profile;
     },
     avgLikes: function() {
       var id = Router.current().params._id;
