@@ -12,6 +12,14 @@ Router.route('/', {
   }
 });
 
+Router.route('/elites', {
+  template: 'leaderboard',
+  loadingTemplate: 'loading',
+  subscriptions: function() {
+    this.subscribe('allLeaderboardUsers');
+    this.subscribe('elites');
+  }
+});
 
 Router.route('/faq', function () {
     this.render('faq');
@@ -22,7 +30,7 @@ Router.route('/about', function () {
 });
 
 Router.route('/elites/:_id', {
-  template: 'profile2',
+  template: 'profile',
   loadingTemplate: 'loading',
   data: function() {
     return Meteor.users.findOne({ username: this.params._id });

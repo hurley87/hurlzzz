@@ -1,9 +1,8 @@
 <template name='dashboard'>
     {{#if currentUser }}
-      {{> leaderboard}}
+      {{> profile}}
     {{else}}
       {{> hey}}
-      {{> leaderboard}}
     {{/if}}
 </template>
 
@@ -15,6 +14,13 @@
   <div class='content'>
     <div class='row'>
       <div class='col-lg-4'>
+        <a href="/elites" style='color: white;'>
+            <div class="hpanel hbgblue contact-panel" >
+                <div class="panel-body">
+                    <h3 class='font-ligh'><i class="fa fa-chevron-left"></i> Elites</h3>
+                </div>
+            </div>
+        </a> 
         {{> myStats}}
       </div>
       <div class='col-lg-8'>

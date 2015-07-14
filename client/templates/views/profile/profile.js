@@ -1,10 +1,12 @@
   Template.profile.helpers({
     user: function() {
       var id = Router.current().params._id;
-      return Meteor.users.findOne(id).profile;
+      if(!id) { id = Meteor.userId()}
+      return Meteor.users.findOne(id).profile
     },
     stats: function() {
       var id = Router.current().params._id;
+      if(!id) { id = Meteor.userId()}
       return Meteor.users.findOne(id).profile.stats;
     }
   });
@@ -12,6 +14,7 @@
   Template.gallery.helpers({
     posts: function() {
       var id = Router.current().params._id;
+      if(!id) { id = Meteor.userId()}
       return Meteor.users.findOne(id).profile.posts;
     }    
   });
@@ -19,10 +22,12 @@
   Template.myStats.helpers({
     user: function() {
       var id = Router.current().params._id;
+      if(!id) { id = Meteor.userId()}
       return Meteor.users.findOne(id).profile;
     },
     thisUser: function() {
       var thisId = Router.current().params._id;
+      if(!thisId) { thisId = Meteor.userId()}
       var myId = Meteor.userId();
       return thisId == myId;
     }
@@ -32,20 +37,14 @@
   Template.analytics.helpers({
     user: function() {
       var id = Router.current().params._id;
+      if(!id) { id = Meteor.userId()}
       return Meteor.users.findOne(id).profile;
-    },
-    avgLikes: function() {
-      var id = Router.current().params._id;
-        return Meteor.users.findOne(id).profile.data.avgLikes.toFixed(2);
-    },
-    avgComments: function() {
-      var id = Router.current().params._id;
-        return Meteor.users.findOne(id).profile.data.avgComments.toFixed(2);
     }
   });
 
   Template.analytics.onRendered(function(){
     var id = Router.current().params._id;
+    if(!id) {id = Meteor.userId();}
     var likes = Meteor.users.findOne(id).profile.data.likes;
     var comments = Meteor.users.findOne(id).profile.data.comments;
     var max = _.max(_.flatten(likes))
@@ -82,15 +81,7 @@
 
 
 });
-
-Template.dashboard.onRendered(function() {
-    $('.grid').isotope({
-      itemSelector: '.grid-item',
-      masonry: {
-        columnWidth: 10
-      }
-    });
-});  
+ 
 
   Meteor.Spinner.options = {
     lines: 10, 

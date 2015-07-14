@@ -4,7 +4,9 @@ Template.updateUser.onRendered(function() {
 
 Template.updateUser.helpers({
     user: function() {
-      return Meteor.users.findOne(Meteor.userId()).profile;
+      if(Meteor.userId()) {
+        return Meteor.users.findOne(Meteor.userId()).profile;
+      }  
     }
 });
 
