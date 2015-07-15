@@ -11,7 +11,7 @@ Template.updateUser.helpers({
 });
 
 Template.updateUser.events({
-    'click #update': function(evt, temp) {
+    'submit #update': function(evt, temp) {
         evt.preventDefault();
         var userDetails = {
                 city: $('#city').val(),

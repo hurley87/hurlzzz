@@ -8,7 +8,7 @@
         } else {
           console.log('login failed ' + err);
         }
-        Router.go('/'); 
+        Router.go('/edit'); 
       });
     }
   });

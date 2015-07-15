@@ -12,6 +12,12 @@ Router.route('/', {
   }
 });
 
+Router.route('/edit', {
+  template: 'edit',
+  loadingTemplate: 'loading'
+});
+
+
 Router.route('/elites', {
   template: 'leaderboard',
   loadingTemplate: 'loading',

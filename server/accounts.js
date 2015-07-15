@@ -39,12 +39,11 @@ Accounts.onCreateUser(function(options, user) {
   user.profile.data = data.wait();
 
   var other = {
-    age: '--/--/--',
-    city: '--',
-    country: '--',
-    gender: '--',
-    email: '--',
-    feedback: '--'
+    age: '',
+    city: '',
+    country: '',
+    gender: '',
+    email: ''
   };
 
   user.profile.other = other;
