@@ -15,5 +15,9 @@ TabularTables.Users = new Tabular.Table({
     {data: "profile.data.avgLikes", title: "Avg Likes"},
     {data: "profile.data.avgComments", title: "Avg Comments"},
     {data: "profile.data.postValue", title: "Value"}
-  ]
+  ],
+  responsive: true,
+	"sScrollY": "200px",
+	"sDom": "frtiS",
+	"bDeferRender": true
 });
