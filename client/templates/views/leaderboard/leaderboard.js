@@ -1,41 +1,41 @@
-
-
 Template.leaderboard.helpers({
-    setup : function() {
-        var _columns = [
-            {
-                name : 'Rank',
-                varName : 'rowNum',
-                class : 'row-number custom-td',
-                transform : rowNumTransform
-            },
-            {
-                name : 'Followers',
-                varName : 'data_1',
-                class : 'data-1 custom-td'
-            },
-            {
-                name : 'Gender',
-                varName : 'data_2',
-                class : 'data-2 custom-td'
-            }
-        ];
-        var _css = {
-            table_class : 'custom-table',
-            row_class : 'custom-row'
-        };
-        return _.extend(this, { columns : _columns , css : _css });
+	users: function() {
+		return Meteor.users.find({}, {
+      sort: {
+        'profile.data.postValue': -1
+      }
+    });
+	},
+  elites: function() {
+    return Meteor.users.find({
+      'profile.data.postValue' : {
+        $gt : 100
+      }
     },
-    count : function() {
-        var count = Meteor.users.find().count();
-        console.log(count);
-        if (count == undefined) return 0;
-        return count.count;
-    }
+    {
+      sort: { 'profile.data.postValue': -1 }
+    });
+  },
+  allstars: function() {
+     return Meteor.users.find({
+      'profile.data.postValue' : {
+        $lt : 100
+      }
+    },
+    {
+      sort: { 'profile.data.postValue': -1 }
+    });   
+  },
+  eliteCount: function() {
+    return Meteor.users.find().count();
+  } 
 });
 
-var rowNumTransform = function(_data) {
-    var data = _data;
-    var html = new Handlebars.SafeString(data);
-    return html;
-}
+Template.onRendered(function() {
+  $('table').css({'width': '100%'});
+  $('.dataTables_length').parent().hide();
+  $('.dataTables_info').parent().hide();
+  $('.dataTables_paginate').parent().removeClass('col-xs-6').addClass('col-xs-8');
+  $('#DataTables_Table_0_filter label').css({ 'float': 'left' });
+  $('.dataTables_paginate').css({ 'float': 'left' });
+});
