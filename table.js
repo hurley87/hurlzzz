@@ -7,6 +7,7 @@ TabularTables.Users = new Tabular.Table({
   collection: Meteor.users,
   columns: [
     {data: "profile.username", title: "Handle"},
+    {data: "profile.data.postValue", title: "Value"},
     {data: "profile.other.city", title: "City"},
     {data: "profile.other.country", title: "Country"},
     {data: "profile.other.age", title: "Birthdate"},
@@ -14,10 +15,8 @@ TabularTables.Users = new Tabular.Table({
     {data: "profile.stats.followed_by", title: "Followers"},
     {data: "profile.data.avgLikes", title: "Avg Likes"},
     {data: "profile.data.avgComments", title: "Avg Comments"},
-    {data: "profile.data.postValue", title: "Value"}
+    {data: "profile.data.engagement", title: "Engagement"},
+    {data: "profile.data.consistency", title: "Consistency"},
   ],
-  responsive: true,
-	"sScrollY": "200px",
-	"sDom": "frtiS",
-	"bDeferRender": true
+  responsive: true
 });
