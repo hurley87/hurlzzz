@@ -8,7 +8,6 @@ Router.route('/', {
   loadingTemplate: 'loading',
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
-    this.subscribe('elites');
   }
 });
 
@@ -23,7 +22,6 @@ Router.route('/elites', {
   loadingTemplate: 'loading',
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
-    this.subscribe('elites');
   }
 });
 
