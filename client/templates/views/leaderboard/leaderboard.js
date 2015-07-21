@@ -31,7 +31,7 @@ Template.leaderboard.helpers({
   } 
 });
 
-Template.onRendered(function() {
+Template.leaderboard.onRendered(function() {
   $('table').css({'width': '100%'});
   $('.dataTables_length').parent().hide();
   $('.dataTables_info').parent().hide();
