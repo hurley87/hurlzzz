@@ -1,12 +1,27 @@
 <template name='leaderboard'>
 	<div class="content">
         <div class="row">
-            <div class="col-lg-12">           
-                {{> tabular table=TabularTables.Users class="table table-striped table-bordered" }}
+            <div class="col-lg-6 col-md-6"> 
+                <div>
+                    <h5>Filter Value</h5>
+                    <input id="valueInput" type="text" name="demo1" value="{{value}}">
+                </div>          
+                {{> tabular table=TabularTables.Users selector=selector }}
             </div>
         </div>
     </div>
-</template>	
+</template>	 
+
+<template name='userDescription'>
+    <div class='row'>
+        <div class='col-lg-12'>
+            <div class='cellImg'>
+                <a href="/elites/{{id}}"><img src="{{img}}"><span clas='handle'>{{handle}}</span></a>
+            </div>
+            <p>{{age}} year old {{user.gender}} living in {{user.city}}, {{user.country}}.</p>
+        </div>
+    </div> 
+</template>  
 
 <template name='userList'>
     <div class="panel-body text-center" style='background: transparent; margin-bottom: 30px;'>
