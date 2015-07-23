@@ -1,11 +1,19 @@
 <template name='leaderboard'>
 	<div class="content">
         <div class="row">
-            <div class="col-lg-6 col-md-6"> 
-                <div>
-                    <h5>Filter Value</h5>
-                    <input id="valueInput" type="text" name="demo1" value="{{value}}">
-                </div>          
+            <div class="hpanel hblue">
+                <div class="panel-body">
+                    <div class='col-lg-4 col-md-4 col-md-offset-4 col-lg-offset-4 text-center'>
+
+                        <h1>Elite Leaderboard</h1>
+                        <p>Take a look at everyone else's Instagram stats.</p>
+                        <p>Here you can filter by value.</p>
+                        <input id="valueInput" type="text" name="demo1" value="{{value}}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-md-offset-4 col-lg-offset-4">   
+                <p>Search by handle or location.</p>       
                 {{> tabular table=TabularTables.Users selector=selector }}
             </div>
         </div>
@@ -13,15 +21,24 @@
 </template>	 
 
 <template name='userDescription'>
-    <div class='row'>
-        <div class='col-lg-12'>
-            <div class='cellImg'>
-                <a href="/elites/{{id}}"><img src="{{img}}"><span clas='handle'>{{handle}}</span></a>
+    <a href="/elites/{{id}}"><div class="hpanel hblue contact-panel">  
+        <div class="panel-body">
+            <div class="media">
+                <div class="media-image pull-left">
+                    <img src="{{img}}" alt="profile-picture">
+                    <div class='author-info'>
+                        <strong>@{{handle}}</strong>
+                    </div>
+                </div>
+                <div class="media-body">
+                    <h5 class='pull-left'>{{age}} year old {{user.gender}} living in {{user.city}}, {{user.country}} </h5>  
+                    <h2  class='font-extra-bold text-success pull-right'>$100</h2>   
+                </div>
+                
             </div>
-            <p>{{age}} year old {{user.gender}} living in {{user.city}}, {{user.country}}.</p>
         </div>
-    </div> 
-</template>  
+    </div></a>  
+</template>               
 
 <template name='userList'>
     <div class="panel-body text-center" style='background: transparent; margin-bottom: 30px;'>
