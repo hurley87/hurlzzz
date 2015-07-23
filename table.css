@@ -249,5 +249,5 @@ table th {
 }
 
 .dataTables_empty {
-  background-color: red;
+  /*background-color: red;*/
 }

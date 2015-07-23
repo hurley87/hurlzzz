@@ -1,19 +1,22 @@
 <template name='leaderboard'>
 	<div class="content">
         <div class="row">
-            <div class="hpanel hblue">
-                <div class="panel-body">
-                    <div class='col-lg-4 col-md-4 col-md-offset-4 col-lg-offset-4 text-center'>
-
-                        <h1>Elite Leaderboard</h1>
+            <div class='col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-5 col-sm-offset-1'>
+                <div class="hpanel hblue">
+                    <div class="panel-body">
+                        <h1>Explore</h1>
                         <p>Take a look at everyone else's Instagram stats.</p>
-                        <p>Here you can filter by value.</p>
+                        <br>
+                        <p>Filter by value. Right now your looking at Instagrammers worth MORE then {{value}}.</p>
                         <input id="valueInput" type="text" name="demo1" value="{{value}}">
+                        <br>
+                        <p>Filter by followers. Look at account that have LESS then {{flow}} followers.</p>
+                        <input id="followingInput" type="text" name="demo1" value="{{flow}}">
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-md-offset-4 col-lg-offset-4">   
-                <p>Search by handle or location.</p>       
+            <div class="col-lg-5 col-md-5 col-sm-6">   
+                <p>Do a quick search by handle or location.</p>       
                 {{> tabular table=TabularTables.Users selector=selector }}
             </div>
         </div>
@@ -21,17 +24,25 @@
 </template>	 
 
 <template name='userDescription'>
-    <a href="/elites/{{id}}"><div class="hpanel hblue contact-panel">  
+    <a href="{{id}}"><div class="hpanel hblue contact-panel">  
         <div class="panel-body">
             <div class="media">
                 <div class="media-image pull-left">
                     <img src="{{img}}" alt="profile-picture">
-                    <div class='author-info'>
-                        <strong>@{{handle}}</strong>
-                    </div>
                 </div>
-                <div class="media-body">
-                    <h5 class='pull-left'>{{age}} year old {{user.gender}} living in {{user.city}}, {{user.country}} </h5>  
+                <div class="media-body text-left">
+                    <h5 class='pull-left'><strong>@{{handle}}</strong><br><br>
+                        {{#if userInfo}}
+                            <small>{{age}} year old {{user.gender}} living in {{user.city}}, {{user.country}}</small><br>
+                            <small>{{followers}} Followers</small><br>
+                            <small>{{engage}} average likes and comments</small>
+                        {{else}}
+                            <h5 class='pull-left'>
+                            <small>{{followers}} Followers</small><br>
+                            <small>{{engage}} average likes and comments</small>
+                            </h5>
+                        {{/if}}
+                    </h5> 
                     <h2  class='font-extra-bold text-success pull-right'>${{value}}</h2>   
                 </div>
                 
@@ -69,7 +80,7 @@
 
 <template name='user'>  
     <div class="card-row col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <a href="elites/{{_id}}">
+        <a href="/{{_id}}">
             <div class="hpanel hblue contact-panel" style='height: 300px;'>
                 <div class="panel-body text-left "  style='height: 250px; overflow: scroll;'>
                         <img alt="logo" class="img-circle m-b" src="{{profile.profile_picture}}"><span class='pull-right font-extra-bold text-success' style='font-size: 2em;'>${{profile.data.postValue}}</span>

@@ -17,7 +17,7 @@ Router.route('/edit', {
 });
 
 
-Router.route('/elites', {
+Router.route('/explore', {
   template: 'leaderboard',
   loadingTemplate: 'loading',
   subscriptions: function() {
@@ -33,7 +33,7 @@ Router.route('/about', function () {
     this.render('about');
 });
 
-Router.route('/elites/:_id', {
+Router.route('/:_id', {
   template: 'profile',
   loadingTemplate: 'loading',
   data: function() {

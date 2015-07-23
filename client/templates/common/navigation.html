@@ -4,7 +4,7 @@
             <ul class="nav" id="side-menu">
                 {{#if currentUser}}
                 <li >
-                    <a href="/elites/{{currentUser._id}}"> <span class="nav-label">Profile</span></a>
+                    <a href="/{{currentUser.profile.username}}"> <span class="nav-label">Profile</span></a>
                 </li>
                 {{else}}
                 <li >
@@ -16,7 +16,7 @@
                     <a href='/edit'> <span class="nav-label">edit</span> </a>
                 </li>
                 <li>
-                    <a href="/elites"><span class="nav-label">Elites</span></a>
+                    <a href="/explore"><span class="nav-label">Explore</span></a>
                 </li>
                 {{/if}}
                 <li>

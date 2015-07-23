@@ -5,6 +5,15 @@
         <nav role="navigation">
             <div class="header-link hide-menu"><i class="fa fa-bars"></i> Menu</div>
             {{#if currentUser}}
+            <div class="small-logo">
+                <a href="/explore"><span class="text-primary">Explore</span></a>
+            </div>
+            {{else}}
+            <div class="small-logo">
+                <span id='instaLogin' class="text-primary">Login with Instagram</span>
+            </div>            
+            {{/if}}
+            {{#if currentUser}}
             <div class="navbar-right">
                 <ul class="nav navbar-nav no-borders">
                     <li class="dropdown">

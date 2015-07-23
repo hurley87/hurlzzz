@@ -1,34 +1,35 @@
   Template.profile.helpers({
     user: function() {
       var id = Router.current().params._id;
-      if(!id) { id = Meteor.userId()}
-      return Meteor.users.findOne(id).profile
+      if(!id) { id = Meteor.users.findOne(Meteor.users.findOne(Meteor.userId()).profile.username).profile.username }
+      return Meteor.users.findOne({ 'profile.username' : id }).profile
     },
     stats: function() {
       var id = Router.current().params._id;
-      if(!id) { id = Meteor.userId()}
-      return Meteor.users.findOne(id).profile.stats;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      return Meteor.users.findOne({ 'profile.username' : id }).profile.stats;
     }
   });
 
   Template.gallery.helpers({
     posts: function() {
       var id = Router.current().params._id;
-      if(!id) { id = Meteor.userId()}
-      return Meteor.users.findOne(id).profile.posts;
+            console.log(id);
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      return Meteor.users.findOne({ 'profile.username' : id }).profile.posts;
     }    
   });
 
   Template.myStats.helpers({
     user: function() {
       var id = Router.current().params._id;
-      if(!id) { id = Meteor.userId()}
-      return Meteor.users.findOne(id).profile;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      return Meteor.users.findOne({ 'profile.username' : id }).profile;
     },
     thisUser: function() {
       var thisId = Router.current().params._id;
-      if(!thisId) { thisId = Meteor.userId()}
-      var myId = Meteor.userId();
+      if(!thisId) { thisId = Meteor.users.findOne(Meteor.userId()).profile.username}
+      var myId = Meteor.users.findOne({ 'profile.username' : id }).profile.username;
       return thisId == myId;
     }
   });
@@ -37,16 +38,17 @@
   Template.analytics.helpers({
     user: function() {
       var id = Router.current().params._id;
-      if(!id) { id = Meteor.userId()}
-      return Meteor.users.findOne(id).profile;
+
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      return Meteor.users.findOne({ 'profile.username' : id }).profile;
     }
   });
 
   Template.analytics.onRendered(function(){
     var id = Router.current().params._id;
-    if(!id) {id = Meteor.userId();}
-    var likes = Meteor.users.findOne(id).profile.data.likes;
-    var comments = Meteor.users.findOne(id).profile.data.comments;
+    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
+    var likes = Meteor.users.findOne({ 'profile.username' : id }).profile.data.likes;
+    var comments = Meteor.users.findOne({ 'profile.username' : id }).profile.data.comments;
     var max = _.max(_.flatten(likes))
 
     var data5 = [
