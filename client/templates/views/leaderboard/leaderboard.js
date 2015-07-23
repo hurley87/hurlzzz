@@ -18,6 +18,9 @@ Template.userDescription.helpers({
   },
   id: function() {
     return this._id;
+  },
+  value: function() {
+    return this.profile.data.postValue;
   }
 });
 
