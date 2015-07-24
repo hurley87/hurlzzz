@@ -68,7 +68,11 @@ Template.instaWorth.helpers({
     return Session.get('gender');
   },
   age: function() {
-    return Session.get('datapicker2');
+    var birthdate = Session.get('datapicker2');
+    var year = parseInt(birthdate.substr(birthdate.length - 4));
+    var currentTime = new Date();
+    var yearNow = currentTime.getFullYear();
+    return yearNow - year;
   },
   user: function() {
     var id = Router.current().params._id;

@@ -31,6 +31,16 @@
       if(!thisId) { thisId = Meteor.users.findOne(Meteor.userId()).profile.username}
       var myId = Meteor.users.findOne({ 'profile.username' : id }).profile.username;
       return thisId == myId;
+    },
+    age: function() {
+      var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      var birthdate = Meteor.users.findOne({ 'profile.username' : id }).profile.other.age;
+      var birthdate = Session.get('datapicker2');
+      var year = parseInt(birthdate.substr(birthdate.length - 4));
+      var currentTime = new Date();
+      var yearNow = currentTime.getFullYear();
+      return yearNow - year;
     }
   });
 
