@@ -17,7 +17,7 @@
       <div class='col-lg-12 text-center'>
         <h1 class=''>&nbsp;</h1>
         <h2 class='title'><img src="logo.png"></h2>
-        <h3 class='tagline' style='color: white'>Discover how much your worth on Instagram.</h3>    
+        <h3 class='tagline' style='color: white'>Discover how much <span style=' text-decoration: line-through;'>your</span> you're worth on Instagram.</h3>    
         <h1 class='m-t-sm'><button class='insta btn btn-success btn-lg'>Login with Instagram</button></h1>
       </div>
     </div>
@@ -33,7 +33,10 @@
 <template name='edit'>
   <div class='content'>
     <div class='row'>
-      <div class='col-md-6 col-md-offset-3 col-xs-12 col-xs-offset-0'>
+      <div class='col-lg-4 col-md-6 col-lg-offset-1 col-lg-offset-1 m-t-xxl'>
+        {{> instaWorth}}
+      </div>
+      <div class='col-lg-5 col-md-5 m-t-xxl'>
         <h3 class='text-center m-b-lg'>Update your Profile</h3>
         {{> updateUser}}
       </div>
@@ -68,4 +71,39 @@
         </div>
     </div>         
   </form>
-</template>  
+</template> 
+
+<template name='instaWorth'>
+      <div class="hpanel hblue">
+          <div class="panel-body tour1">
+              <div class="pull-right text-right">
+                <small>Your Instagram is worth</small>
+                <h1 class='font-extra-bold text-success value-text'>${{user.data.postValue}}</h1>
+                <small><a href="/faq">per post <i class="fa fa-question-circle"></i></a></small>
+    
+              </div>
+              <img alt="logo" class="img-circle m-b" src="{{user.profile_picture}}">
+              <h3><a href="">{{user.full_name}}</a></h3>
+              <div class="text-muted font-bold m-b-xs"></div>
+              <p>
+                 {{user.bio}}
+              </p>
+          </div>
+          <div class="panel-body tour7">
+            <p>A {{age}} year old {{gender}} living in {{city}}, {{country}}.</p>
+          </div>
+          <div class="panel-footer contact-footer">
+              <div class="row tour2">
+                  <div class="col-md-4 border-right">
+                      <div class="contact-stat"><span>Posts: </span> <strong>{{user.stats.media}}</strong></div>
+                  </div>
+                  <div class="col-md-4 border-right">
+                      <div class="contact-stat"><span>Followers: </span> <strong>{{user.stats.followed_by}}</strong></div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="contact-stat"><span>Following: </span> <strong>{{user.stats.follows}}</strong></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+</template>   

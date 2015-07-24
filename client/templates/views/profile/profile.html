@@ -60,38 +60,7 @@
               </p>
           </div>
           <div class="panel-body tour7">
-          <div id='formTour'>
-            <dl>
-              {{#if thisUser}}
-              <dt><a href="/edit"><button class='btn btn-sm btn-success btn-outline'>Edit Profile</button></a></dt>
-              <br>
-              {{/if}}
-              <dt class='.m-t-md'>City</dt>
-              <dd class='.m-b-md'>
-                <h4>{{user.other.city}}</h4>
-              </dd>
-              <hr>
-              <dt class='.m-t-md'>Country</dt>
-              <dd class='.m-b-md'>
-                <h4>{{user.other.country}}</h4>
-              </dd> 
-              <hr>     
-              <dt class='.m-t-md'>Gender</dt>
-              <dd class='.m-b-md'>
-                <h4>{{user.other.gender}}</h4>
-              </dd>
-              <hr>
-              <dt class='.m-t-md'>Birthdate</dt>
-              <dd class='.m-b-md'>
-                <h4>{{user.other.age}}</h4>
-              </dd>
-              <hr>
-              <dt class='.m-t-md'>Email</dt>
-              <dd class='.m-b-md'>
-                <h4>{{user.other.email}}</h4>
-              </dd>     
-            </dl>
-          </div>     
+            <p>A {{user.other.age}} year old {{user.other.gender}} living in {{user.other.city}}, {{user.other.country}}.</p>
           </div>
           <div class="panel-footer contact-footer">
               <div class="row tour2">
