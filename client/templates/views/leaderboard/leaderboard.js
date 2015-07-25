@@ -33,7 +33,7 @@ Template.userDescription.helpers({
   }
 });
 
-Template.leaderboard.events({
+Template.explore.events({
   'change #valueInput': function(evt, temp) {
     evt.preventDefault();
     var newValue = parseInt($('#valueInput').val());
@@ -43,6 +43,20 @@ Template.leaderboard.events({
     evt.preventDefault();
     var newValue = parseInt($('#followingInput').val());
     Session.set('flow', newValue);
+  }
+});
+
+Template.explore.helpers({
+  value: function() {
+    return Session.get('value');
+  },
+  flow1: function() {
+    var followers = Session.get('flow');
+    var num = accounting.formatNumber(parseInt(followers));
+    return num;
+  },
+  flow2: function() {
+    return Session.get('flow');
   }
 });
 
@@ -58,12 +72,6 @@ Template.leaderboard.helpers({
     return Meteor.users.find().count();
   },
   selector: function() { return { 'profile.data.postValue' : { $gt : Session.get('value') }, 'profile.stats.followed_by': { $lt : Session.get('flow') } }; 
-  },
-  value: function() {
-    return Session.get('value');
-  },
-  flow: function() {
-    return Session.get('flow');
   }
 });
 
@@ -90,4 +98,19 @@ Template.leaderboard.onRendered(function() {
       boostat: 2000,
       maxboostedstep: 30000
   }); 
+});
+
+Template.topAccounts.helpers({
+  firstFive: function() {
+    return Meteor.users.find({}, {
+      sort: {
+        'profile.data.postValue': -1
+      },
+      limit: 5
+    });
+  },
+  randos: function() {
+    var users = Meteor.users.find();
+    return 
+  }
 });
