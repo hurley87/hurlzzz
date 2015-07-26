@@ -115,6 +115,34 @@ Template.topAccounts.helpers({
 
 });
 
+Template.valueChart.onRendered(function() {
+
+  var lessFifty = Meteor.users.find({ 'profile.data.postValue' : { $lt: 50 }}).count(); 
+  var lessHundred = Meteor.users.find({ 'profile.data.postValue' : { $lt: 100, $gt:50 }}).count();
+  var lessOneFifty = Meteor.users.find({ 'profile.data.postValue' : { $lt: 150, $gt:100 }}).count();
+  var lessTwoHund = Meteor.users.find({ 'profile.data.postValue' : { $lt: 200, $gt:150 }}).count();
+  var lessTwoFifty = Meteor.users.find({ 'profile.data.postValue' : { $lt: 250, $gt:200 }}).count();
+  var greaterTwoHun = Meteor.users.find({ 'profile.data.postValue' : { $gt:200 }}).count();
+
+  console.log(lessFifty);
+  var singleBarData = {
+      labels: ["$0-$50", "$50-$99", "$100-$149", "$150-$199", "$200-$249", "$250+"],
+      datasets: [
+          {
+              label: "My Second dataset",
+              fillColor: "rgba(98,203,49,0.5)",
+              strokeColor: "rgba(98,203,49,0.8)",
+              highlightFill: "rgba(98,203,49,0.75)",
+              highlightStroke: "rgba(98,203,49,1)",
+              data: [lessFifty, lessHundred, lessOneFifty, lessTwoHund, lessTwoFifty, greaterTwoHun]
+          }
+      ]
+  };
+
+  var ctx = document.getElementById("singleBarOptions").getContext("2d");
+  var myNewChart = new Chart(ctx).Bar(singleBarData, singleBarOptions);
+});
+
 Template.featuredAccounts.helpers({
   randos: function() {
     var users = Meteor.users.find().fetch();
