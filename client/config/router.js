@@ -11,6 +11,14 @@ Router.route('/', {
   }
 });
 
+Router.route('/updateUsers', {
+  template: 'updateAllUsers',
+  loadingTemplate: 'loading',
+  subscriptions: function() {
+    this.subscribe('allLeaderboardUsers');
+  }  
+});
+
 Router.route('/edit', {
   template: 'edit',
   loadingTemplate: 'loading'

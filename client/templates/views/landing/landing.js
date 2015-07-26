@@ -108,3 +108,19 @@ Template.instaWorth.helpers({
     return thisId == myId;
   }  
 });
+
+Template.updateAllUsers.events({
+  'click button': function(evt, temp) {
+    var users = Meteor.users.find().fetch();
+    for (var i = 0; i < users.length; i++) {
+      Meteor.call('updateAnalytics', users[i]);
+    }
+  },
+  'click a':function(evt, temp) {
+    evt.preventDefault();
+    var users = Meteor.users.find().fetch();
+    for (var i = 0; i < users.length; i++) {
+      Meteor.call('addGrowth', users[i]);
+    }
+  }
+})

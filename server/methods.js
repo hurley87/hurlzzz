@@ -93,8 +93,55 @@ Meteor.methods({
       return exception;
     }
   },
-  analyticsUpdate: function() {
+  updateAnalytics: function(user) {
+    var ig = Meteor.npmRequire('instagram-node').instagram(); 
+    var Future = Npm.require('fibers/future');
 
+    var recentPosts = new Future();
+    var stats = new Future();
+    var data = new Future();
+    var currentValue = new Future();
+    var currentEngagment = new Future();
+    var currentFollowers = new Future();
+
+    ig.use({ client_id: Meteor.settings.instagram_id, client_secret: Meteor.settings.instagram_secret });
+
+    ig.user_media_recent( user.profile.id, function(err, medias, pagination, remaining, limit) {
+      recentPosts.return(medias);
+    }); 
+
+    ig.user(user.profile.id, function(err, result, remaining, limit) {
+      currentFollowers.return(result.counts.followed_by);
+      stats.return(result.counts);
+    });
+
+    Meteor.call('getData', recentPosts.wait(), stats.wait(), function(error, result) {
+      data.return(result);
+      currentValue.return(result.postValue);
+      currentEngagment.return(result.engagement);
+    });
+
+    Meteor.users.update({ _id: user._id}, {
+      $set: {
+        'profile.data' : data.wait(),
+        'profile.posts': recentPosts.wait(),
+        'profile.stats': stats.wait()
+      },
+      $push: {
+        'profile.followerGrowth': currentFollowers.wait(),
+        'profile.engagementGrowth': parseFloat(currentEngagment.wait()),
+        'profile.valueGrowth': currentValue.wait()
+      }
+  });
+
+    // if(user.profile.other.email) {
+    //    Email.send({
+    //     from: "meteor.email.2014@gmail.com",
+    //     to: user.profile.other.email,
+    //     subject: "Updated Analytics",
+    //     text: "Its pretty easy to send emails via gmail."
+    //   });     
+    // }
   },
   setRank: function(users) { 
     for(var i=0; i < users.length; i++) {
@@ -103,5 +150,13 @@ Meteor.methods({
         'profile.data.rank' : newRank
       }});       
     }
+  },
+  addGrowth: function(user) {
+    var engagement = parseFloat(user.profile.data.engagement)
+    Meteor.users.update({ _id: user._id}, {$set: {
+      'profile.followerGrowth' : [user.profile.stats.followed_by],
+      'profile.engagementGrowth': [engagement],
+      'profile.valueGrowth': [user.profile.data.postValue]
+    }});    
   }
 });
