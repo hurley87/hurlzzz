@@ -9,7 +9,8 @@ Meteor.methods({
 			engagement: Meteor.call('engagement', posts, user),
 			postValue: Meteor.call('postValue', posts, user),
       likesConsist: Meteor.call('likesConsist', posts),
-      commentsConsist: Meteor.call('commentsConsist', posts)
+      commentsConsist: Meteor.call('commentsConsist', posts),
+      rank: 0
 		};
 		return data;
 	},
@@ -90,6 +91,17 @@ Meteor.methods({
       }});
     } catch(exception) {
       return exception;
+    }
+  },
+  analyticsUpdate: function() {
+
+  },
+  setRank: function(users) { 
+    for(var i=0; i < users.length; i++) {
+      var newRank = i + 1;
+      Meteor.users.update({ _id: users[i]._id }, { $set: {
+        'profile.data.rank' : newRank
+      }});       
     }
   }
 });

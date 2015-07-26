@@ -89,7 +89,7 @@
       </div>
       {{#panel panelClass="stats tour5" color="hblue"}}
         <div class="stats-title pull-left">
-            <h4><a href="/faq">Average Engagement <i class="fa fa-question-circle"></i></a></h4>
+            <h4><a href="/faq">Engagement Growth <i class="fa fa-question-circle"></i></a></h4>
         </div>
         <div class="stats-icon pull-right textYellow">
             <i class="pe-7s-gleam fa-4x"></i>
@@ -100,26 +100,26 @@
       {{/panel}}
       {{#panel panelClass="stats tour6"  color="hblue"}}
           <div class="stats-title pull-left">
-              <h4><a href="/faq">Consistency <i class="fa fa-question-circle"></i></a></h4>
-          </div>
-          <div class="stats-icon pull-right textOrange">
-              <i class="pe-7s-graph1 fa-4x"></i>
-          </div>
-          <div class="m-t-xl">
-              <h1 class="textOrange">+/- {{user.data.consistency}} <small  class="textOrange">likes</small></h1>
-          </div> 
-      {{/panel}}
-      {{#panel panelClass="stats tour6"  color="hblue"}}
-          <div class="stats-title pull-left">
               <h4><a href="/faq">Follower Growth <i class="fa fa-question-circle"></i></a></h4>
           </div>
           <div class="stats-icon pull-right textOrange">
               <i class="pe-7s-look fa-4x"></i>
           </div>
           <div class="m-t-xl">
-              <h1 class="textOrange">$300</h1>
+              <h1 class="textOrange">{{user.stats.followed_by}}</h1>
           </div> 
-      {{/panel}}            
+      {{/panel}}   
+      {{#panel panelClass="stats tour5" color="hblue"}}
+        <div class="stats-title pull-left">
+            <h4><a href="/faq">Value Growth <i class="fa fa-question-circle"></i></a></h4>
+        </div>
+        <div class="stats-icon pull-right textYellow">
+            <i class="pe-7s-medal fa-4x"></i>
+        </div>
+        <div class="m-t-xl">
+            <h1 class="textYellow">{{user.data.postValue}}</h1>
+        </div> 
+      {{/panel}}                
 </template>   
 
 <template name='analytics'>
@@ -129,11 +129,12 @@
           <div class="row">
               <div class="col-md-3 text-center">
                   <div>
-                      <h1 class="m-t-lg redText"><i class="fa fa-heart-o"></i></h1>
+                      <h1 class="redText"><i class="fa fa-heart-o"></i></h1>
                       <h1 class="redText">
                           {{user.data.avgLikes}}
                       </h1>
-                      <small><a href="/faq">Average likes / post <i class="fa fa-question-circle"></i></a></small>
+                      <small><a href="/faq">Expected likes / post <i class="fa fa-question-circle"></i></a></small>
+                      <h3 class='redText'>+/- {{user.data.likesConsist}}</h3>
                   </div>
               </div>
               <div class="col-md-6">
@@ -146,11 +147,14 @@
               </div>
               <div class="col-md-3 text-center">
                   <div>
-                    <h1 class="m-t-lg redText"><i class="fa fa-comment-o"></i></h1>
+                    <h1 class="redText"><i class="fa fa-comment-o"></i></h1>
                     <h1 class="redText">
                         {{user.data.avgComments}}
                     </h1>
-                    <small><a href="/faq">Average comments / post <i class="fa fa-question-circle"></i></a></small>
+                    <small><a href="/faq">Expected comments / post <i class="fa fa-question-circle"></i></a></small>
+                    <h3 class="redText">
+                      +/- {{user.data.commentsConsist}}
+                    </h3>
                   </div>
               </div>
           </div> 

@@ -8,13 +8,18 @@
         } else {
           console.log('login failed ' + err);
         }
+        var users = Meteor.users.find({}, { sort: { 'profile.data.postValue': -1 } }).fetch();
+        Meteor.call('setRank', users);
         Router.go('/edit'); 
       });
     }
   });
 
 Template.updateUser.onRendered(function() {
+  $(document).ready(function() {
     $('#datapicker2').datepicker();
+    $('#datapicker').datepicker();
+  });
 });
 
 Template.updateUser.helpers({
@@ -59,20 +64,37 @@ Template.updateUser.events({
 
 Template.instaWorth.helpers({
   country: function() {
-    return Session.get('country');
+    if(Session.get('country')) {
+      return Session.get('country');
+    } else {
+      return '';
+    }
   },
   city: function() {
-    return Session.get('city');
+    if(Session.get('city')) {
+      return Session.get('city');
+    } else {
+      return '';
+    }    
   },
   gender: function() {
-    return Session.get('gender');
+    if(Session.get('gender')) {
+      return Session.get('gender');
+    } else {
+      return '';
+    }
   },
   age: function() {
-    var birthdate = Session.get('datapicker2');
-    var year = parseInt(birthdate.substr(birthdate.length - 4));
-    var currentTime = new Date();
-    var yearNow = currentTime.getFullYear();
-    return yearNow - year;
+    if(Session.get('datapicker2')) {
+      var birthdate = Session.get('datapicker2');
+      var year = parseInt(birthdate.substr(birthdate.length - 4));
+      var currentTime = new Date();
+      var yearNow = currentTime.getFullYear();
+      return yearNow - year;     
+    } else {
+      return '';
+    }
+
   },
   user: function() {
     var id = Router.current().params._id;

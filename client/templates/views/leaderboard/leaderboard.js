@@ -30,6 +30,9 @@ Template.userDescription.helpers({
   },
   userInfo: function() {
     return this.profile.other.gender != '' && this.profile.other.age != '' && this.profile.other.city != "" && this.profile.other.city != "--";;
+  },
+  rank: function() {
+    return this.profile.data.rank;
   }
 });
 
