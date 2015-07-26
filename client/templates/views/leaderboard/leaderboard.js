@@ -118,6 +118,6 @@ Template.topAccounts.helpers({
 Template.featuredAccounts.helpers({
   randos: function() {
     var users = Meteor.users.find().fetch();
-    return _.shuffle(users).slice(0,4);
+    return _.shuffle(users).slice(0,5);
   }  
 });

@@ -31,14 +31,8 @@
                 </div> 
             </div>
             <div class='col-lg-4'>
-                <div class='row'>
-                    <div class='col-lg-6'>
-                        {{> topAccounts}}
-                    </div>
-                    <div class='col-lg-6'>
-                        {{> featuredAccounts}}
-                    </div>
-                </div>
+                {{> topAccounts}}
+                {{> featuredAccounts}}
             </div>
         </div>
     </div>
@@ -108,14 +102,16 @@
 <template name='featuredAccounts'>
     <div class="hpanel hblue">
         <div class="panel-body">
-            <h5>Featured Ignites</h5>
+            <h5>Featured Igniters</h5>
             <br>
-            <ol>
-                {{#each randos}}
-                    <li>{{profile.username}} <span class='font-extra-bold text-success'>${{profile.data.postValue}}</span></li>
+            <div class='row'>
+                <ol>
+                    {{#each randos}}
+                        <a href="/{{profile.username}}"><li>{{profile.username}} <span class='font-extra-bold text-success'>${{profile.data.postValue}}</span></li></a>
 
-                {{/each}}
-            </ol>
+                    {{/each}}
+                </ol>
+            </div>
         </div>
     </div>     
 </template>    
