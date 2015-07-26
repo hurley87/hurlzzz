@@ -109,8 +109,12 @@ Template.topAccounts.helpers({
       limit: 5
     });
   },
+
+});
+
+Template.featuredAccounts.helpers({
   randos: function() {
-    var users = Meteor.users.find();
-    return 
-  }
+    var users = Meteor.users.find().fetch();
+    return _.shuffle(users).slice(0,4);
+  }  
 });

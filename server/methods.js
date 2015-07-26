@@ -8,7 +8,8 @@ Meteor.methods({
 			avgComments: Meteor.call('avgComments', posts),
 			engagement: Meteor.call('engagement', posts, user),
 			postValue: Meteor.call('postValue', posts, user),
-      consistency: Meteor.call('consistency', posts)
+      likesConsist: Meteor.call('likesConsist', posts),
+      commentsConsist: Meteor.call('commentsConsist', posts)
 		};
 		return data;
 	},
@@ -51,7 +52,7 @@ Meteor.methods({
     var sum = parseFloat(avgComments) + parseFloat(avgLikes);
     return sum.toFixed(2);
   }, 
-  consistency: function(posts) {
+  likesConsist: function(posts) {
     var avgLikes = Meteor.call('avgLikes', posts);
     var sum = 0;
     for(var i=0; i < posts.length; i++) {
@@ -59,6 +60,17 @@ Meteor.methods({
       sum = sum + Math.pow(diff, 2);
     }
     var variance = sum / (avgLikes - 1);
+    var std = Math.pow(variance, 0.5);
+    return parseFloat(std).toFixed(2);
+  },
+  commentsConsist: function(posts) {
+    var avgComments = Meteor.call('avgComments', posts);
+    var sum = 0;
+    for(var i=0; i < posts.length; i++) {
+      var diff = posts[i].comments.count - avgComments;
+      sum = sum + Math.pow(diff, 2);
+    }
+    var variance = sum / (avgComments - 1);
     var std = Math.pow(variance, 0.5);
     return parseFloat(std).toFixed(2);
   },

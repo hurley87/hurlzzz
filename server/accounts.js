@@ -23,6 +23,9 @@ Accounts.onCreateUser(function(options, user) {
   user.profile = options.services.instagram;
 
   ig.user_media_recent( user.profile.id, function(err, medias, pagination, remaining, limit) {
+    for(var i = 0; i <= medias.length; i++) {
+      console.log(medias[i]);
+    }
   	recentPosts.return(medias);
   }); 
 

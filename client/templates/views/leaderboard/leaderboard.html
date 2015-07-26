@@ -111,11 +111,10 @@
             <h5>Featured Ignites</h5>
             <br>
             <ol>
-                <li>Gonzo Shirts <span class='font-extra-bold text-success'>$32</span></li>
-                <li>Gonzo Shirts <span class='font-extra-bold text-success'>$32</span></li>
-                <li>Gonzo Shirts <span class='font-extra-bold text-success'>$32</span></li>
-                <li>Gonzo Shirts <span class='font-extra-bold text-success'>$32</span></li>
-                <li>Gonzo Shirts <span class='font-extra-bold text-success'>$32</span></li>
+                {{#each randos}}
+                    <li>{{profile.username}} <span class='font-extra-bold text-success'>${{profile.data.postValue}}</span></li>
+
+                {{/each}}
             </ol>
         </div>
     </div>     
