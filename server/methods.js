@@ -138,8 +138,10 @@ Meteor.methods({
        Email.send({
         from: "meteor.email.2014@gmail.com",
         to: user.profile.other.email,
-        subject: "Your worth more on Instagram and here's why",
-        text: "Testing out a new feature.<br>coool."
+        subject: "Congrats, your worth more on Instagram",
+        text: "Hey " + user.profile.username + ",\n\nThanks for signing up to Ignition! My goal is to track your worth on Instagram. To do this I track your average engagment and followers over time. Learn more about the algorithm I use to calculate your worth,\n\n" 
+    + "http://instagram.mod.bz/about " + '\n\nSee how much your worth on Instagram: \n\n' + 
+        'http://instagram.mod.bz/' + user.profile.username + '\n\n Any questions? Reply to this email. \n\n Thanks!'
       });     
     }
   },
