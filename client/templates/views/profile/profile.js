@@ -14,7 +14,6 @@
   Template.gallery.helpers({
     posts: function() {
       var id = Router.current().params._id;
-            console.log(id);
       if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
       return Meteor.users.findOne({ 'profile.username' : id }).profile.posts;
     }    
@@ -37,10 +36,14 @@
       if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
       var birthdate = Meteor.users.findOne({ 'profile.username' : id }).profile.other.age;
       var birthdate = Session.get('datapicker2');
-      var year = parseInt(birthdate.substr(birthdate.length - 4));
-      var currentTime = new Date();
-      var yearNow = currentTime.getFullYear();
-      return yearNow - year;
+      if(birthdate) {
+        var year = parseInt(birthdate.substr(birthdate.length - 4));
+        var currentTime = new Date();
+        var yearNow = currentTime.getFullYear();
+        return yearNow - year;
+      } else {
+        return '';
+      }
     }
   });
 
@@ -48,7 +51,6 @@
   Template.analytics.helpers({
     user: function() {
       var id = Router.current().params._id;
-
       if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
       return Meteor.users.findOne({ 'profile.username' : id }).profile;
     }
@@ -93,6 +95,166 @@
 
 
 });
+
+Template.engagementGrowth.helpers({
+  today: function() {
+    var id = Router.current().params._id;
+    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
+    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.engagementGrowth;
+    return engagement[engagement.length - 1];
+  },
+  lastWeek: function() {
+    var id = Router.current().params._id;
+    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
+    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.engagementGrowth;
+    return engagement[engagement.length - 2];
+  }
+});  
+
+Template.engagementGrowth.onRendered(function() {
+    var id = Router.current().params._id;
+    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
+    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.engagementGrowth;
+    var engageData = [];
+
+    for (var i =0; i < engagement.length; i++) {
+      engageData.push([i+1, engagement[i]]);
+    }
+    var chartIncomeData = [
+        {
+            label: "line",
+            data: engageData
+        }
+    ];
+
+    var chartIncomeOptions = {
+        series: {
+            lines: {
+                show: true,
+                lineWidth: 0,
+                fill: true,
+                fillColor: "#64cc34"
+
+            }
+        },
+        colors: ["#62cb31"],
+        grid: {
+            show: false
+        },
+        legend: {
+            show: false
+        }
+    };
+
+    $.plot($("#engagement-chart"), chartIncomeData, chartIncomeOptions);
+}); 
+
+Template.followerGrowth.helpers({
+  today: function() {
+    var id = Router.current().params._id;
+    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
+    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth;
+    return engagement[engagement.length - 1];
+  },
+  lastWeek: function() {
+    var id = Router.current().params._id;
+    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
+    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth;
+    return engagement[engagement.length - 2];
+  }
+}); 
+
+Template.followerGrowth.onRendered(function() {
+    var id = Router.current().params._id;
+    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
+    var followers = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth;
+    var followerData = [];
+
+    for (var i =0; i < followers.length; i++) {
+      followerData.push([i+1, followers[i]]);
+    }
+    var chartIncomeData = [
+        {
+            label: "line",
+            data: followerData
+        }
+    ];
+
+    var chartIncomeOptions = {
+        series: {
+            lines: {
+                show: true,
+                lineWidth: 0,
+                fill: true,
+                fillColor: "#64cc34"
+
+            }
+        },
+        colors: ["#62cb31"],
+        grid: {
+            show: false
+        },
+        legend: {
+            show: false
+        }
+    };
+
+    $.plot($("#follower-chart"), chartIncomeData, chartIncomeOptions);
+});
+
+Template.valueGrowth.helpers({
+  today: function() {
+    var id = Router.current().params._id;
+    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
+    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.valueGrowth;
+    return engagement[engagement.length - 1];
+  },
+  lastWeek: function() {
+    var id = Router.current().params._id;
+    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
+    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.valueGrowth;
+    return engagement[engagement.length - 2];
+  }
+}); 
+
+Template.valueGrowth.onRendered(function() {
+    var id = Router.current().params._id;
+    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
+    var followers = Meteor.users.findOne({ 'profile.username' : id }).profile.valueGrowth;
+    var followerData = [];
+
+    for (var i =0; i < followers.length; i++) {
+      followerData.push([i+1, followers[i]]);
+    }
+    var chartIncomeData = [
+        {
+            label: "line",
+            data: followerData
+        }
+    ];
+
+    var chartIncomeOptions = {
+        series: {
+            lines: {
+                show: true,
+                lineWidth: 0,
+                fill: true,
+                fillColor: "#64cc34"
+
+            }
+        },
+        colors: ["#62cb31"],
+        grid: {
+            show: false
+        },
+        legend: {
+            show: false
+        }
+    };
+
+    $.plot($("#value-chart"), chartIncomeData, chartIncomeOptions);
+});  
+
  
 
   Meteor.Spinner.options = {

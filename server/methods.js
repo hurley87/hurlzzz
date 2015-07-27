@@ -134,14 +134,14 @@ Meteor.methods({
       }
   });
 
-    // if(user.profile.other.email) {
-    //    Email.send({
-    //     from: "meteor.email.2014@gmail.com",
-    //     to: user.profile.other.email,
-    //     subject: "Updated Analytics",
-    //     text: "Its pretty easy to send emails via gmail."
-    //   });     
-    // }
+    if(user.profile.other.email) {
+       Email.send({
+        from: "meteor.email.2014@gmail.com",
+        to: user.profile.other.email,
+        subject: "Your worth more on Instagram and here's why",
+        text: "Testing out a new feature.<br>coool."
+      });     
+    }
   },
   setRank: function(users) { 
     for(var i=0; i < users.length; i++) {
