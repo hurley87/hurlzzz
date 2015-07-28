@@ -16,6 +16,18 @@
       var id = Router.current().params._id;
       if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
       return Meteor.users.findOne({ 'profile.username' : id }).profile.posts;
+    },
+    backColor: function() {
+      var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
+      if(account == 'Business') {
+        return 'backRed';
+      } else if(account == 'Personal'){
+        return 'backBlue';
+      } else {
+        return 'backPurple';
+      }   
     }    
   });
 
@@ -44,6 +56,42 @@
       } else {
         return '';
       }
+    },
+    panelColor: function() {
+      var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
+      if(account == 'Personal') {
+        return 'hblue';
+      } else if(account == 'Business'){
+        return 'hred';
+      } else {
+        return 'hviolet';
+      }   
+    },
+    backColor: function() {
+      var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
+      if(account == 'Business') {
+        return 'backRed';
+      } else if(account == 'Personal'){
+        return 'backBlue';
+      } else {
+        return 'backPurple';
+      }   
+    },
+    type: function() {
+      var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
+      if(account == 'Business') {
+        return 'Business';
+      } else if(account == 'Personal'){
+        return 'Personal';
+      } else {
+        return 'Animal';
+      }   
     }
   });
 
@@ -53,6 +101,30 @@
       var id = Router.current().params._id;
       if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
       return Meteor.users.findOne({ 'profile.username' : id }).profile;
+    },
+    textColor: function() {
+      var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
+      if(account == 'Personal') {
+        return 'blueText';
+      } else if(account == 'Business'){
+        return 'redText';
+      } else {
+        return 'purpleText';
+      }
+    },
+    panelColor: function() {
+      var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
+      if(account == 'Personal') {
+        return 'hblue';
+      } else if(account == 'Business'){
+        return 'hred';
+      } else {
+        return 'hviolet';
+      }   
     }
   });
 
@@ -116,6 +188,30 @@ Template.engagementGrowth.helpers({
     var big = engagement[engagement.length - 1]; 
     var small = engagement[engagement.length - 2];
     return ((big - small)/small*100 ).toFixed(1);
+  },
+  textColor: function() {
+      var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
+      if(account == 'Personal') {
+        return 'blueText';
+      } else if(account == 'Business'){
+        return 'redText';
+      } else {
+        return 'purpleText';
+      }
+  },
+  panelColor: function() {
+    var id = Router.current().params._id;
+    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+    var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
+    if(account == 'Personal') {
+      return 'hblue';
+    } else if(account == 'Business'){
+      return 'hred';
+    } else {
+      return 'hviolet';
+    }   
   }
 });  
 
@@ -177,7 +273,31 @@ Template.followerGrowth.helpers({
     var big = engagement[engagement.length - 1]; 
     var small = engagement[engagement.length - 2];
     return ((big - small)/small*100 ).toFixed(1);
-  }
+  },
+    textColor: function() {
+      var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
+      if(account == 'Personal') {
+        return 'blueText';
+      } else if(account == 'Business'){
+        return 'redText';
+      } else {
+        return 'purpleText';
+      }
+    },
+    panelColor: function() {
+      var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
+      if(account == 'Personal') {
+        return 'hblue';
+      } else if(account == 'Business'){
+        return 'hred';
+      } else {
+        return 'hviolet';
+      }   
+    }
 }); 
 
 Template.followerGrowth.onRendered(function() {
@@ -238,7 +358,31 @@ Template.valueGrowth.helpers({
     var big = engagement[engagement.length - 1]; 
     var small = engagement[engagement.length - 2];
     return ((big - small)/small*100 ).toFixed(1);
-  }
+  },
+    textColor: function() {
+      var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
+      if(account == 'Personal') {
+        return 'blueText';
+      } else if(account == 'Business'){
+        return 'redText';
+      } else {
+        return 'purpleText';
+      }
+    },
+    panelColor: function() {
+      var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
+      if(account == 'Personal') {
+        return 'hblue';
+      } else if(account == 'Business'){
+        return 'hred';
+      } else {
+        return 'hviolet';
+      }   
+    }
 }); 
 
 Template.valueGrowth.onRendered(function() {

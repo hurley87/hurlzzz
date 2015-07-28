@@ -55,7 +55,7 @@
 </template>  
 
 <template name='myStats'>
-      <div class="hpanel hblue">
+      <div class="hpanel {{panelColor}}">
           <div class="panel-body tour1">
               <div class="pull-right text-right">
                 <small>Your Instagram is worth</small>
@@ -64,11 +64,14 @@
     
               </div>
               <img alt="logo" class="img-circle m-b" src="{{user.profile_picture}}">
-              <h3><a href="">{{user.full_name}}</a></h3>
+              <h5><span class='label {{backColor}}'>{{type}}</span></h5>
+              <h3><a href="">{{user.full_name}}</a> </h3>
+
               <div class="text-muted font-bold m-b-xs"></div>
               <p>
                  {{user.bio}}
               </p>
+              <p><a href="/edit"><button class='btn btn-outline btn-success'>Update your profile</button></a></p>
           </div>
           <div class="panel-body tour7">
             <p>A {{age}} year old {{user.other.gender}} living in {{user.other.city}}, {{user.other.country}}.</p>
@@ -93,11 +96,12 @@
 </template> 
 
 <template name='engagementGrowth'>
-  {{#panel color="hblue" panelClass="stats"}}
+    <div class='hpanel {{panelColor}} stats'>
+      {{#panel}}
       <div class="stats-title pull-left">
           <h4><a href="/faq">Engagement Growth <i class="fa fa-question-circle"></i></a></h4>
       </div>
-      <div class="stats-icon pull-right textYellow">
+      <div class="stats-icon pull-right {{textColor}}">
           <i class="pe-7s-gleam fa-4x"></i>
       </div>
       <div class="clearfix"></div>
@@ -118,15 +122,17 @@
               </div>
           </div>
       </div>
-  {{/panel}}  
+      {{/panel}}
+  </div>  
 </template>
 
 <template name='followerGrowth'>
-  {{#panel color="hblue" panelClass="stats"}}
+  <div class='hpanel {{panelColor}} stats'>
+  {{#panel}}
       <div class="stats-title pull-left">
           <h4><a href="/faq">Follower Growth <i class="fa fa-question-circle"></i></a></h4>
       </div>
-      <div class="stats-icon pull-right textYellow">
+      <div class="stats-icon pull-right {{textColor}}">
           <i class="pe-7s-look fa-4x"></i>
       </div>
       <div class="clearfix"></div>
@@ -147,15 +153,17 @@
               </div>
           </div>
       </div>
-  {{/panel}}  
+  {{/panel}} 
+  </div> 
 </template> 
 
 <template name='valueGrowth'>
-  {{#panel color="hblue" panelClass="stats"}}
+  <div class='hpanel {{panelColor}} stats'>
+  {{#panel }}
       <div class="stats-title pull-left">
           <h4><a href="/faq">Value Growth <i class="fa fa-question-circle"></i></a></h4>
       </div>
-      <div class="stats-icon pull-right textYellow">
+      <div class="stats-icon pull-right {{textColor}}">
           <i class="pe-7s-medal fa-4x"></i>
       </div>
       <div class="clearfix"></div>
@@ -176,22 +184,23 @@
               </div>
           </div>
       </div>
-  {{/panel}}  
+  {{/panel}} 
+  </div> 
 </template>    
 
 <template name='analytics'>
   <div class="col-lg-12">
-    <div class="hpanel hblue tour4">
-      {{#panel footerRight="Last update: 21.05.2015" }}
+    <div class="hpanel {{panelColor}}">
+      {{#panel}}
           <div class="row">
               <div class="col-md-3 text-center">
                   <div>
-                      <h1 class="redText"><i class="fa fa-heart-o"></i></h1>
-                      <h1 class="redText">
+                      <h1 class="{{textColor}}"><i class="fa fa-heart-o"></i></h1>
+                      <h1 class="{{textColor}}">
                           {{user.data.avgLikes}}
                       </h1>
                       <small><a href="/faq">Expected likes / post <i class="fa fa-question-circle"></i></a></small>
-                      <h4 class='redText'>+/- {{user.data.likesConsist}}</h4>
+                      <h4 class='{{textColor}}'>+/- {{user.data.likesConsist}}</h4>
                   </div>
               </div>
               <div class="col-md-6">
@@ -204,12 +213,12 @@
               </div>
               <div class="col-md-3 text-center">
                   <div>
-                    <h1 class="redText"><i class="fa fa-comment-o"></i></h1>
-                    <h1 class="redText">
+                    <h1 class="{{textColor}}"><i class="fa fa-comment-o"></i></h1>
+                    <h1 class="{{textColor}}">
                         {{user.data.avgComments}}
                     </h1>
                     <small><a href="/faq">Expected comments / post <i class="fa fa-question-circle"></i></a></small>
-                    <h4 class="redText">
+                    <h4 class="{{textColor}}">
                       +/- {{user.data.commentsConsist}}
                     </h4>
                   </div>
@@ -222,7 +231,7 @@
 
 <template name='gallery'>
   <div class='col-lg-12'>
-    <div class="hpanel hblue">
+    <div class="hpanel {{panelColor}}">
         <div class="panel-body tour3">
           <div class="lightBoxGallery">
               {{#each posts}}
@@ -230,7 +239,7 @@
                   <div class='gImage'>
                       <a href="{{images.standard_resolution.url}}" title="{{caption.text}}" data-gallery=""><img src="{{images.thumbnail.url}}"></a>
                   </div>
-                  <div class='gOverlay'>
+                  <div class='gOverlay {{backColor}}'>
                     <i class="fa fa-heart"></i> {{likes.count}}  &nbsp; <i class="fa fa-comment"></i>  {{comments.count}} 
                   </div>
                 </div> 

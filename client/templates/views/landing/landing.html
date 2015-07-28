@@ -49,8 +49,8 @@
     <div class="form-group"><label class="col-sm-2 control-label">Email</label>
         <div class="col-sm-10"><input id='email' type="email" value='{{user.other.email}}' class="form-control" required></div>
     </div>
-    <div class="form-group"><label class="col-sm-2 control-label">Birthdate</label>
-        <div class="col-sm-10"><input id="datapicker2" type="text" value="{{user.other.age}}" class="form-control"></div>
+    <div class="form-group"><label class="col-sm-2 control-label">Age</label>
+        <div class="col-sm-10"><input id='age' type="number" name="age" min="15" max="45" value="{{user.other.age}}" class="form-control"></div>
     </div> 
     <div class="form-group"><label class="col-sm-2 control-label">City</label>
         <div class="col-sm-10"><input id='city' type="text"  value='{{user.other.city}}' class="form-control"></div>
@@ -59,22 +59,45 @@
         <div class="col-sm-10"><input id='country' type="text" value='{{user.other.country}}' class="form-control"></div>
     </div>
     <div class="form-group"><label class="col-sm-2 control-label">Gender</label>
-        <div class="col-sm-10"><select id='gender' class="form-control" value='{{user.other.gender}}' name="account">
+        <div class="col-sm-10">
+          <select id='gender' class="form-control" value='{{user.other.gender}}' name="account">
             <option>male</option>
             <option>female</option>
-        </select>
+          </select>
         </div>
-    </div> 
-      <div class="form-group"><label class="col-sm-2 control-label">&nbsp;</label>
+    </div>
+    <div class="form-group"><label class="col-sm-2 control-label">Account</label>
         <div class="col-sm-10">
-          <button class="btn btn-success" data-dismiss="modal">Update</button>
+          <select id='account' class="form-control" value='{{user.other.account}}'>
+            <option>Personal</option>            
+            <option>Business</option>
+            <option>Animal</option>
+          </select>
         </div>
+    </div>
+<!--     <div class="form-group m-t-lg">
+      <p>Choose 3 tags that best describe your account:</p>
+    </div>
+    <div class="form-group"><label class="col-sm-2 control-label">Tags</label>
+        <div class="col-sm-10">
+          <select id='categories' class="js-source-states-2" multiple="multiple" class="form-control">
+            <option>Personal</option>            
+            <option>Business</option>
+            <option>Animal</option>
+          </select>
+        </div>
+    </div>  -->   
+    <div class="form-group">
+      <label class="col-sm-2 control-label">&nbsp;</label>
+      <div class="col-sm-10">
+        <button class="btn btn-success" data-dismiss="modal">Update</button>
+      </div>
     </div>         
   </form>
 </template> 
 
 <template name='instaWorth'>
-      <div class="hpanel hblue">
+      <div class="hpanel {{color}}">
           <div class="panel-body tour1">
               <div class="pull-right text-right">
                 <small>Your Instagram is worth</small>

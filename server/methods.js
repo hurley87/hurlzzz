@@ -87,7 +87,8 @@ Meteor.methods({
         'profile.other.country' : argument.country,
         'profile.other.email' : argument.email,
         'profile.other.gender' : argument.sex,
-        'profile.other.age': argument.dob
+        'profile.other.age': argument.dob,
+        'profile.other.account': argument.account
       }});
     } catch(exception) {
       return exception;
@@ -139,7 +140,7 @@ Meteor.methods({
         from: "meteor.email.2014@gmail.com",
         to: user.profile.other.email,
         subject: "Congrats, your worth more on Instagram",
-        text: "Hey " + user.profile.username + ",\n\nThanks for signing up to Ignition! My goal is to track your worth on Instagram. To do this I track your average engagment and followers over time. Learn more about the algorithm I use to calculate your worth,\n\n" 
+        text: "Hey " + user.profile.username + ",\n\nThanks for signing up to Ignition! My goal is to track your worth on Instagram. Learn more about the algorithm I use to calculate your worth,\n\n" 
     + "http://instagram.mod.bz/about " + '\n\nSee how much your worth on Instagram: \n\n' + 
         'http://instagram.mod.bz/' + user.profile.username + '\n\n Any questions? Reply to this email. \n\n Thanks!'
       });     
@@ -158,7 +159,8 @@ Meteor.methods({
     Meteor.users.update({ _id: user._id}, {$set: {
       'profile.followerGrowth' : [user.profile.stats.followed_by],
       'profile.engagementGrowth': [engagement],
-      'profile.valueGrowth': [user.profile.data.postValue]
+      'profile.valueGrowth': [user.profile.data.postValue],
+      'profile.other.account': 'Personal'
     }});    
   }
 });

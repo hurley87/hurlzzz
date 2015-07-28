@@ -3,23 +3,34 @@
 }
 
 .redText {
- color: #517fa4;
+ color: #c0392b;
 }
 
-.textYellow {
+.blueText {
 	color: #517fa4;
 }
 
-.textOrange {
-	color: #517fa4;
+.purpleText {
+	color: #9b59b6;
 }
 
 .galleryItem {
 	display: inline-block;
 }
 
+.backRed {
+	background-color: #c0392b;
+}
+
+.backBlue {
+	background-color: #517fa4;
+}
+
+.backPurple {
+	background-color: #9b59b6;
+}
+
 .gOverlay {
-  background-color: #517fa4;
   color: white;
   position: relative;
   bottom: 11px;

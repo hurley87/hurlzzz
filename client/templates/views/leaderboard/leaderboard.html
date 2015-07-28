@@ -55,7 +55,7 @@
 </template>    
 
 <template name='userDescription'>
-    <a href="{{id}}"><div class="hpanel hblue contact-panel">  
+    <a href="{{id}}"><div class="hpanel {{panelColor}} contact-panel">  
         <div class="panel-body" style='padding: 10px 5px 5px 10px;'>
             <div class="media">
                 <div class="media-image pull-left">
@@ -86,7 +86,6 @@
         <div class="panel-body">
             <h1>Explore</h1>
             <br>
-            <p>Add fellow igniters to your favourites list.</p>
             <h5>Filter by Value</h5>
             <p>Right now your looking at Instagrammers worth <strong>MORE</strong> then <strong>${{value}}</strong>.</p>
             <input id="valueInput" type="text" name="demo1" value="{{value}}">

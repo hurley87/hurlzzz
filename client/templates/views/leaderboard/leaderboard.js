@@ -33,6 +33,16 @@ Template.userDescription.helpers({
   },
   rank: function() {
     return this.profile.data.rank;
+  },
+  panelColor: function() {
+    var account = this.profile.other.account;
+    if(account == 'Personal') {
+      return 'hblue';
+    } else if(account == 'Business'){
+      return 'hred';
+    } else {
+      return 'hviolet';
+    }   
   }
 });
 

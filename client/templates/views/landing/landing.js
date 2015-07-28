@@ -15,13 +15,6 @@
     }
   });
 
-Template.updateUser.onRendered(function() {
-  $(document).ready(function() {
-    $('#datapicker2').datepicker();
-    $('#datapicker').datepicker();
-  });
-});
-
 Template.updateUser.helpers({
     user: function() {
       if(Meteor.userId()) {
@@ -38,9 +31,11 @@ Template.updateUser.events({
                 country: $('#country').val(),
                 email: $('#email').val(),
                 sex: $("#gender").val(),
-                dob: $('#datapicker2').val()
+                dob: $('#age').val(),
+                account: $('#account').val()
             };
         var user = Meteor.users.findOne(Meteor.userId());
+        console.log(userDetails);
         Meteor.call('updateUser', userDetails, user);
         Router.go('/');
     },
@@ -56,9 +51,15 @@ Template.updateUser.events({
       evt.preventDefault();
       Session.set('gender', $('#gender').val());
     },
-    'change #datapicker2': function(evt, templ) {
+    'change #age': function(evt, templ) {
       evt.preventDefault();
-      Session.set('datapicker2', $('#datapicker2').val());
+      console.log($('#age').val());
+      Session.set('age', $('#age').val());
+    },
+    'input #account':function(evt, templ) {
+      evt.preventDefault();
+      console.log($('#account').val());
+      Session.set('account', $('#account').val());
     }
 });
 
@@ -67,34 +68,29 @@ Template.instaWorth.helpers({
     if(Session.get('country')) {
       return Session.get('country');
     } else {
-      return '';
+      return 'Canada';
     }
   },
   city: function() {
     if(Session.get('city')) {
       return Session.get('city');
     } else {
-      return '';
+      return 'Toronto';
     }    
   },
   gender: function() {
     if(Session.get('gender')) {
       return Session.get('gender');
     } else {
-      return '';
+      return 'male';
     }
   },
   age: function() {
-    if(Session.get('datapicker2')) {
-      var birthdate = Session.get('datapicker2');
-      var year = parseInt(birthdate.substr(birthdate.length - 4));
-      var currentTime = new Date();
-      var yearNow = currentTime.getFullYear();
-      return yearNow - year;     
+    if(Session.get('age')) {
+      return Session.get('age');    
     } else {
-      return '';
+      return 20;
     }
-
   },
   user: function() {
     var id = Router.current().params._id;
@@ -106,6 +102,15 @@ Template.instaWorth.helpers({
     if(!thisId) { thisId = Meteor.users.findOne(Meteor.userId()).profile.username}
     var myId = Meteor.users.findOne({ 'profile.username' : id }).profile.username;
     return thisId == myId;
+  },
+  color: function() {
+    if(Session.get('account') == 'Personal') {
+      return 'hblue';
+    } else if(Session.get('account') == 'Business') {
+      return 'hred';
+    } else {
+      return 'hviolet'
+    }
   }  
 });
 
