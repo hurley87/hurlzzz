@@ -179,14 +179,14 @@ Template.engagementGrowth.helpers({
     var id = Router.current().params._id;
     if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
     var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.engagementGrowth;
-    return engagement[engagement.length - 2];
+    return engagement[engagement.length - 3];
   },
   increase: function() {
     var id = Router.current().params._id;
     if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
     var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.engagementGrowth;
     var big = engagement[engagement.length - 1]; 
-    var small = engagement[engagement.length - 2];
+    var small = engagement[engagement.length - 3];
     return ((big - small)/small*100 ).toFixed(1);
   },
   textColor: function() {
@@ -264,14 +264,14 @@ Template.followerGrowth.helpers({
     var id = Router.current().params._id;
     if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
     var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth;
-    return engagement[engagement.length - 2];
+    return engagement[engagement.length - 3];
   },
   increase: function() {
     var id = Router.current().params._id;
     if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
     var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth;
     var big = engagement[engagement.length - 1]; 
-    var small = engagement[engagement.length - 2];
+    var small = engagement[engagement.length - 3];
     return ((big - small)/small*100 ).toFixed(1);
   },
     textColor: function() {
@@ -349,14 +349,14 @@ Template.valueGrowth.helpers({
     var id = Router.current().params._id;
     if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
     var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.valueGrowth;
-    return engagement[engagement.length - 2];
+    return engagement[engagement.length - 3];
   },
   increase: function() {
     var id = Router.current().params._id;
     if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
     var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.valueGrowth;
     var big = engagement[engagement.length - 1]; 
-    var small = engagement[engagement.length - 2];
+    var small = engagement[engagement.length - 3];
     return ((big - small)/small*100 ).toFixed(1);
   },
     textColor: function() {
