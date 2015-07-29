@@ -1,7 +1,7 @@
 <template name='leaderboard'>
 	<div class="content">
         <div class="row">
-            <div class='col-lg-4 col-md-4 col-sm-4 clearfix'>
+            <div class='col-lg-3 col-md-3 col-sm-3 clearfix'>
                 {{#if currentUser}}
                 <a href="/{{currentUser.profile.username}}" style='color: white;'>
                     <div class="hpanel hbggreen contact-panel" >
@@ -30,13 +30,18 @@
                 </div> 
               {{/panel}}
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4">   
-                <p>Search by handle or location.</p> 
-                <div class='row'>     
-                {{> tabular table=TabularTables.Users selector=selector }}
-                </div> 
+            <div class="col-lg-6 col-md-6 col-sm-6">   
+
+                <div class='row'> 
+                    <div class='hpanel'>
+                        <div class='panel-body'>
+                        <p>Search by handle or location.</p>                            
+                        {{> tabular table=TabularTables.Users selector=selector }}
+                        </div> 
+                    </div> 
+                </div>
             </div>
-            <div class='col-lg-4'>
+            <div class='col-lg-3'>
                 {{> topAccounts}}
                 {{> featuredAccounts}}
                 {{> valueChart}}
@@ -47,9 +52,9 @@
 
 <template name='valueChart'>
     {{#panel  panelClass="stats"  color="hblue"}}
-        <h5>Value Distribution</h5>
+        <h5>Distribution</h5>
         <div>
-            <canvas id="singleBarOptions" height="240"></canvas>
+            <canvas id="singleBarOptions" height="250" width='250' ></canvas>
         </div>
     {{/panel}}
 </template>    
@@ -100,7 +105,7 @@
 <template name='topAccounts'>
     <div class="hpanel hblue">
         <div class="panel-body">
-            <h5>Most Valuable Igniters</h5>
+            <h5>Most Valuable</h5>
             <br>
             <div class='row'>
                 <ol>
@@ -117,7 +122,7 @@
 <template name='featuredAccounts'>
     <div class="hpanel hblue">
         <div class="panel-body">
-            <h5>Featured Igniters</h5>
+            <h5>Featured</h5>
             <br>
             <div class='row'>
                 <ol>

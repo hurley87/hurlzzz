@@ -15,7 +15,7 @@
     posts: function() {
       var id = Router.current().params._id;
       if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      return Meteor.users.findOne({ 'profile.username' : id }).profile.posts;
+      return Meteor.users.findOne({ 'profile.username' : id }).profile.posts.slice(0,5);
     },
     backColor: function() {
       var id = Router.current().params._id;

@@ -186,45 +186,46 @@
 
 /* Menu */
 #side-menu {
-  background: @color-bright;
+  background: #517fa4;
+  color: #fff;
 }
 
 #side-menu li a {
-  color: @color-text;
+  color: #fff;
   text-transform: uppercase;
   font-weight: 700;
   padding: 15px 20px;
 }
 
 #side-menu li {
-  .border-bottom
+  border-bottom: 1px solid #fff;
 }
 
 #side-menu li:first-child {
-  border-top: 1px solid @border-color;
 }
 
 #side-menu li.active a, #side-menu li:hover a {
-  color: @color-navy-blue;
+  color: #fff;
+  background: lighten(#517fa4, 2%);
 }
 
 #side-menu li .nav-second-level li a {
   padding: 10px 10px 10px 30px;
-  color: @color-text;
+  color: #fff;
   text-transform: none;
   font-weight: 600;
 }
 
 #side-menu li .nav-second-level li.active a {
-  color: @color-navy-blue;
+  color: #fff;
 }
 
 #side-menu.nav > li > a:hover, #side-menu.nav > li > a:focus {
-  background: #fff;
+  background: lighten(#517fa4, 4%);
 }
 
 #side-menu li.active {
-  background: #fff;
+  background: #517fa4;
 }
 
 .arrow {
@@ -249,22 +250,31 @@
 }
 
 .navbar.navbar-static-top a, .nav.navbar-nav li a {
-  color: lighten(@color-text, 20%);;
+  color: #fff;
+}
+.navbar.navbar-static-top a:hover, .nav.navbar-nav li a:hover {
+  background: lighten(#517fa4, 2%);
+}
+
+.nav.navbar-nav li:hover {
+  background-color: #517fa4;
 }
 
 .header-link {
   padding: 18px 26px 17px 26px;
   font-size: 14px;
   float: left;
-  border-right:1px solid @border-color;
-  border-left:1px solid @border-color;
+  border-right:1px solid #517fa4;
+  border-left:1px solid #517fa4;
   margin-right: 15px;
-  background: @color-bright;
+  background: #517fa4;
+  color: white;
   cursor: pointer;
+  display: none;
 }
 
 .header-link:hover {
-  background: darken(@color-bright,2%);
+  background: #517fa4;
 }
 
 
@@ -282,7 +292,7 @@
 }
 
 .navbar.navbar-static-top .hide-menu {
-  color: lighten(@color-text, 20%);
+
 }
 
 
@@ -355,6 +365,7 @@ body.page-small #wrapper {
 
 body.page-small.show-sidebar #menu {
   margin-left: 0;
+  background-color: #517fa4;
 }
 
 body.page-small.show-sidebar #wrapper {
@@ -363,11 +374,11 @@ body.page-small.show-sidebar #wrapper {
 
 a {
   cursor: pointer;
-  color: @color-navy-blue;
+  color: #fff;
 }
 
 a:hover, a:focus {
-  color: @color-navy-blue;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -579,6 +590,11 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
   height: 62px;
 }
 
+a, a:hover {
+  color: #517fa4;
+}
+
+
 @media(max-width:768px) {
 
   .navbar-form-custom, .navbar-right, #logo {
@@ -588,6 +604,11 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
   .navbar-static-top {
     margin: 0;
   }
+
+  .header-link {
+    display: block;
+  }
+
 
   .small-logo {
     display: block;
@@ -610,6 +631,25 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
     margin-top: 0;
   }
 
+}
+
+.nav > li > a {
+  color: white;
+}
+
+body {
+  background-color: #517fa4;
+}
+
+#header {
+  background-color: #517fa4;
+  border-bottom: 1px solid #517fa4;
+  color: #fff;
+}
+
+#menu {
+  background-color: #517fa4;
+  border-right: 1px solid #517fa4;
 }
 
 @media(max-width: 320px) {

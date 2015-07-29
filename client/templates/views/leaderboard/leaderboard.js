@@ -151,7 +151,6 @@ Template.valueChart.onRendered(function() {
   var lessTwoFifty = Meteor.users.find({ 'profile.data.postValue' : { $lt: 250, $gt:200 }}).count();
   var greaterTwoHun = Meteor.users.find({ 'profile.data.postValue' : { $gt:200 }}).count();
 
-  console.log(lessFifty);
   var singleBarData = {
       labels: ["$0-$50", "$50-$99", "$100-$149", "$150-$199", "$200-$249", "$250+"],
       datasets: [

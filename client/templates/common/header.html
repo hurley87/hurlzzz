@@ -1,29 +1,99 @@
 <template name="header">
+    {{#if currentUser}}
     <div id="header">
         <div class="color-line">
         </div>
-        <nav role="navigation">
+        <nav role="navigation wrapper">
             <div class="header-link hide-menu"><i class="fa fa-bars"></i> Menu</div>
-            {{#if currentUser}}
-            <div class="small-logo">
-                <a href="/explore"><span class="text-primary">Explore</span></a>
-            </div>
-            {{else}}
-            <div class="small-logo">
-                <span id='instaLogin' class="text-primary">Login with Instagram</span>
+            <div class='text-center pull-left'>
+               <a href="/"> <p style='padding-top: 5px; padding-left: 10px;'><img src="/logo.png" height='50'></p></a>
             </div>            
-            {{/if}}
-            {{#if currentUser}}
             <div class="navbar-right">
                 <ul class="nav navbar-nav no-borders">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            <i class="pe-7s-user"></i>
+                        </a>
+                        <ul class="dropdown-menu hdropdown notification animated flipInX">
+                            <li>
+                                <a href='/'>
+                                     Dashboard
+                                </a>
+                            </li>  
+                            <li>
+                                <a href='/explore'>
+                                     Explore
+                                </a>
+                            </li>
+                            <li>
+                                <a href='/edit'>
+                                     Edit Profile
+                                </a>
+                            </li>                                                                                     
+                            <li>
+                                <a href='/about'>
+                                     About
+                                </a>
+                            </li>
+                            <li>
+                                <a href='/faq'>
+                                     FAQ
+                                </a>
+                            </li>
+                        
+                        </ul>
+                    </li>                    
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            <i class="pe-7s-speaker"></i>
+                        </a>
+                        <ul class="dropdown-menu hdropdown notification animated flipInX">
+                            <li>
+                                <a>
+                                    Contrary to popular belief.
+                                </a>
+                            </li>
+                            <li><a href="#">See all notifications</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle label-menu-corner" href="#" data-toggle="dropdown">
+                            <i class="pe-7s-mail"></i>
+                            <span class="label label-success">4</span>
+                        </a>
+                        <ul class="dropdown-menu hdropdown animated flipInX">
+                            <li>
+                                <a>
+                                    It is a long established.
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    There are many variations.
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    Lorem Ipsum is simply dummy.
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    Contrary to popular belief.
+                                </a>
+                            </li>
+                            <li><a href="#">See All Messages</a></li>
+                        </ul>
+                    </li>  
                     <li class="dropdown">
                         <a href="#">
                             <i id='logout' class="pe-7s-upload pe-rotate-90"></i>
                         </a>
-                    </li>
+                    </li>                  
                 </ul>
             </div>
-            {{/if}}
+            
         </nav>
     </div>
+    {{/if}}
 </template>
