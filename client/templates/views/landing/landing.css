@@ -5,8 +5,10 @@ body {
 	font-size: 4em;
 }
 
-.tagline {
-
+.category {
+	font-size: 1.2em;
+	cursor: pointer;
+	margin-bottom: 15px;
 }
 
 footer {

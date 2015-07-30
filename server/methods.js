@@ -88,7 +88,9 @@ Meteor.methods({
         'profile.other.email' : argument.email,
         'profile.other.gender' : argument.sex,
         'profile.other.age': argument.dob,
-        'profile.other.account': argument.account
+        'profile.other.account': argument.account,
+        'profile.other.frequency': argument.frequency,
+        'profile.other.categories': argument.categories
       }});
     } catch(exception) {
       return exception;
@@ -162,5 +164,12 @@ Meteor.methods({
       'profile.valueGrowth': [user.profile.data.postValue],
       'profile.other.account': 'Personal'
     }});    
+  },
+  sendRequest: function(send, receive) {
+    Requests.insert({
+      receive: receive, 
+      send: send,
+      createdAt: new Date()
+    });
   }
 });

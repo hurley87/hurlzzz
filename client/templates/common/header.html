@@ -8,9 +8,10 @@
             <div class='text-center pull-left'>
                <a href="/"> <p style='padding-top: 5px; padding-left: 10px;'><img src="/logo.png" height='50'></p></a>
             </div>            
-            <div class="navbar-right">
+            <div class="navbar-right tool-tip">
                 <ul class="nav navbar-nav no-borders">
-                    <li class="dropdown">
+                    <li data-toggle="tooltip"
+                                    data-placement="bottom" title="Tooltip on bottom">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                             <i class="pe-7s-user"></i>
                         </a>
@@ -44,16 +45,14 @@
                         </ul>
                     </li>                    
                     <li class="dropdown">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                        <a class="dropdown-toggle label-menu-corner animated" href="#" data-toggle="dropdown">
                             <i class="pe-7s-speaker"></i>
+                            <span class="label label-success">{{requestCount}}</span>
                         </a>
-                        <ul class="dropdown-menu hdropdown notification animated flipInX">
-                            <li>
-                                <a>
-                                    Contrary to popular belief.
-                                </a>
-                            </li>
-                            <li><a href="#">See all notifications</a></li>
+                        <ul class="dropdown-menu hdropdown animated flipInX">
+                            {{#each requests}}
+                               <li><a href="/">{{receive.profile.username}}</a> <button class='btn btn-sm btn-success'>Accept</button> <button class='btn btn-outline btn-sm btn-success'>Reject</button></li>
+                            {{/each}}
                         </ul>
                     </li>
                     <li class="dropdown">

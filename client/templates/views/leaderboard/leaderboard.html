@@ -3,13 +3,6 @@
         <div class="row">
             <div class='col-lg-3 col-md-3 col-sm-3 clearfix'>
                 {{#if currentUser}}
-                <a href="/{{currentUser.profile.username}}" style='color: white;'>
-                    <div class="hpanel hbggreen contact-panel" >
-                        <div class="panel-body text-center">
-                            <h3 class='font-light'>Profile</h3>
-                        </div>
-                    </div>
-                </a>
                 {{else}}
                 <div id='signMeUp' class="hpanel hbggreen contact-panel" >
                     <div class="panel-body text-center">
@@ -18,20 +11,8 @@
                 </div>               
                 {{/if}}               
                 {{> explore}}
-                {{#panel panelClass="stats tour5" color="hblue"}}
-                <div class="stats-title pull-left">
-                    <h4><a href="/faq">Igniters on Ignition <i class="fa fa-question-circle"></i></a></h4>
-                </div>
-                <div class="stats-icon pull-right textYellow">
-                    <i class="pe-7s-graph2 fa-4x"></i>
-                </div>
-                <div class="m-t-xl">
-                    <h1 class="textYellow">{{eliteCount}}</h1>
-                </div> 
-              {{/panel}}
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">   
-
                 <div class='row'> 
                     <div class='hpanel'>
                         <div class='panel-body'>
@@ -42,48 +23,70 @@
                 </div>
             </div>
             <div class='col-lg-3'>
-                {{> topAccounts}}
-                {{> featuredAccounts}}
-                {{> valueChart}}
+                <div class="hpanel hblue">
+                    <div class="panel-body">
+                    {{> activeUsers}} 
+                    <br>
+                    {{> recentlyAdded}}   
+                    <br>
+                    {{> topAccounts}}
+                    <br>
+                    {{> featuredAccounts}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>	 
 
 <template name='valueChart'>
-    {{#panel  panelClass="stats"  color="hblue"}}
         <h5>Distribution</h5>
         <div>
             <canvas id="singleBarOptions" height="250" width='250' ></canvas>
         </div>
-    {{/panel}}
 </template>    
 
 <template name='userDescription'>
-    <a href="{{id}}"><div class="hpanel {{panelColor}} contact-panel">  
+    <div class="hpanel {{panelColor}}">  
         <div class="panel-body" style='padding: 10px 5px 5px 10px;'>
             <div class="media">
                 <div class="media-image pull-left">
-                    <img class='profileImg' src="{{img}}" alt="profile-picture">
+                    <a href="{{id}}"><img class='profileImg' src="{{img}}" alt="profile-picture"></a>
                 </div>
                 <div class="media-body text-left">
-                    <h5 class='pull-left'><strong>@{{handle}}</strong> (<span class='text-success'>{{rank}}</span>)<br>
-                        {{#if userInfo}}
-                            <small>{{age}} year old {{user.gender}} living in {{user.city}}, {{user.country}}</small><br>
-                            <small>{{followers}} Followers</small><br>
-                            <small>{{engage}} average likes and comments</small>
-                        {{else}}
-                            <h5 class='pull-left'>
-                            <small>{{followers}} Followers</small><br>
-                            <small>{{engage}} average likes and comments</small>
-                            </h5>
-                        {{/if}}
-                    </h5> 
-                    <h2  class='font-extra-bold text-success pull-right'>${{value}}</h2>   
+                    <div class='row'>
+                        <div class='col-lg-7 col-md-12 col-sm-12'>
+                            <a href="{{id}}">
+                                <h5 style='line-height: 15px;'>
+                                    <span class='text-success'>${{value}}</span>
+                                    {{#if online}}
+                                    <span class='label label-success' style='position: relative; bottom: 3px;'>Online</span>
+                                    {{else}}
+                                    <span class='label backRed' style='position: relative; bottom: 3px;'>Offline</span>
+                                    {{/if}}
+                                    <strong>@{{handle}}</strong> <br>
+                                    {{#if userInfo}}
+                                        <small>{{user.city}}, {{user.country}}</small>
+                                    {{/if}}
+                                </h5>
+                            </a>
+                        </div>
+                        <div class='col-lg-5 col-md-12 col-sm-12' style='line-height: 35px;'>
+                            <div class='pull-right'>
+                            {{#if currentUser}}    
+                                {{#if thisUser}}
+                                <button class='btn btn-success btn-sm request'>Request Chat</button>
+                                {{/if}}
+                            {{else}}
+                                <a href="{{id}}"><button class='btn btn-success btn-sm'>View Profile</button></a>
+                            {{/if}}
+                            </div>
+                        </div>
+                    </div>
                 </div> 
             </div>
         </div>
-    </div></a>
+    </div>
 </template>  
 
 <template name='explore'>
@@ -91,48 +94,59 @@
         <div class="panel-body">
             <h1>Explore</h1>
             <br>
-            <h5>Filter by Value</h5>
-            <p>Right now your looking at Instagrammers worth <strong>MORE</strong> then <strong>${{value}}</strong>.</p>
-            <input id="valueInput" type="text" name="demo1" value="{{value}}">
+            <h5>Account Type</h5>
+            <p><button class='btn btn-sm backBlue' style='color: white; '>Personal</button><br><br><button class='btn btn-sm backPurple' style='color: white; '>Animal</button><br><br><button class='btn btn-sm backRed' style='color: white; margin-right: 5px;'>Business</button></p>
             <br>
-            <h5>Filter by Followers</h5>
-            <p> Look at accounts that have <strong>LESS</strong> then <strong>{{flow1}} followers.</strong></p>
+            <h5>Followers</h5>
+            <p>Instagrammers that have <strong>LESS</strong> then <strong>{{flow1}} followers.</strong></p>
             <input id="followingInput" type="text" name="demo1" value="{{flow2}}">
+            <br>
+            {{> valueChart}}
+            <h5>Value</h5>
+            <p>Instagrammers worth <strong>MORE</strong> then <strong>${{value}}</strong>.</p>
+            <input id="valueInput" type="text" name="demo1" value="{{value}}">
         </div>
     </div>    
 </template> 
 
-<template name='topAccounts'>
-    <div class="hpanel hblue">
-        <div class="panel-body">
-            <h5>Most Valuable</h5>
-            <br>
-            <div class='row'>
-                <ol>
-                    {{#each firstFive}}
-                        <a href="/{{profile.username}}"><li>{{profile.username}} <span class='font-extra-bold text-success'>${{profile.data.postValue}}</span></li></a>
-                    {{/each}}
+<template name='activeUsers'>
+    <h5>Currently Online</h5>
+    <br>
+    <div class='row'>
+        {{#each users}}
+            {{> userDescription}}
+        {{/each}}
+    </div>     
+</template>  
 
-                </ol>
-            </div>
-        </div>
-    </div>    
+<template name='recentlyAdded'>
+    <h5>Recently Added</h5>
+    <br>
+    <div class='row'>
+        {{#each users}}
+            {{> userDescription}}
+        {{/each}}
+    </div>     
+</template>   
+
+<template name='topAccounts'>
+    <h5>Most Valuable</h5>
+    <br>
+    <div class='row'>
+        {{#each firstFive}}
+            {{> userDescription}}
+        {{/each}}
+    </div>   
 </template>           
 
 <template name='featuredAccounts'>
-    <div class="hpanel hblue">
-        <div class="panel-body">
-            <h5>Featured</h5>
-            <br>
-            <div class='row'>
-                <ol>
-                    {{#each randos}}
-                        <a href="/{{profile.username}}"><li>{{profile.username}} <span class='font-extra-bold text-success'>${{profile.data.postValue}}</span></li></a>
-                    {{/each}}
-                </ol>
-            </div>
-        </div>
-    </div>     
+    <h5>Featured</h5>
+    <br>
+    <div class='row'>
+        {{#each randos}}
+            {{> userDescription}}
+        {{/each}}
+    </div>  
 </template>    
 
     

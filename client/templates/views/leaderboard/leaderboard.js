@@ -43,6 +43,24 @@ Template.userDescription.helpers({
     } else {
       return 'hviolet';
     }   
+  },
+  online: function() {
+    var user = Meteor.users.findOne(this._id);
+    if(user.status) {
+      return user.status.online;
+    }
+  },
+  thisUser: function() {
+    return this._id != Meteor.userId();
+  }
+});
+
+Template.userDescription.events({
+  'click .request': function(evt, templ) {
+    evt.preventDefault();
+    var receive = Meteor.users.findOne(this._id);
+    var send = Meteor.users.findOne(Meteor.userId());
+    Meteor.call('sendRequest', send, receive);
   }
 });
 
@@ -56,6 +74,11 @@ Template.explore.events({
     evt.preventDefault();
     var newValue = parseInt($('#followingInput').val());
     Session.set('flow', newValue);
+  },
+  'click .btn': function(evt, templ) {
+    evt.preventDefault();
+    var newValue = $(evt.target).text()
+    Session.set('accountType', newValue);
   }
 });
 
@@ -84,7 +107,23 @@ Template.leaderboard.helpers({
   eliteCount: function() {
     return Meteor.users.find().count();
   },
-  selector: function() { return { 'profile.data.postValue' : { $gt : Session.get('value') }, 'profile.stats.followed_by': { $lt : Session.get('flow') } }; 
+  selector: function() { 
+    var myUsername = Meteor.users.findOne(Meteor.userId()).profile.username;
+    var sendId = Meteor.userId();
+    var requests = Requests.find({}).fetch();
+    var receivers = [];
+    for(var i=0; i < requests.length; i++) {
+      if(requests[i].send._id == sendId) {
+        receivers.push(requests[i].receive._id);
+      }
+    }
+    return { 
+      'profile.data.postValue' : { $gt : Session.get('value') }, 
+      'profile.stats.followed_by': { $lt : Session.get('flow') }, 
+      'profile.other.account' : { $eq : Session.get('accountType') },
+      'profile.username' : { $ne : myUsername },
+      _id: { $not : { $in : receivers }}
+    }; 
   }
 });
 
@@ -92,7 +131,6 @@ Template.leaderboard.events({
   'click #signMeUp': function(evt, temp) {
       evt.preventDefault();
       Meteor.loginWithInstagram(function (err, res) {
-        console.log(res);
         if (err !== undefined) {
           console.log('sucess ' + res);
         } else {
@@ -103,7 +141,7 @@ Template.leaderboard.events({
         Router.go('/edit'); 
       });
   }
-})
+});
 
 Template.leaderboard.onRendered(function() {
   $('table').css({'width': '100%'});
@@ -132,14 +170,69 @@ Template.leaderboard.onRendered(function() {
 
 Template.topAccounts.helpers({
   firstFive: function() {
-    return Meteor.users.find({}, {
+    var sendId = Meteor.userId();
+    var requests = Requests.find({}).fetch();
+    var receivers = [];
+    for(var i=0; i < requests.length; i++) {
+      if(requests[i].send._id == sendId) {
+        receivers.push(requests[i].receive._id);
+      }
+    }
+
+    return Meteor.users.find({
+      _id: { $not : { $in : receivers }}
+    }, {
       sort: {
         'profile.data.postValue': -1
       },
+      limit: 10
+    });
+  }
+});
+
+Template.recentlyAdded.helpers({
+  users: function() {
+    var sendId = Meteor.userId();
+    var requests = Requests.find({}).fetch();
+    var receivers = [];
+    for(var i=0; i < requests.length; i++) {
+      if(requests[i].send._id == sendId) {
+        receivers.push(requests[i].receive._id);
+      }
+    }
+
+    return Meteor.users.find({
+      _id: { $not : { $in : receivers }}
+    }, {
+      sort: {
+        createdAt: -1
+      },
       limit: 5
     });
-  },
+  }
+});
 
+Template.activeUsers.helpers({
+  users: function() {
+    var sendId = Meteor.userId();
+    var requests = Requests.find({}).fetch();
+    var receivers = [];
+    for(var i=0; i < requests.length; i++) {
+      if(requests[i].send._id == sendId) {
+        receivers.push(requests[i].receive._id);
+      }
+    }
+
+    return Meteor.users.find({
+      'status.online' : true,
+      _id: { $not : { $in : receivers }}
+    }, {
+      sort: {
+        'profile.data.postValue': -1
+      },
+      limit: 10
+    });
+  }
 });
 
 Template.valueChart.onRendered(function() {
@@ -171,7 +264,18 @@ Template.valueChart.onRendered(function() {
 
 Template.featuredAccounts.helpers({
   randos: function() {
-    var users = Meteor.users.find().fetch();
-    return _.shuffle(users).slice(0,5);
+    var sendId = Meteor.userId();
+    var requests = Requests.find({}).fetch();
+    var receivers = [];
+    for(var i=0; i < requests.length; i++) {
+      if(requests[i].send._id == sendId) {
+        receivers.push(requests[i].receive._id);
+      }
+    }
+
+    var users = Meteor.users.find({
+      _id: { $not : { $in : receivers }}
+    }).fetch();
+    return _.shuffle(users).slice(0,10);
   }  
 });

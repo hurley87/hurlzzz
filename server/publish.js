@@ -14,3 +14,7 @@ Meteor.publish('elites', function() {
 	});
 	return data;
 });
+
+Meteor.publish('requests', function() {
+	return Requests.find({});
+});

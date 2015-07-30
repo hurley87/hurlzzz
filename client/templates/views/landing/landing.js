@@ -15,6 +15,10 @@
     }
   });
 
+Template.updateUser.onRendered(function() {
+  $(".js-source-states-2").select2();
+});  
+
 Template.updateUser.helpers({
     user: function() {
       if(Meteor.userId()) {
@@ -32,10 +36,11 @@ Template.updateUser.events({
                 email: $('#email').val(),
                 sex: $("#gender").val(),
                 dob: $('#age').val(),
-                account: $('#account').val()
+                account: $('#account').val(),
+                frequency: $('#frequency').val(),
+                categories: $('#categories').val()
             };
         var user = Meteor.users.findOne(Meteor.userId());
-        console.log(userDetails);
         Meteor.call('updateUser', userDetails, user);
         Router.go('/');
     },
@@ -113,6 +118,21 @@ Template.instaWorth.helpers({
     }
   }  
 });
+
+Template.instaWorth.onRendered(function() {
+  if(Meteor.userId()){
+    var account = Meteor.users.findOne({ _id : Meteor.userId() }).profile.other.account;
+    if(account == 'Personal') {
+      Session.set('account', 'Personal');
+    } else if(account == 'Business') {
+     Session.set('account', 'Business');
+    } else {
+      Session.set('account', 'Animal');
+    }
+  } else {
+    Session.set('account', 'Personal');
+  }
+});  
 
 Template.updateAllUsers.events({
   'click button': function(evt, temp) {

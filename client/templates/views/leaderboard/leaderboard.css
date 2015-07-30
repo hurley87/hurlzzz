@@ -10,3 +10,7 @@
 table th {
   display: none;
 }
+
+button {
+	min-width: 100px;
+}

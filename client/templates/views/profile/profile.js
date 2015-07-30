@@ -11,6 +11,23 @@
     }
   });
 
+  Template.profile.events({
+    'click #signMeUp': function(evt, temp) {
+        evt.preventDefault();
+        Meteor.loginWithInstagram(function (err, res) {
+          console.log(res);
+          if (err !== undefined) {
+            console.log('sucess ' + res);
+          } else {
+            console.log('login failed ' + err);
+          }
+          var users = Meteor.users.find({}, { sort: { 'profile.data.postValue': -1 } }).fetch();
+          Meteor.call('setRank', users);
+          Router.go('/edit'); 
+        });
+    } 
+  });
+
   Template.gallery.helpers({
     posts: function() {
       var id = Router.current().params._id;
@@ -39,8 +56,7 @@
     },
     thisUser: function() {
       var thisId = Router.current().params._id;
-      if(!thisId) { thisId = Meteor.users.findOne(Meteor.userId()).profile.username}
-      var myId = Meteor.users.findOne({ 'profile.username' : id }).profile.username;
+      var myId = Meteor.users.findOne({ _id : Meteor.userId() }).profile.username;
       return thisId == myId;
     },
     age: function() {

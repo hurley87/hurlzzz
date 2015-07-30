@@ -5,6 +5,8 @@ Meteor.isClient && Template.registerHelper('TabularTables', TabularTables);
 if (Meteor.isClient) {
   Session.set('value', 30);
   Session.set('flow', 9000);
+  Session.set('filterAccount', 9000);
+  Session.set('accountType', 'Personal');
 }
 
 TabularTables.Users = new Tabular.Table({

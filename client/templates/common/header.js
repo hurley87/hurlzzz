@@ -1,5 +1,4 @@
 Template.header.events({
-
     'click .hide-menu': function(event){
         event.preventDefault();
         $("body").toggleClass("hide-sidebar");
@@ -26,6 +25,10 @@ Template.header.events({
 
 Template.header.onRendered(function() {
   $("body").addClass("hide-sidebar");
+  $('.tooltip').tooltip({
+    selector: "[data-toggle=tooltip]"
+  });
+
 });
 
 Template.header.helpers({
@@ -34,5 +37,17 @@ Template.header.helpers({
   },
   stats: function() {
     return Meteor.users.findOne(Meteor.userId()).profile.stats;
+  },
+  requestCount: function() {
+    var count = Requests.find({
+      'send._id' : Meteor.userId()
+    }).count();
+    console.log(count);
+    return count;
+  },
+  requests: function() {
+    return Requests.find({
+      'send._id' : Meteor.userId()
+    });
   }
 });

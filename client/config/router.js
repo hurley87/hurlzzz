@@ -30,6 +30,7 @@ Router.route('/explore', {
   loadingTemplate: 'loading',
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
+    this.subscribe('requests');
   }
 });
 
