@@ -109,12 +109,15 @@ Template.leaderboard.helpers({
   },
   selector: function() { 
     var myUsername = Meteor.users.findOne(Meteor.userId()).profile.username;
-    var sendId = Meteor.userId();
+    var id = Meteor.userId();
     var requests = Requests.find({}).fetch();
     var receivers = [];
     for(var i=0; i < requests.length; i++) {
-      if(requests[i].send._id == sendId) {
+      if(requests[i].send._id == id) {
         receivers.push(requests[i].receive._id);
+      }
+      if(requests[i].receive._id == id) {
+        receivers.push(requests[i].send._id);
       }
     }
     return { 
@@ -170,12 +173,15 @@ Template.leaderboard.onRendered(function() {
 
 Template.topAccounts.helpers({
   firstFive: function() {
-    var sendId = Meteor.userId();
+    var id = Meteor.userId();
     var requests = Requests.find({}).fetch();
     var receivers = [];
     for(var i=0; i < requests.length; i++) {
-      if(requests[i].send._id == sendId) {
+      if(requests[i].send._id == id) {
         receivers.push(requests[i].receive._id);
+      }
+      if(requests[i].receive._id == id) {
+        receivers.push(requests[i].send._id);
       }
     }
 
@@ -192,12 +198,15 @@ Template.topAccounts.helpers({
 
 Template.recentlyAdded.helpers({
   users: function() {
-    var sendId = Meteor.userId();
+    var id = Meteor.userId();
     var requests = Requests.find({}).fetch();
     var receivers = [];
     for(var i=0; i < requests.length; i++) {
-      if(requests[i].send._id == sendId) {
+      if(requests[i].send._id == id) {
         receivers.push(requests[i].receive._id);
+      }
+      if(requests[i].receive._id == id) {
+        receivers.push(requests[i].send._id);
       }
     }
 
@@ -214,12 +223,15 @@ Template.recentlyAdded.helpers({
 
 Template.activeUsers.helpers({
   users: function() {
-    var sendId = Meteor.userId();
+    var id = Meteor.userId();
     var requests = Requests.find({}).fetch();
     var receivers = [];
     for(var i=0; i < requests.length; i++) {
-      if(requests[i].send._id == sendId) {
+      if(requests[i].send._id == id) {
         receivers.push(requests[i].receive._id);
+      }
+      if(requests[i].receive._id == id) {
+        receivers.push(requests[i].send._id);
       }
     }
 
@@ -264,12 +276,15 @@ Template.valueChart.onRendered(function() {
 
 Template.featuredAccounts.helpers({
   randos: function() {
-    var sendId = Meteor.userId();
+    var id = Meteor.userId();
     var requests = Requests.find({}).fetch();
     var receivers = [];
     for(var i=0; i < requests.length; i++) {
-      if(requests[i].send._id == sendId) {
+      if(requests[i].send._id == id) {
         receivers.push(requests[i].receive._id);
+      }
+      if(requests[i].receive._id == id) {
+        receivers.push(requests[i].send._id);
       }
     }
 

@@ -8,6 +8,9 @@ Router.route('/', {
   loadingTemplate: 'loading',
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
+    this.subscribe('requests');
+    this.subscribe('chats');
+    this.subscribe('messages');
   }
 });
 
@@ -31,6 +34,8 @@ Router.route('/explore', {
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
     this.subscribe('requests');
+    this.subscribe('chats');
+    this.subscribe('messages');
   }
 });
 
@@ -49,7 +54,7 @@ Router.route('/:_id', {
     return Meteor.users.findOne({ username: this.params._id });
   },
   waitOn: function() {
-    return [Meteor.subscribe('allLeaderboardUsers')];
+    return [Meteor.subscribe('allLeaderboardUsers'), Meteor.subscribe('requests'), Meteor.subscribe('chats'), Meteor.subscribe('messages')];
   }
 });
 

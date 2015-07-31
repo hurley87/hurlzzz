@@ -171,5 +171,28 @@ Meteor.methods({
       send: send,
       createdAt: new Date()
     });
+  },
+  removeRequest: function(id) {
+    Requests.remove({ _id : id });
+  },
+  createChat: function(send, receive) {
+    Chats.insert({ 
+      thatUser: send, 
+      thisUser: receive,
+      createdAt: new Date()
+    });
+  },
+  removeChat: function(id) {
+    Chats.remove({ _id: id });
+  },
+  createMessage: function(id, user, text) {
+    console.log(id);
+    console.log(user);
+    console.log(text);
+    Messages.insert({
+      chat_id: id,
+      user: user,
+      text: text
+    });
   }
 });

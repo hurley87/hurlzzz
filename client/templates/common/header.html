@@ -1,17 +1,15 @@
 <template name="header">
     {{#if currentUser}}
     <div id="header">
-        <div class="color-line">
-        </div>
         <nav role="navigation wrapper">
             <div class="header-link hide-menu"><i class="fa fa-bars"></i> Menu</div>
             <div class='text-center pull-left'>
-               <a href="/"> <p style='padding-top: 5px; padding-left: 10px;'><img src="/logo.png" height='50'></p></a>
+               <p style='padding-top: 5px; padding-left: 10px;'><a href="/"> <img src="/logo.png" height='50'></a></p>
             </div>            
             <div class="navbar-right tool-tip">
                 <ul class="nav navbar-nav no-borders">
-                    <li data-toggle="tooltip"
-                                    data-placement="bottom" title="Tooltip on bottom">
+                    <li><a href="/explore"><span class='label label-success'>Search</span></a></li>
+                    <li>
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                             <i class="pe-7s-user"></i>
                         </a>
@@ -51,37 +49,25 @@
                         </a>
                         <ul class="dropdown-menu hdropdown animated flipInX">
                             {{#each requests}}
-                               <li><a href="/">{{receive.profile.username}}</a> <button class='btn btn-sm btn-success'>Accept</button> <button class='btn btn-outline btn-sm btn-success'>Reject</button></li>
+                               <li><a href="/{{send.profile.username}}">@{{send.profile.username}} <span class='text-success'>${{send.profile.data.postValue}}</span></a> <button class='btn btn-sm btn-success accept'>Accept</button> <button class='btn btn-outline btn-sm btn-success reject'>Reject</button></li>
                             {{/each}}
+                            {{#if noRequests}}
+                            <li>0 chat requests</li>
+                            {{/if}}
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle label-menu-corner" href="#" data-toggle="dropdown">
                             <i class="pe-7s-mail"></i>
-                            <span class="label label-success">4</span>
+                            <span class="label label-success">{{chatCount}}</span>
                         </a>
                         <ul class="dropdown-menu hdropdown animated flipInX">
-                            <li>
-                                <a>
-                                    It is a long established.
-                                </a>
-                            </li>
-                            <li>
-                                <a>
-                                    There are many variations.
-                                </a>
-                            </li>
-                            <li>
-                                <a>
-                                    Lorem Ipsum is simply dummy.
-                                </a>
-                            </li>
-                            <li>
-                                <a>
-                                    Contrary to popular belief.
-                                </a>
-                            </li>
-                            <li><a href="#">See All Messages</a></li>
+                            {{#each chats}}
+                            <li>{{> quickChat}}</li>
+                            {{/each}}
+                            {{#if noChats}}
+                            <li>0 open chats</li>
+                            {{/if}}
                         </ul>
                     </li>  
                     <li class="dropdown">
@@ -95,4 +81,15 @@
         </nav>
     </div>
     {{/if}}
+</template>
+
+<template name='quickChat'>
+    <a href="/{{user.profile.username}}">
+        {{#if online}}
+        <span class='label label-success'>Online</span>
+        {{else}}
+        <span class='label backRed'>Offline</span>
+        {{/if}}
+        {{user.profile.username}} <span class='text-success'>${{user.profile.data.postValue}}</span>
+    </a>
 </template>

@@ -18,3 +18,11 @@ Meteor.publish('elites', function() {
 Meteor.publish('requests', function() {
 	return Requests.find({});
 });
+
+Meteor.publish('messages', function() {
+	return Messages.find({});
+});
+
+Meteor.publish('chats', function() {
+	return Chats.find({});
+});

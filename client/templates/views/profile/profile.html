@@ -39,19 +39,122 @@
 
 <template name='requests'>
   {{#panel panelClass="stats tour5" color="hblue"}}
-  <div class="stats-title pull-left">
+  <div class="stats-title">
       <h4><a href="/faq">Requests <i class="fa fa-question-circle"></i></a></h4>
       <p><a href="/explore"><button class='btn btn-success btn-outline'>Request a Chat</button></a></p>
   </div>
+    <div class='row'>
+    {{#each requests}}
+      <div class='col-lg-12'>
+        {{> request}}
+      </div>
+    {{/each}}
+    {{#if noRequests}}
+      <p>You have 0 chat requests.</p>
+    {{/if}}
+    </div>
   {{/panel}}
+</template>  
+
+<template name='request'>
+  <div class="hpanel {{panelColor}}">  
+      <div class="panel-body" style='padding: 5px 5px 7px 5px;'>
+          <div class="media">
+              <div class="media-image pull-left">
+                  <a href="/{{id}}"><img class='profileImg' src="{{this.send.profile.profile_picture}}" alt="profile-picture"></a>
+              </div>
+              <div class="media-body text-left">
+                  <div class='row'>
+                      <div class='col-lg-7 col-md-12 col-sm-12'>
+                          <a href="{{id}}">
+                              <h5 style='line-height: 25px;'>
+                                  <span class='text-success'>${{value}}</span>
+                                  {{#if online}}
+                                  <span class='label label-success' style='position: relative; bottom: 3px;'>Online</span>
+                                  {{else}}
+                                  <span class='label backRed' style='position: relative; bottom: 3px;'>Offline</span>
+                                  {{/if}}
+                                  <strong>@{{handle}}</strong> <br>
+                                  {{#if userInfo}}
+                                      <small>{{user.city}}, {{user.country}}</small>
+                                  {{/if}}
+                              </h5>
+                          </a>
+                      </div>
+                      <div class='col-lg-5 col-md-12 col-sm-12' style='line-height: 35px;'>
+                          <div class='pull-right'>
+                          {{#if currentUser}}    
+                              {{#if thisUser}}
+                              <button id='reject' class='btn btn-success btn-sm reject btn-outline'>Reject</button>
+                              <button id='accept' class='btn btn-success btn-sm accept'>Accept</button>
+                              {{/if}}
+                          {{else}}
+                              <a href="{{id}}"><button class='btn btn-success btn-sm'>View Profile</button></a>
+                          {{/if}}
+                          </div>
+                      </div>
+                  </div>
+              </div> 
+          </div>
+      </div>
+  </div>  
 </template>  
 
 <template name='chats'>
   {{#panel panelClass="stats tour5" color="hblue"}}
-      <div class="stats-title pull-left">
+      <div class="stats-title">
         <h4><a href="/faq">Chats <i class="fa fa-question-circle"></i></a></h4>
       </div>
+      <div class='row'>
+        {{#each chats}}
+        <div class='col-lg-6'>
+          {{> chat}}
+        </div>
+        {{/each}}                
+      </div>
   {{/panel}}    
+</template>  
+
+<template name='chat'>
+  <div class="hpanel hblue">
+      <div class="panel-body">
+          <div class="media social-profile clearfix">
+              <a class="pull-left">
+                  <img src="{{thisUser.profile.profile_picture}}" class='profileImg' alt="profile-picture">
+              </a>
+              <button class='pull-right btn btn-danger btn-xs stopChat' style='min-width: 50px;'>Stop Chat</button>
+              <div class="media-body">
+                  <a href="/{{thisUser.profile.username}}"><h5>@{{thisUser.profile.username}}</h5></a>
+                  <small class="text-muted">21.03.2015</small>
+              </div>
+          </div>
+
+          <div class="social-content m-t-md">
+              {{thisUser.profile.bio}}
+          </div>
+      </div>
+      <div class="panel-footer">
+        {{#each messages}}
+        <div class="social-talk">
+            <div class="media social-profile clearfix">
+                <a class="pull-left">
+                    <img src="{{user.profile.profile_picture}}" alt="profile-picture">
+                </a>
+                <div class="media-body">
+                    <span class="font-bold">{{user.profile.username}}</span>
+                    <small class="text-muted">21.03.2015</small>
+                    <div class="social-content">
+                        {{text}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        <div class="social-form">
+            <input id='sendChat' class="form-control" placeholder="Your comment">
+        </div>
+      </div>
+  </div>  
 </template>  
 
 <template name='myStats'>
@@ -81,7 +184,7 @@
               {{/if}}
           </div>
           <div class="panel-body tour7">
-            <p>A {{age}} year old {{user.other.gender}} living in {{user.other.city}}, {{user.other.country}}.</p>
+            <p>{{user.other.city}}, {{user.other.country}}</p>
           </div>
           <div class="panel-footer contact-footer">
               <div class="row tour2">
@@ -196,47 +299,42 @@
 </template>    
 
 <template name='analytics'>
-  <div class="col-lg-12">
-    <div class="hpanel {{panelColor}}">
-      {{#panel}}
-          <div class="row">
-              <div class="col-md-12">
-                  <div class="text-center small">
-                      <i class="fa fa-laptop"></i> data taken from last 20 posts
-                  </div>
-                  <div class="flot-chart" style="height: 160px">
-                      <div class="flot-chart-content" id="flot-line-chart"></div>
-                  </div>
-              </div>
-                <div class="col-md-6 text-center">
-                  <div>
-                      <h1 class="{{textColor}}"><i class="fa fa-heart-o"></i></h1>
-                      <h1 class="{{textColor}}">
-                          {{user.data.avgLikes}}
-                      </h1>
-                      <small><a href="/faq">Expected likes / post <i class="fa fa-question-circle"></i></a></small>
-                      <h4 class='{{textColor}}'>+/- {{user.data.likesConsist}}</h4>
-                  </div>
-              </div>
+  <div class="hpanel {{panelColor}}">
+    {{#panel}}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center small">
+                    <i class="fa fa-laptop"></i> data taken from last 20 posts
+                </div>
+                <div class="flot-chart" style="height: 160px">
+                    <div class="flot-chart-content" id="flot-line-chart"></div>
+                </div>
+            </div>
               <div class="col-md-6 text-center">
-                  <div>
-                    <h1 class="{{textColor}}"><i class="fa fa-comment-o"></i></h1>
+                <div>
+                    <h1 class="{{textColor}}"><i class="fa fa-heart-o"></i></h1>
                     <h1 class="{{textColor}}">
-                        {{user.data.avgComments}}
+                        {{user.data.avgLikes}}
                     </h1>
-                    <small><a href="/faq">Expected comments / post <i class="fa fa-question-circle"></i></a></small>
-                    <h4 class="{{textColor}}">
-                      +/- {{user.data.commentsConsist}}
-                    </h4>
-                  </div>
-              </div>
-              <br>
-              <hr>
-              <br>
-              {{> gallery}}
-          </div> 
-      {{/panel}}
-    </div>
+                    <small><a href="/faq">Expected likes <i class="fa fa-question-circle"></i></a></small>
+                    <h4 class='{{textColor}}'>+/- {{user.data.likesConsist}}</h4>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <div>
+                  <h1 class="{{textColor}}"><i class="fa fa-comment-o"></i></h1>
+                  <h1 class="{{textColor}}">
+                      {{user.data.avgComments}}
+                  </h1>
+                  <small><a href="/faq">Expected comments <i class="fa fa-question-circle"></i></a></small>
+                  <h4 class="{{textColor}}">
+                    +/- {{user.data.commentsConsist}}
+                  </h4>
+                </div>
+            </div>
+            {{> gallery}}
+        </div> 
+    {{/panel}}
   </div>
 </template>   
 

@@ -1,3 +1,151 @@
+  
+  Template.chats.helpers({
+    chats: function() {
+      var user = Meteor.users.findOne(Meteor.userId());
+      var chats = Chats.find({
+        $or: [{'thisUser._id' : Meteor.userId()}, {'thatUser._id' : Meteor.userId()}]
+      },
+      {
+        createdAt : -1
+      }).fetch();
+      return chats;
+    }
+  }); 
+
+  Template.chat.helpers({
+    thisUser: function() {
+      var id = Meteor.userId();
+      if(id == this.thatUser._id) {
+        return this.thisUser;
+      } else {
+        return this.thatUser;
+      }
+    },
+    messages: function() {
+      var id = this._id;
+      var messages = Messages.find({
+        chat_id: id
+      },
+      {
+        createdAt: -1
+      });
+      return messages;
+    }
+  });
+
+  Template.chat.events({
+    'click .stopChat': function(evt, templ) {
+      Meteor.call('removeChat', this._id);
+    },
+    'keypress #sendChat': function(evt, templ) {
+      var user = Meteor.users.findOne(Meteor.userId());
+      var text = $('#sendChat').val();
+      if(evt.which == 13) {
+        Meteor.call('createMessage', this._id, user, text);
+        $('#sendChat').val('');
+      }
+    }
+  })
+
+  Template.requests.helpers({
+    requests: function() {
+      var requests = Requests.find({ 
+        'receive._id' : Meteor.userId()
+      },
+      {
+        createdAt : -1
+      }).fetch();
+      return requests;
+    },
+    noRequests: function() {
+      var count = Requests.find({ 
+        'receive._id' : Meteor.userId()
+      },
+      {
+        createdAt : -1
+      }).count();
+      return count < 1;
+    },
+    'click #reject': function(evt, templ) {
+      evt.preventDefault();
+      console.log(this._id);
+      Meteor.call('removeRequest', this._id);
+    },
+    'click #accept': function(evt, templ) {
+      evt.preventDefault();
+      Meteor.call('removeRequest', this._id);
+      
+    }
+  });  
+
+Template.request.helpers({
+  user: function() {
+    return this.send.profile.other;
+  },
+  img: function() {
+    return this.send.profile.profile_picture;
+  },
+  handle: function() {
+    return this.send.profile.username;
+  },
+  age: function() {
+    var birthdate = this.send.profile.other.age;
+    var year = parseInt(birthdate.substr(birthdate.length - 4));
+    var currentTime = new Date();
+    var yearNow = currentTime.getFullYear();
+    return yearNow - year;
+  },
+  id: function() {
+    return this.send.profile.username;
+  },
+  value: function() {
+    return this.send.profile.data.postValue;
+  },
+  followers: function() {
+    return this.send.profile.stats.followed_by;
+  },
+  engage: function() {
+    return this.send.profile.data.engagement;
+  },
+  userInfo: function() {
+    return this.send.profile.other.gender != '' && this.send.profile.other.age != '' && this.send.profile.other.city != "" && this.send.profile.other.city != "--";;
+  },
+  rank: function() {
+    return this.send.profile.data.rank;
+  },
+  panelColor: function() {
+    var account = this.send.profile.other.account;
+    if(account == 'Personal') {
+      return 'hblue';
+    } else if(account == 'Business'){
+      return 'hred';
+    } else {
+      return 'hviolet';
+    }   
+  },
+  online: function() {
+    var user = Meteor.users.findOne(this.send._id);
+    if(user.status) {
+      return user.status.online;
+    }
+  },
+  thisUser: function() {
+    return this.send._id != Meteor.userId();
+  }
+});
+
+  Template.request.events({
+    'click #reject': function(evt, templ) {
+      evt.preventDefault();
+      Meteor.call('removeRequest', this._id);
+    },
+    'click #accept': function(evt, templ) {
+      evt.preventDefault();
+      Meteor.call('removeRequest', this._id);
+      Meteor.call('createChat', this.send, this.receive);
+    }
+  });
+
   Template.profile.helpers({
     user: function() {
       var id = Router.current().params._id;
@@ -201,6 +349,7 @@ Template.engagementGrowth.helpers({
     var id = Router.current().params._id;
     if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
     var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.engagementGrowth;
+    console.log(engagement);
     var big = engagement[engagement.length - 1]; 
     var small = engagement[0];
     return ((big - small)/small*100 ).toFixed(1);
