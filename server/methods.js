@@ -186,13 +186,32 @@ Meteor.methods({
     Chats.remove({ _id: id });
   },
   createMessage: function(id, user, text) {
-    console.log(id);
-    console.log(user);
-    console.log(text);
     Messages.insert({
       chat_id: id,
       user: user,
       text: text
     });
+  },
+  addContact: function(email, name, message) {
+    Contacts.insert({
+      email: email,
+      name: name,
+      message: message
+    });
+
+    Email.send({
+      from: "dhurls99@gmail.com",
+      to: email,
+      subject: "Thanks for inquiring about Ignition!",
+      text: "Hey " + name + ", \n\n I'll get back to you as soon as I can. Things are busy but that doesn't mean I won't forget about you."
+    });
+
+    Email.send({
+      from: "dhurls99@gmail.com",
+      to: "dhurls99@gmail.com",
+      subject: "Hot lead",
+      text: message + "\n\n This is a lead from Ignition."
+    });
+
   }
 });

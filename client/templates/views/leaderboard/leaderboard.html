@@ -97,14 +97,16 @@
             <br>
             <h5>Account Type</h5>
             <br>
-            <p><button class='btn btn-sm backBlue' style='color: white; '>Personal</button><br><br><button class='btn btn-sm backPurple' style='color: white; '>Animal</button><br><br><button class='btn btn-sm backRed' style='color: white; margin-right: 5px;'>Business</button></p>
+            <p><button id='personal' class='btn btn-sm backBlue' style='color: white; '>Personal</button><br><br><button id='animal' class='btn btn-sm backPurple' style='color: white; '>Animal</button><br><br><button id='business' class='btn btn-sm backRed' style='color: white; margin-right: 5px;'>Business</button></p>
             <br>
             <h5>Followers</h5>
             <br>
             <p>Instagrammers that have <strong>LESS</strong> then <strong>{{flow1}} followers.</strong></p>
             <input id="followingInput" type="text" name="demo1" value="{{flow2}}">
             <br>
-            {{> valueChart}}
+            {{#if currentUser}}
+                {{> valueChart}}
+            {{/if}}
             <h5>Value</h5>
             <br>
             <p>Instagrammers worth <strong>MORE</strong> then <strong>${{value}}</strong>.</p>

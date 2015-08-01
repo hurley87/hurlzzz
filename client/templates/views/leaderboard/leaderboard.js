@@ -74,12 +74,19 @@ Template.explore.events({
     evt.preventDefault();
     var newValue = parseInt($('#followingInput').val());
     Session.set('flow', newValue);
-  },
-  'click .btn': function(evt, templ) {
-    evt.preventDefault();
-    var newValue = $(evt.target).text()
-    Session.set('accountType', newValue);
   }
+  // 'click #personal':function(evt, templ) {
+  //   evt.preventDefault();
+  //   Session.set('accountType', 'Peronsal');
+  // },
+  // 'click #business':function(evt, templ) {
+  //   evt.preventDefault();
+  //   Session.set('accountType', 'Business');
+  // },
+  // 'click #animal':function(evt, templ) {
+  //   evt.preventDefault();
+  //   Session.set('accountType', 'Animal');
+  // }
 });
 
 Template.explore.helpers({
@@ -108,25 +115,32 @@ Template.leaderboard.helpers({
     return Meteor.users.find().count();
   },
   selector: function() { 
-    var myUsername = Meteor.users.findOne(Meteor.userId()).profile.username;
-    var id = Meteor.userId();
-    var requests = Requests.find({}).fetch();
-    var receivers = [];
-    for(var i=0; i < requests.length; i++) {
-      if(requests[i].send._id == id) {
-        receivers.push(requests[i].receive._id);
-      }
-      if(requests[i].receive._id == id) {
-        receivers.push(requests[i].send._id);
-      }
-    }
-    return { 
-      'profile.data.postValue' : { $gt : Session.get('value') }, 
-      'profile.stats.followed_by': { $lt : Session.get('flow') }, 
-      'profile.other.account' : { $eq : Session.get('accountType') },
-      'profile.username' : { $ne : myUsername },
-      _id: { $not : { $in : receivers }}
-    }; 
+    if(Meteor.userId()) { 
+      var myUsername = Meteor.users.findOne(Meteor.userId()).profile.username;
+      var id = Meteor.userId();
+      var requests = Requests.find({}).fetch();
+      var receivers = [];
+      for(var i=0; i < requests.length; i++) {
+        if(requests[i].send._id == id) {
+          receivers.push(requests[i].receive._id);
+        }
+        if(requests[i].receive._id == id) {
+          receivers.push(requests[i].send._id);
+        }
+      } 
+      return { 
+        'profile.data.postValue' : { $gt : Session.get('value') }, 
+        'profile.stats.followed_by': { $lt : Session.get('flow') }, 
+        // 'profile.other.account' : { $eq : Session.get('accountType') },
+        'profile.username' : { $ne : myUsername },
+        _id: { $not : { $in : receivers }}
+      };
+    } else {
+      return { 
+         'profile.data.postValue' : { $gt : Session.get('value') },
+         'profile.stats.followed_by': { $lt : Session.get('flow') }
+      }; 
+    } 
   }
 });
 
@@ -248,7 +262,7 @@ Template.activeUsers.helpers({
 });
 
 Template.valueChart.onRendered(function() {
-
+  Session.set('accountType', 'Personal');
   var lessFifty = Meteor.users.find({ 'profile.data.postValue' : { $lt: 50 }}).count(); 
   var lessHundred = Meteor.users.find({ 'profile.data.postValue' : { $lt: 100, $gt:50 }}).count();
   var lessOneFifty = Meteor.users.find({ 'profile.data.postValue' : { $lt: 150, $gt:100 }}).count();
@@ -269,6 +283,8 @@ Template.valueChart.onRendered(function() {
           }
       ]
   };
+
+  console.log(singleBarData);
 
   var ctx = document.getElementById("singleBarOptions").getContext("2d");
   var myNewChart = new Chart(ctx).Bar(singleBarData, singleBarOptions);

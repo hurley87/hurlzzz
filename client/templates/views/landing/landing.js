@@ -27,6 +27,16 @@ Template.updateUser.helpers({
     }
 });
 
+Template.contact.events({
+  'submit #create': function(evt, temp) {
+    evt.preventDefault();
+    Meteor.call('addContact', $('#email').val(), $('#name').val(), $('#message').val());
+    $('#email').val('');
+    $('#name').val('');
+    $('#message').val('');
+  }
+});
+
 Template.updateUser.events({
     'submit #update': function(evt, temp) {
         evt.preventDefault();
