@@ -6,6 +6,7 @@ Template.header.events({
     'click #logout': function(evt, temp) {
     evt.preventDefault();
       Meteor.logout();
+      localStorage.clear();
       Router.go('/');
     },
     'click #instaLogin':function(evt, temp) {
@@ -22,12 +23,16 @@ Template.header.events({
     },
     'click .reject': function(evt, templ) {
       evt.preventDefault();
+      Bert.alert('Rejected chat request from @' + this.send.profile.username + '.', 'danger');
+      Meteor.call('requestRejectedEmail', this.send, this.receive);
       Meteor.call('removeRequest', this._id);
     },
     'click .accept': function(evt, templ) {
       evt.preventDefault();
       Meteor.call('removeRequest', this._id);
       Meteor.call('createChat', this.send, this.receive);
+      Meteor.call('requestAcceptedEmail', this.send, this.receive);
+      Bert.alert('Accepted chat request from @' + this.send.profile.username + '.', 'info');
     }
 });
 

@@ -141,9 +141,8 @@ Meteor.methods({
        Email.send({
         from: "meteor.email.2014@gmail.com",
         to: user.profile.other.email,
-        subject: "Congrats, your worth more on Instagram",
-        text: "Hey " + user.profile.username + ",\n\nThanks for signing up to Ignition! My goal is to track your worth on Instagram. Learn more about the algorithm I use to calculate your worth,\n\n" 
-    + "http://instagram.mod.bz/about " + '\n\nSee how much your worth on Instagram: \n\n' + 
+        subject: "Ignition - your stats have been updated",
+        text: "Hey " + user.profile.username + ",\n\n Take a look at your updated Instagram stats, \n\n" +
         'http://instagram.mod.bz/' + user.profile.username + '\n\n Any questions? Reply to this email. \n\n Thanks!'
       });     
     }
@@ -213,5 +212,31 @@ Meteor.methods({
       text: message + "\n\n This is a lead from Ignition."
     });
 
+  },
+  requestEmail: function(send, receive) {
+    if(receive.profile.other.email) {
+      Email.send({
+        from: "dhurls99@gmail.com",
+        to: receive.profile.other.email,
+        subject: "Chat request sent from @" + send.profile.username,
+        text: "Hey " + receive.profile.username + ", \n\n Accept or reject the following chat request: \n\n http://reachignition.com/" + send.profile.username
+      });
+    }
+  },
+  requestAcceptedEmail: function(send, receive) {
+    Email.send({
+      from: "dhurls99@gmail.com",
+      to: send.profile.other.email,
+      subject: '@' + receive.profile.username + ' accepted your chat request.',
+      text: "Hey " + send.profile.username + ", \n\n  Click here to start chatting: \n\n http://reachignition.com/" + receive.profile.username
+    });
+  },
+  requestRejectedEmail: function(send, receive) {
+    Email.send({
+      from: "dhurls99@gmail.com",
+      to: send.profile.other.email,
+      subject: '@' + receive.profile.username + ' rejected your chat request.',
+      text: "Hey " + send.profile.username + ", \n\n Try sending a chat request to someone else. \n\n http://reachignition.com/explore"
+    });
   }
 });

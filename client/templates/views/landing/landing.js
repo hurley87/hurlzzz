@@ -2,7 +2,6 @@
     'click .insta': function(evt, temp) {
       evt.preventDefault();
       Meteor.loginWithInstagram(function (err, res) {
-      	console.log(res);
         if (err !== undefined) {
           console.log('sucess ' + res);
         } else {
@@ -10,6 +9,7 @@
         }
         var users = Meteor.users.find({}, { sort: { 'profile.data.postValue': -1 } }).fetch();
         Meteor.call('setRank', users);
+        Bert.alert('Almost there!', 'info');
         Router.go('/edit'); 
       });
     }
@@ -21,15 +21,14 @@ Template.updateUser.onRendered(function() {
 
 Template.updateUser.helpers({
     user: function() {
-      if(Meteor.userId()) {
-        return Meteor.users.findOne(Meteor.userId()).profile;
-      }  
+      return Meteor.users.findOne(Meteor.userId()).profile;
     }
 });
 
 Template.contact.events({
   'submit #create': function(evt, temp) {
     evt.preventDefault();
+    Bert.alert('Thanks for saying hello.', 'info');
     Meteor.call('addContact', $('#email').val(), $('#name').val(), $('#message').val());
     $('#email').val('');
     $('#name').val('');
@@ -52,6 +51,7 @@ Template.updateUser.events({
             };
         var user = Meteor.users.findOne(Meteor.userId());
         Meteor.call('updateUser', userDetails, user);
+        Bert.alert('Your so good looking. That is all.', 'info');
         Router.go('/');
     },
     'input #country': function(evt, templ) {
@@ -68,13 +68,16 @@ Template.updateUser.events({
     },
     'change #age': function(evt, templ) {
       evt.preventDefault();
-      console.log($('#age').val());
       Session.set('age', $('#age').val());
     },
     'input #account':function(evt, templ) {
       evt.preventDefault();
-      console.log($('#account').val());
       Session.set('account', $('#account').val());
+    },
+    'change #categories': function(evt, templ) {
+      evt.preventDefault();
+      var cats = $('#categories').val();
+      Session.set('cats', cats);
     }
 });
 
@@ -108,14 +111,10 @@ Template.instaWorth.helpers({
     }
   },
   user: function() {
-    var id = Router.current().params._id;
-    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-    return Meteor.users.findOne({ 'profile.username' : id }).profile;
+    return Meteor.users.findOne(Meteor.userId()).profile;
   },
   thisUser: function() {
-    var thisId = Router.current().params._id;
-    if(!thisId) { thisId = Meteor.users.findOne(Meteor.userId()).profile.username}
-    var myId = Meteor.users.findOne({ 'profile.username' : id }).profile.username;
+    var account = Meteor.users.findOne(Meteor.userId()).profile.other.account;
     return thisId == myId;
   },
   color: function() {
@@ -126,12 +125,46 @@ Template.instaWorth.helpers({
     } else {
       return 'hviolet'
     }
-  }  
+  },
+    backColor: function() {
+      var currentAccount = Session.get('accountType');
+      if(currentAccount) {
+        if(currentAccount == 'Business') {
+          return 'backRed';
+        } else if(account == 'Personal'){
+          return 'backBlue';
+        } else {
+          return 'backPurple';
+        } 
+      } else {
+        var account = Meteor.users.findOne(Meteor.userId()).profile.other.account;
+        if(account == 'Business') {
+          return 'backRed';
+        } else if(account == 'Personal'){
+          return 'backBlue';
+        } else {
+          return 'backPurple';
+        }
+      }
+    },
+    type: function() {
+      var account = Meteor.users.findOne(Meteor.userId()).profile.other.account;
+      if(account == 'Business') {
+        return 'Business';
+      } else if(account == 'Personal'){
+        return 'Personal';
+      } else {
+        return 'Animal';
+      }   
+    },
+    cats: function() {
+      return Session.get('cats');
+    }  
 });
 
 Template.instaWorth.onRendered(function() {
   if(Meteor.userId()){
-    var account = Meteor.users.findOne({ _id : Meteor.userId() }).profile.other.account;
+    var account = Meteor.users.findOne(Meteor.userId()).profile.other.account;
     if(account == 'Personal') {
       Session.set('account', 'Personal');
     } else if(account == 'Business') {

@@ -20,7 +20,11 @@
       </div>
     </div>
     <div class='landerNav'>
-      <img src="logo.png">
+      <a href="/"><img src="logo.png"></a>
+<!--       <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/faq">FAQ</a></li>
+      </ul> -->
     </div>
   </div>
   <div class='content'>
@@ -101,22 +105,11 @@
     <div class="form-group"><label class="col-sm-2 control-label">Email</label>
         <div class="col-sm-10"><input id='email' type="email" value='{{user.other.email}}' class="form-control" required></div>
     </div>
-    <div class="form-group"><label class="col-sm-2 control-label">Age</label>
-        <div class="col-sm-10"><input id='age' type="number" name="age" min="15" max="45" value="{{user.other.age}}" class="form-control"></div>
-    </div> 
     <div class="form-group"><label class="col-sm-2 control-label">City</label>
         <div class="col-sm-10"><input id='city' type="text"  value='{{user.other.city}}' class="form-control"></div>
     </div> 
     <div class="form-group"><label class="col-sm-2 control-label">Country</label>
         <div class="col-sm-10"><input id='country' type="text" value='{{user.other.country}}' class="form-control"></div>
-    </div>
-    <div class="form-group"><label class="col-sm-2 control-label">Gender</label>
-        <div class="col-sm-10">
-          <select id='gender' class="form-control" value='{{user.other.gender}}' name="account">
-            <option>male</option>
-            <option>female</option>
-          </select>
-        </div>
     </div>
     <div class="form-group"><label class="col-sm-2 control-label">Account</label>
         <div class="col-sm-10">
@@ -172,7 +165,7 @@
 
 <template name='instaWorth'>
       <div class="hpanel {{color}}">
-          <div class="panel-body tour1">
+          <div class="panel-body">
               <div class="pull-right text-right">
                 <small>Your Instagram is worth</small>
                 <h1 class='font-extra-bold text-success value-text'>${{user.data.postValue}}</h1>
@@ -180,14 +173,21 @@
     
               </div>
               <img alt="logo" class="img-circle m-b" src="{{user.profile_picture}}">
-              <h3><a href="">{{user.full_name}}</a></h3>
+              <h3><a href="">{{user.username}}</a></h3>
               <div class="text-muted font-bold m-b-xs"></div>
               <p>
                  {{user.bio}}
               </p>
+              <p> 
+                {{#each cats}}
+                  <strong>#{{this}}&nbsp;</strong>
+                {{/each}}
+              </p>
           </div>
-          <div class="panel-body tour7">
-            <p>A {{age}} year old {{gender}} living in {{city}}, {{country}}.</p>
+          <div class="panel-body">
+            {{#if city}}
+            <p>{{city}}, {{country}}</p>
+            {{/if}}
           </div>
           <div class="panel-footer contact-footer">
               <div class="row tour2">
@@ -203,4 +203,16 @@
               </div>
           </div>
       </div>
-</template>   
+</template>  
+
+<template name='foot'>
+  <div class='row container'>
+    <div class='col-lg-6'>Ignition 2015</div>
+    <div class='col-lg-6'>
+      <ul class='pull-right nav navbar-nav'>
+        <li><a href="/about">About</a></li>
+        <li><a href="/faq">FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+</template> 

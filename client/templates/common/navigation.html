@@ -18,6 +18,12 @@
                 <li>
                     <a href="/explore"><span class="nav-label">Explore</span></a>
                 </li>
+                <li>
+                    <a href='/requests'> <span class="nav-label">Requests</span> <span class='label label-success'>{{requestCount}}</span></a>
+                </li>
+                <li>
+                    <a href="/chats"><span class="nav-label">Chats</span> <span class='label label-success'>{{chatCount}}</span></a>
+                </li>
                 {{/if}}
                 <li>
                     <a href="{{pathFor route='about'}}"> <span class="nav-label">About</span></a>

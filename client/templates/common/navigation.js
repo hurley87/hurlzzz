@@ -23,3 +23,19 @@ Template.navigation.events({
     }
 
 });
+
+Template.navigation.helpers({
+    requestCount: function() {
+    var count = Requests.find({
+      'receive._id' : Meteor.userId()
+    }).count();
+
+    return count;
+  },
+  chatCount: function() {
+    var count = Chats.find({
+      $or: [{'thisUser._id' : Meteor.userId()}, {'thatUser._id' : Meteor.userId()}]
+    }).count();
+    return count;
+  }
+})

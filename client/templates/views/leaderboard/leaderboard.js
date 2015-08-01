@@ -50,8 +50,24 @@ Template.userDescription.helpers({
       return user.status.online;
     }
   },
-  thisUser: function() {
-    return this._id != Meteor.userId();
+  showRequest: function() {
+    var chats =  Chats.find({}).fetch();
+    console.log(chats);
+    var inChat = false;
+    for (var i=0; i < chats.length; i++) {
+      
+      if(chats[i].thisUser._id == this._id && chats[i].thatUser._id == Meteor.userId()) {
+        inChat = true;
+      }
+      if(chats[i].thatUser._id == this._id && chats[i].thisUser._id == Meteor.userId()) {
+        inChat = true;
+      }
+    }
+    if(inChat) {
+      return false;
+    } else {
+      return this._id != Meteor.userId();
+    }
   }
 });
 
@@ -60,7 +76,9 @@ Template.userDescription.events({
     evt.preventDefault();
     var receive = Meteor.users.findOne(this._id);
     var send = Meteor.users.findOne(Meteor.userId());
+    Meteor.call('requestEmail', send, receive);
     Meteor.call('sendRequest', send, receive);
+    Bert.alert('Chat request sent to @' + receive.profile.username, 'info');
   }
 });
 
@@ -120,6 +138,7 @@ Template.leaderboard.helpers({
       var id = Meteor.userId();
       var requests = Requests.find({}).fetch();
       var receivers = [];
+
       for(var i=0; i < requests.length; i++) {
         if(requests[i].send._id == id) {
           receivers.push(requests[i].receive._id);
@@ -128,6 +147,7 @@ Template.leaderboard.helpers({
           receivers.push(requests[i].send._id);
         }
       } 
+
       return { 
         'profile.data.postValue' : { $gt : Session.get('value') }, 
         'profile.stats.followed_by': { $lt : Session.get('flow') }, 
@@ -155,6 +175,7 @@ Template.leaderboard.events({
         }
         var users = Meteor.users.find({}, { sort: { 'profile.data.postValue': -1 } }).fetch();
         Meteor.call('setRank', users);
+        Bert.alert('Welcome! Have a nice day.', 'info');
         Router.go('/edit'); 
       });
   }

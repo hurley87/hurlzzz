@@ -24,7 +24,10 @@ Router.route('/updateUsers', {
 
 Router.route('/edit', {
   template: 'edit',
-  loadingTemplate: 'loading'
+  loadingTemplate: 'loading',
+  subscriptions: function() {
+    this.subscribe('allLeaderboardUsers');
+  }
 });
 
 
@@ -38,6 +41,27 @@ Router.route('/explore', {
     this.subscribe('messages');
   }
 });
+
+Router.route('/requests', {
+  template: 'requests',
+  loadingTemplate: 'loading',
+  subscriptions: function() {
+    this.subscribe('allLeaderboardUsers');
+    this.subscribe('requests');
+  }
+});
+
+Router.route('/chats', {
+  template: 'chats',
+  loadingTemplate: 'loading',
+  subscriptions: function() {
+    this.subscribe('allLeaderboardUsers');
+    this.subscribe('requests');
+    this.subscribe('chats');
+    this.subscribe('messages');
+  }
+});
+
 
 Router.route('/faq', function () {
     this.render('faq');

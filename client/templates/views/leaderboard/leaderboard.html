@@ -6,7 +6,7 @@
                 {{else}}
                 <div id='signMeUp' class="hpanel hbggreen contact-panel" >
                     <div class="panel-body text-center">
-                        <h3 class='font-light'>Sign Up</h3>
+                        <h3 class='font-light'>Login with Instagram</h3>
                     </div>
                 </div>               
                 {{/if}}               
@@ -16,7 +16,18 @@
                 <div class='row'> 
                     <div class='hpanel'>
                         <div class='panel-body'>
-                        <p>Search by handle or location.</p>                            
+                        <div class='row m-t-sm'>
+                            <div class='col-lg-4 text-center'>
+                                <button id='personal' class='btn btn-sm backBlue' style='color: white; '>Personal</button>
+                            </div>
+                            <div class='col-lg-4 text-center'>
+                                <button id='animal' class='btn btn-sm backPurple' style='color: white; '>Animal</button>
+                            </div>
+                            <div class='col-lg-4 text-center'>
+                                <button id='business' class='btn btn-sm backRed' style='color: white; margin-right: 5px;'>Business</button>
+                            </div>
+                        </div>
+                        <p class='m-t-lg'>Search by handle or location.</p>                        
                         {{> tabular table=TabularTables.Users selector=selector }}
                         </div> 
                     </div> 
@@ -30,8 +41,8 @@
                     {{> recentlyAdded}}   
                     <br>
                     {{> topAccounts}}
-                    <br>
-                    {{> featuredAccounts}}
+<!--                     <br>
+                    {{> featuredAccounts}} -->
                     </div>
                 </div>
             </div>
@@ -75,7 +86,7 @@
                         <div class='col-lg-5 col-md-12 col-sm-12' style='line-height: 35px;'>
                             <div class='pull-right'>
                             {{#if currentUser}}    
-                                {{#if thisUser}}
+                                {{#if showRequest}}
                                 <button class='btn btn-success btn-sm request'>Request Chat</button>
                                 {{/if}}
                             {{else}}
@@ -93,11 +104,7 @@
 <template name='explore'>
     <div class="hpanel hblue">
         <div class="panel-body">
-            <h1>Explore</h1>
-            <br>
-            <h5>Account Type</h5>
-            <br>
-            <p><button id='personal' class='btn btn-sm backBlue' style='color: white; '>Personal</button><br><br><button id='animal' class='btn btn-sm backPurple' style='color: white; '>Animal</button><br><br><button id='business' class='btn btn-sm backRed' style='color: white; margin-right: 5px;'>Business</button></p>
+            <h3>Filters</h3>
             <br>
             <h5>Followers</h5>
             <br>

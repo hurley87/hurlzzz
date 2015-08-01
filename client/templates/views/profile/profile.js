@@ -1,7 +1,6 @@
   
   Template.chats.helpers({
     chats: function() {
-      var user = Meteor.users.findOne(Meteor.userId());
       var chats = Chats.find({
         $or: [{'thisUser._id' : Meteor.userId()}, {'thatUser._id' : Meteor.userId()}]
       },
@@ -9,6 +8,15 @@
         createdAt : -1
       }).fetch();
       return chats;
+    },
+    chatCount: function() {
+      var count = Chats.find({
+        $or: [{'thisUser._id' : Meteor.userId()}, {'thatUser._id' : Meteor.userId()}]
+      },
+      {
+        createdAt : -1
+      }).count();
+      return count < 1;
     }
   }); 
 
@@ -30,6 +38,15 @@
         createdAt: -1
       });
       return messages;
+    },
+    time: function() {
+      return moment(this.createdAt).format("MM-DD-YYYY HH:mm");
+    },
+    ago: function() {
+      return moment(this.createdAt).fromNow()
+    },
+    chatsCount: function() {
+
     }
   });
 
@@ -67,14 +84,17 @@
       return count < 1;
     },
     'click #reject': function(evt, templ) {
-      evt.preventDefault();
-      console.log(this._id);
+      evt.preventDefault(); 
+      Bert.alert('You rejected @' + this.send.profile.username + '\'s chat request.', 'danger');
+      Meteor.call('requestRejectedEmail', this.send, this.receive);
       Meteor.call('removeRequest', this._id);
     },
     'click #accept': function(evt, templ) {
       evt.preventDefault();
+      Bert.alert('You accepted @' + this.send.profile.username + '\'s chat request.', 'info');
       Meteor.call('removeRequest', this._id);
-      
+      Meteor.call('createChat', this.send, this.receive);
+      Meteor.call('requestAcceptedEmail', this.send, this.receive);
     }
   });  
 
@@ -137,11 +157,13 @@ Template.request.helpers({
   Template.request.events({
     'click #reject': function(evt, templ) {
       evt.preventDefault();
+      Bert.alert('You rejected @' + this.send.profile.username + '\'s chat request.', 'danger');
       Meteor.call('removeRequest', this._id);
     },
     'click #accept': function(evt, templ) {
       evt.preventDefault();
       Meteor.call('removeRequest', this._id);
+      Bert.alert('You accepted @' + this.send.profile.username + '\'s chat request.', 'info');
       Meteor.call('createChat', this.send, this.receive);
     }
   });
@@ -256,6 +278,12 @@ Template.request.helpers({
       } else {
         return 'Animal';
       }   
+    },
+    growth: function() {
+      var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      var length = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth.length;
+      return length > 1
     }
   });
 
