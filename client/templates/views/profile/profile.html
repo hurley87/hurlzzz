@@ -1,11 +1,7 @@
 <template name='dashboard'>
     {{#if currentUser }}
-    <div class='content'>
       {{> profile}}
-    </div>  
     {{else}}
-      {{> head}}
-      {{> nav}}
       {{> hey}}
     {{/if}}
 </template>
@@ -15,7 +11,8 @@
 </template> 
 
 <template name='profile'>
-    <div class='row m-t-xl'>
+  <div class='content'>
+    <div class='row m-t-xs'>
       <div class='col-md-3'>
         {{#if currentUser}}
         {{else}}
@@ -38,7 +35,8 @@
       <div class='col-md-3'>
         {{> analytics}}
       </div>
-    </div>  
+    </div> 
+  </div>   
 </template>
 
 <template name='requests'>
