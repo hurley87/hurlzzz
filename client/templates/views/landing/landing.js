@@ -28,8 +28,16 @@ Template.updateUser.helpers({
 Template.contact.events({
   'submit #create': function(evt, temp) {
     evt.preventDefault();
+    var email = $('#email').val();
+    var message = $('#message').val();
+    var name = $('#name').val();
     Bert.alert('Thanks for saying hello.', 'info');
-    Meteor.call('addContact', $('#email').val(), $('#name').val(), $('#message').val());
+    analytics.track('Hot Lead', {
+      email: email,
+      message: message,
+      name: name
+    });
+    Meteor.call('addContact', email, name, message);
     $('#email').val('');
     $('#name').val('');
     $('#message').val('');
@@ -51,7 +59,11 @@ Template.updateUser.events({
             };
         var user = Meteor.users.findOne(Meteor.userId());
         Meteor.call('updateUser', userDetails, user);
-        Bert.alert('Your so good looking. That is all.', 'info');
+        analytics.track('Update', {
+          userDetails: userDetails,
+          name: user.profile.username
+        });
+        Bert.alert('Your soo good looking! Try requesting a chat with someone.', 'info');
         Router.go('/');
     },
     'input #country': function(evt, templ) {

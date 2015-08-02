@@ -53,12 +53,20 @@
   Template.chat.events({
     'click .stopChat': function(evt, templ) {
       Meteor.call('removeChat', this._id);
+      analytics.track('End Chat', {
+        chat: this,
+        user: Meteor.users.findOne(Meteor.userId())
+      });
     },
     'keypress #sendChat': function(evt, templ) {
       var user = Meteor.users.findOne(Meteor.userId());
       var text = $('#sendChat').val();
       if(evt.which == 13) {
         Meteor.call('createMessage', this._id, user, text);
+        analytics.track('End Chat', {
+          chat: this,
+          user: Meteor.users.findOne(Meteor.userId())
+        });
         $('#sendChat').val('');
       }
     }
@@ -88,6 +96,11 @@
       Bert.alert('You rejected @' + this.send.profile.username + '\'s chat request.', 'danger');
       Meteor.call('requestRejectedEmail', this.send, this.receive);
       Meteor.call('removeRequest', this._id);
+      analytics.track('Reject Request', {
+        send: send,
+        receive: receive,
+        user: Meteor.users.findOne(Meteor.userId())
+      });
     },
     'click #accept': function(evt, templ) {
       evt.preventDefault();
@@ -95,6 +108,11 @@
       Meteor.call('removeRequest', this._id);
       Meteor.call('createChat', this.send, this.receive);
       Meteor.call('requestAcceptedEmail', this.send, this.receive);
+      analytics.track('Chat Start', {
+        send: send,
+        receive: receive,
+        user: Meteor.users.findOne(Meteor.userId())
+      });
     }
   });  
 
@@ -159,12 +177,22 @@ Template.request.helpers({
       evt.preventDefault();
       Bert.alert('You rejected @' + this.send.profile.username + '\'s chat request.', 'danger');
       Meteor.call('removeRequest', this._id);
+      analytics.track('Accept Request', {
+        send: send,
+        receive: receive,
+        user: Meteor.users.findOne(Meteor.userId())
+      });
     },
     'click #accept': function(evt, templ) {
       evt.preventDefault();
       Meteor.call('removeRequest', this._id);
       Bert.alert('You accepted @' + this.send.profile.username + '\'s chat request.', 'info');
       Meteor.call('createChat', this.send, this.receive);
+      analytics.track('Chat Start', {
+        send: send,
+        receive: receive,
+        user: Meteor.users.findOne(Meteor.userId())
+      });
     }
   });
 
@@ -178,6 +206,12 @@ Template.request.helpers({
       var id = Router.current().params._id;
       if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
       return Meteor.users.findOne({ 'profile.username' : id }).profile.stats;
+    },
+    growth: function() {
+      var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+      var length = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth.length;
+      return length > 1
     }
   });
 
@@ -279,11 +313,11 @@ Template.request.helpers({
         return 'Animal';
       }   
     },
-    growth: function() {
+    joined: function() {
       var id = Router.current().params._id;
       if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      var length = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth.length;
-      return length > 1
+      var createdAt = Meteor.users.findOne({ 'profile.username' : id }).createdAt;
+      return moment(createdAt).fromNow();
     }
   });
 
@@ -636,3 +670,5 @@ Template.valueGrowth.onRendered(function() {
     top: '300px', // Top position relative to parent in px
     left: '50%' // Left position relative to parent in px
 };
+
+Bert.defaults.hideDelay = 1500;

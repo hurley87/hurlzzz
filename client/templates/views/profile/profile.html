@@ -1,7 +1,11 @@
 <template name='dashboard'>
     {{#if currentUser }}
+    <div class='content'>
       {{> profile}}
+    </div>  
     {{else}}
+      {{> head}}
+      {{> nav}}
       {{> hey}}
     {{/if}}
 </template>
@@ -11,9 +15,8 @@
 </template> 
 
 <template name='profile'>
-  <div class='content'>
-    <div class='row'>
-      <div class='col-lg-3 col-md-3'>
+    <div class='row m-t-xl'>
+      <div class='col-md-3'>
         {{#if currentUser}}
         {{else}}
         <div id='signMeUp' class="hpanel hbggreen contact-panel" >
@@ -24,28 +27,29 @@
         {{/if}}
         {{> myStats}}
       </div>
-      <div class='col-lg-6 col-md-6 col-sm-6'>
+      <div class='col-md-6'>
         <div class='row'>
-          <div>{{> requests}}</div>
-          <div>{{> chats}}</div>
-        </div>
+          {{> requests}}
+        </div>  
+        <div class='row'>
+          {{> chats}}
+        </div> 
       </div>
-      <div class='col-lg-3 col-md-3 col-sm-3'>
+      <div class='col-md-3'>
         {{> analytics}}
       </div>
     </div>  
-  </div>
 </template>
 
 <template name='requests'>
-  {{#panel panelClass="stats tour5" color="hblue"}}
-  <div class="stats-title">
-      <h4><a href="/faq">Requests <i class="fa fa-question-circle"></i></a></h4>
+<div class='hpanel hblue'>
+    <div class='panel-body'>
+      <h5><a href="/faq">Requests <i class="fa fa-question-circle"></i></a></h5>
+      <br>
       {{#if noRequests}}
         <p>You have 0 chat requests. No big deal, just search and request a chat from someone else.</p>
+        <p><a href="/search"><button class='btn btn-success btn-outline'>Search</button></a></p>
       {{/if}}
-      <p><a href="/explore"><button class='btn btn-success btn-outline'>Search</button></a></p>
-  </div>
     <div class='row'>
     {{#each requests}}
       <div class='col-lg-12'>
@@ -53,7 +57,8 @@
       </div>
     {{/each}}
     </div>
-  {{/panel}}
+  </div>
+</div>  
 </template>  
 
 <template name='request'>
@@ -74,7 +79,7 @@
                                   {{else}}
                                   <span class='label backRed' style='position: relative; bottom: 3px;'>Offline</span>
                                   {{/if}}
-                                  <strong>@{{handle}}</strong> <br>
+                                  <strong>@{{handle}}</strong>
                                   {{#if userInfo}}
                                       <small>{{user.city}}, {{user.country}}</small>
                                   {{/if}}
@@ -104,6 +109,7 @@
   {{#panel panelClass="stats tour5" color="hblue"}}
       <div class="stats-title">
         <h4><a href="/faq">Chats <i class="fa fa-question-circle"></i></a></h4>
+        <br>
         {{#if chatCount}}
         <p>You have 0 chats. You know what to do. </p>
         {{/if}}
@@ -175,12 +181,12 @@
               </div>
               <img alt="logo" height='100' width='100' class="img-circle m-b" src="{{user.profile_picture}}">
               <h5><span class='label {{backColor}}'>{{type}}</span></h5>
-              <h3><a href="">{{user.full_name}}</a> </h3>
-
+              <h5><small>Joined {{joined}}</small></h5>
+              <h3><a href="">{{user.full_name}}</a></h3>
               <div class="text-muted font-bold m-b-xs"></div>
               <p>
                  {{user.bio}}
-              </p>
+              </p> 
               <p>
                 {{#each user.other.categories}}
                   <strong>#{{this}} </strong>
@@ -319,17 +325,19 @@
                     <div class="flot-chart-content" id="flot-line-chart"></div>
                 </div>
             </div>
-              <div class="col-md-6 text-center">
+        </div> 
+        <div class='row'>   
+              <div class="col-sm-6 text-center">
                 <div>
                     <h1 class="{{textColor}}"><i class="fa fa-heart-o"></i></h1>
                     <h1 class="{{textColor}}">
                         {{user.data.avgLikes}}
                     </h1>
                     <small><a href="/faq">Expected likes <i class="fa fa-question-circle"></i></a></small>
-                    <h4 class='{{textColor}}'>+/- {{user.data.likesConsist}}</h4>
+                    <h4 class='{{textColor}}'> {{user.data.likesConsist}} <small>SD</small></h4>
                 </div>
             </div>
-            <div class="col-md-6 text-center">
+            <div class="col-sm-6 text-center">
                 <div>
                   <h1 class="{{textColor}}"><i class="fa fa-comment-o"></i></h1>
                   <h1 class="{{textColor}}">
@@ -337,7 +345,7 @@
                   </h1>
                   <small><a href="/faq">Expected comments <i class="fa fa-question-circle"></i></a></small>
                   <h4 class="{{textColor}}">
-                    +/- {{user.data.commentsConsist}}
+                     {{user.data.commentsConsist}} <small>SD</small>
                   </h4>
                 </div>
             </div>

@@ -31,7 +31,7 @@ Router.route('/edit', {
 });
 
 
-Router.route('/explore', {
+Router.route('/search', {
   template: 'leaderboard',
   loadingTemplate: 'loading',
   subscriptions: function() {

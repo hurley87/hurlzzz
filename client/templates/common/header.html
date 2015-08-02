@@ -7,23 +7,16 @@
                <p style='padding-top: 5px; padding-left: 10px;'><a href="/"> <img src="/logo.png" height='50'></a></p>
             </div>            
             <div class="navbar-right tool-tip">
-                <a href="/explore" style='line-height: 52px; margin-right: 10px;' class='pull-left'><span class='btn btn-success'>Search</span></a>
+                {{#if search}}
+                <a href="/" style='line-height: 52px; margin-right: 10px;' class='pull-left'><span class='btn btn-success'>Profile</span></a>              {{else}}
+                <a href="/search" style='line-height: 52px; margin-right: 10px;' class='pull-left'><span class='btn btn-success'>Search</span></a>
+                {{/if}}
                 <ul class="nav navbar-nav no-borders">
                     <li>
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                             <i class="pe-7s-user"></i>
                         </a>
                         <ul class="dropdown-menu hdropdown notification animated flipInX">
-                            <li>
-                                <a href='/'>
-                                     Dashboard
-                                </a>
-                            </li>  
-                            <li>
-                                <a href='/explore'>
-                                     Explore
-                                </a>
-                            </li>
                             <li>
                                 <a href='/edit'>
                                      Edit Profile

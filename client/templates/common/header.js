@@ -23,7 +23,7 @@ Template.header.events({
     },
     'click .reject': function(evt, templ) {
       evt.preventDefault();
-      Bert.alert('Rejected chat request from @' + this.send.profile.username + '.', 'danger');
+      Bert.alert('Rejected chat request from @' + this.send.profile.username + '.', 'danger', 'growl-top-right');
       Meteor.call('requestRejectedEmail', this.send, this.receive);
       Meteor.call('removeRequest', this._id);
     },
@@ -32,7 +32,7 @@ Template.header.events({
       Meteor.call('removeRequest', this._id);
       Meteor.call('createChat', this.send, this.receive);
       Meteor.call('requestAcceptedEmail', this.send, this.receive);
-      Bert.alert('Accepted chat request from @' + this.send.profile.username + '.', 'info');
+      Bert.alert('Accepted chat request from @' + this.send.profile.username + '.', 'info', 'growl-top-right');
     }
 });
 
@@ -82,6 +82,11 @@ Template.header.helpers({
       $or: [{'thisUser._id' : Meteor.userId()}, {'thatUser._id' : Meteor.userId()}]
     }).count();
     return count < 1;
+  },
+  search: function() {
+    var search = Router.current().route.path();
+    console.log(search);
+    return search == '/search';
   }
 });
 

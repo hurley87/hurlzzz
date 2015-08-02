@@ -14,14 +14,9 @@ Template.navigation.onRendered(function() {
 });
 
 Template.navigation.events({
-
-    // Colapse menu in mobile mode after click on element
-    'click #side-menu a:not([href$="\\#"])': function(){
-        if ($(window).width() < 769) {
-            $("body").toggleClass("show-sidebar");
-        }
+    'click #side-menu a': function(evt, templ){
+        $("body").addClass("hide-sidebar");
     }
-
 });
 
 Template.navigation.helpers({

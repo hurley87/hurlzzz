@@ -78,6 +78,10 @@ Template.userDescription.events({
     var send = Meteor.users.findOne(Meteor.userId());
     Meteor.call('requestEmail', send, receive);
     Meteor.call('sendRequest', send, receive);
+    analytics.track('Request', {
+      send: send,
+      receive: receive
+    });
     Bert.alert('Chat request sent to @' + receive.profile.username, 'info');
   }
 });
@@ -93,18 +97,6 @@ Template.explore.events({
     var newValue = parseInt($('#followingInput').val());
     Session.set('flow', newValue);
   }
-  // 'click #personal':function(evt, templ) {
-  //   evt.preventDefault();
-  //   Session.set('accountType', 'Peronsal');
-  // },
-  // 'click #business':function(evt, templ) {
-  //   evt.preventDefault();
-  //   Session.set('accountType', 'Business');
-  // },
-  // 'click #animal':function(evt, templ) {
-  //   evt.preventDefault();
-  //   Session.set('accountType', 'Animal');
-  // }
 });
 
 Template.explore.helpers({
@@ -151,7 +143,6 @@ Template.leaderboard.helpers({
       return { 
         'profile.data.postValue' : { $gt : Session.get('value') }, 
         'profile.stats.followed_by': { $lt : Session.get('flow') }, 
-        // 'profile.other.account' : { $eq : Session.get('accountType') },
         'profile.username' : { $ne : myUsername },
         _id: { $not : { $in : receivers }}
       };

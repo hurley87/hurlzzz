@@ -1,49 +1,41 @@
 <template name='leaderboard'>
-	<div class="content">
-        <div class="row">
-            <div class='col-lg-3 col-md-3 col-sm-3 clearfix'>
-                {{#if currentUser}}
-                {{else}}
-                <div id='signMeUp' class="hpanel hbggreen contact-panel" >
-                    <div class="panel-body text-center">
-                        <h3 class='font-light'>Login with Instagram</h3>
-                    </div>
-                </div>               
-                {{/if}}               
-                {{> explore}}
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6">   
+
+    <div class="row m-t-xl">
+        <div class='col-md-3'>
+            {{#if currentUser}}
+            {{else}}
+            <div id='signMeUp' class="hpanel hbggreen contact-panel" >
+                <div class="panel-body text-center">
+                    <h3 class='font-light'>Login with Instagram</h3>
+                </div>
+            </div>               
+            {{/if}}
+            <div class='hpanel hblue'>
+                <div class='panel-body'>
+                    {{> activeUsers}} 
+                    <br>
+                    {{> featuredAccounts}}
+                </div>
+            </div>                               
+        </div>
+        <div class="col-md-6"> 
                 <div class='row'> 
-                    <div class='hpanel'>
+                    <div class='hpanel hblue'>
                         <div class='panel-body'>
-<!--                         <div class='row m-t-sm'>
-                            <div class='col-lg-4 text-center'>
-                                <button id='personal' class='btn btn-sm backBlue' style='color: white; '>Personal</button>
-                            </div>
-                            <div class='col-lg-4 text-center'>
-                                <button id='animal' class='btn btn-sm backPurple' style='color: white; '>Animal</button>
-                            </div>
-                            <div class='col-lg-4 text-center'>
-                                <button id='business' class='btn btn-sm backRed' style='color: white; margin-right: 5px;'>Business</button>
-                            </div>
-                        </div> -->
-                        <p class='m-t-lg'>Search by handle or location.</p>                        
-                        {{> tabular table=TabularTables.Users selector=selector }}
+                            {{> explore}}
+                            <h5 class='m-t-lg'>Search<small> by handle or location</small></h5> 
+                            <br>                       
+                             {{> tabular table=TabularTables.Users selector=selector }}
                         </div> 
                     </div> 
                 </div>
-            </div>
-            <div class='col-lg-3'>
-                <div class="hpanel hblue">
-                    <div class="panel-body">
-                    {{> activeUsers}} 
-                    <br>
-                    {{> recentlyAdded}}   
-                    <br>
-                    {{> topAccounts}}
-<!--                     <br>
-                    {{> featuredAccounts}} -->
-                    </div>
+        </div>
+        <div class='col-md-3'>
+            <div class="hpanel hblue">
+                <div class="panel-body">
+                {{> recentlyAdded}}   
+                <br>
+                {{> topAccounts}}
                 </div>
             </div>
         </div>
@@ -76,7 +68,7 @@
                                     {{else}}
                                     <span class='label backRed' style='position: relative; bottom: 3px;'>Offline</span>
                                     {{/if}}
-                                    <strong>@{{handle}}</strong> <br>
+                                    <strong>@{{handle}}</strong>
                                     {{#if userInfo}}
                                         <small>{{user.city}}, {{user.country}}</small>
                                     {{/if}}
@@ -102,28 +94,24 @@
 </template>  
 
 <template name='explore'>
-    <div class="hpanel hblue">
-        <div class="panel-body">
-            <h3>Filters</h3>
-            <br>
-            <h5>Followers</h5>
-            <br>
-            <p>Instagrammers that have <strong>LESS</strong> then <strong>{{flow1}} followers.</strong></p>
-            <input id="followingInput" type="text" name="demo1" value="{{flow2}}">
-            <br>
-            {{#if currentUser}}
-                {{> valueChart}}
-            {{/if}}
+    <div class='row'>
+        <div class='col-md-6'>
             <h5>Value</h5>
             <br>
-            <p>Instagrammers worth <strong>MORE</strong> then <strong>${{value}}</strong>.</p>
             <input id="valueInput" type="text" name="demo1" value="{{value}}">
+            <p>Worth <strong>MORE</strong> then <strong>${{value}}</strong>.</p>
         </div>
-    </div>    
+        <div class='col-md-6'>
+            <h5>Followers</h5>
+            <br>
+            <input id="followingInput" type="text" name="demo1" value="{{flow2}}">
+            <p>Has <strong>LESS</strong> then <strong>{{flow1}} followers.</strong></p>
+        </div>
+    </div>   
 </template> 
 
 <template name='activeUsers'>
-    <h5>Currently Online</h5>
+    <h5>Online</h5>
     <br>
     <div class='row'>
         {{#each users}}
