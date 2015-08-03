@@ -184,11 +184,12 @@ Meteor.methods({
   removeChat: function(id) {
     Chats.remove({ _id: id });
   },
-  createMessage: function(id, user, text) {
+  createMessage: function(id, user, text, createdAt) {
     Messages.insert({
       chat_id: id,
       user: user,
-      text: text
+      text: text,
+      createdAt: createdAt
     });
   },
   addContact: function(email, name, message) {

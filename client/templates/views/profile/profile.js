@@ -35,7 +35,9 @@
         chat_id: id
       },
       {
-        createdAt: -1
+        sort: {
+          createdAt: -1
+        }
       });
       return messages;
     },
@@ -43,7 +45,7 @@
       return moment(this.createdAt).format("MM-DD-YYYY HH:mm");
     },
     ago: function() {
-      return moment(this.createdAt).fromNow()
+      return moment(this.createdAt).fromNow();
     },
     chatsCount: function() {
 
@@ -61,14 +63,26 @@
     'keypress #sendChat': function(evt, templ) {
       var user = Meteor.users.findOne(Meteor.userId());
       var text = $('#sendChat').val();
+      var createdAt = new Date();
       if(evt.which == 13) {
-        Meteor.call('createMessage', this._id, user, text);
-        analytics.track('End Chat', {
+        Meteor.call('createMessage', this._id, user, text, createdAt);
+        analytics.track('Send Message', {
           chat: this,
           user: Meteor.users.findOne(Meteor.userId())
         });
         $('#sendChat').val('');
       }
+    },
+    'click #sendbtn': function(evt, templ) {
+      var user = Meteor.users.findOne(Meteor.userId());
+      var text = $('#sendChat').val();
+      var createdAt = new Date();
+      Meteor.call('createMessage', this._id, user, text, createdAt);
+      analytics.track('Send Message', {
+        chat: this,
+        user: Meteor.users.findOne(Meteor.userId())
+      });
+      $('#sendChat').val('');
     }
   })
 
@@ -219,7 +233,6 @@ Template.request.helpers({
     'click #signMeUp': function(evt, temp) {
         evt.preventDefault();
         Meteor.loginWithInstagram(function (err, res) {
-          console.log(res);
           if (err !== undefined) {
             console.log('sucess ' + res);
           } else {
@@ -411,7 +424,6 @@ Template.engagementGrowth.helpers({
     var id = Router.current().params._id;
     if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
     var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.engagementGrowth;
-    console.log(engagement);
     var big = engagement[engagement.length - 1]; 
     var small = engagement[0];
     return ((big - small)/small*100 ).toFixed(1);

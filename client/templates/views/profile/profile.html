@@ -144,25 +144,28 @@
               {{thisUser.profile.bio}}
           </div>
       </div>
-      <div class="panel-footer">
-        {{#each messages}}
-        <div class="social-talk">
-            <div class="media social-profile clearfix">
-                <a class="pull-left">
-                    <img src="{{user.profile.profile_picture}}" alt="profile-picture">
-                </a>
-                <div class="media-body">
-                    <span class="font-bold">{{user.profile.username}}</span>
-                    <small class="text-muted">{{ago}}</small>
-                    <div class="social-content">
-                        {{text}}
-                    </div>
-                </div>
-            </div>
+      <div class="panel-footer" >
+        <div class="social-form clearfix m-b-sm">
+              <input style='width: 80%; float: left; margin-right: 5px;' id='sendChat' class="form-control" placeholder="Your message">
+              <button id='sendbtn' style='min-width: 0px; min-width: 0px; height: 33px;' class='btn btn-success btn-sm '>Send</button>
         </div>
+        <div  style='max-height: 200px; overflow: scroll;'>
+        {{#each messages}}
+          <div class="social-talk">
+              <div class="media social-profile clearfix">
+                  <a class="pull-left">
+                      <img src="{{user.profile.profile_picture}}" alt="profile-picture">
+                  </a>
+                  <div class="media-body">
+                      <span class="font-bold">{{user.profile.username}}</span>
+                      <small class="text-muted">{{ago}}</small>
+                      <div class="social-content">
+                          {{text}}
+                      </div>
+                  </div>
+              </div>
+          </div>
         {{/each}}
-        <div class="social-form">
-            <input id='sendChat' class="form-control" placeholder="Your comment">
         </div>
       </div>
   </div>  
