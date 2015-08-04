@@ -4,7 +4,7 @@ Template.timeChart.events({
 });
 
 Template.timeChart.onRendered(function() {
-
+Tracker.autorun(function() {
     var username = Router.current().params._id;
     if(!username) { username = Meteor.users.findOne(Meteor.userId()).profile.username}
     var value = Meteor.users.findOne({ 'profile.username' : username }).profile.valueGrowth;
@@ -155,6 +155,8 @@ lineData = {
 
     var ctx = document.getElementById("lineOptions").getContext("2d");
     var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+
+  });
 });
 
   Template.chats.helpers({
