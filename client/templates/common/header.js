@@ -84,9 +84,15 @@ Template.header.helpers({
     return count < 1;
   },
   search: function() {
-    var search = Router.current().route.path();
-    console.log(search);
-    return search == '/search';
+      var homePath = Router.current().location.get().path;
+      var path = Router.current().params._id;
+      var username = Meteor.users.findOne(Meteor.userId()).profile.username;
+
+      if(homePath == '/' || path == username ) {
+        return false;
+      } else {
+        return true;
+      }
   }
 });
 
