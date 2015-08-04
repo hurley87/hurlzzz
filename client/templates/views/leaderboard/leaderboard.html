@@ -13,27 +13,24 @@
             <div class='hpanel hblue'>
                 <div class='panel-body'>
                     {{> activeUsers}} 
- 
                 </div>
             </div>                               
         </div>
         <div class="col-md-6"> 
-                <div class='row'> 
-                    <div class='hpanel hblue'>
-                        <div class='panel-body'>
-                            {{> explore}}
-                            <h5 class='m-t-lg'>Search<small> by handle or location</small></h5> 
-                            <br>                       
-                             {{> tabular table=TabularTables.Users selector=selector }}
-                        </div> 
+            <div class='row'> 
+                <div class='hpanel hblue'>
+                    <div class='panel-body'>
+                        {{> explore}}
+                        <h5 class='m-t-lg'>Search<small> by handle or location</small></h5> 
+                        <br>                       
+                         {{> tabular table=TabularTables.Users selector=selector }}
                     </div> 
-                </div>
+                </div> 
+            </div>
         </div>
         <div class='col-md-3'>
             <div class="hpanel hblue">
                 <div class="panel-body">
-                {{> recentlyAdded}}   
-                <br>
                 {{> topAccounts}}
                 </div>
             </div>
