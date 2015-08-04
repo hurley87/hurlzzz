@@ -24,12 +24,21 @@
         {{/if}}
         {{> myStats}}
       </div>
-      <div class='col-md-6'>
+      <div class='col-md-6'> 
         <div class='row'>
-          {{> requests}}
-        </div>  
-        <div class='row'>
-          {{> chats}}
+          {{> timeChart}}
+            {{#if thisUser}}
+                {{> chats}}
+            {{else}}
+              <div class='hpanel hblue'>
+                  <div class='panel-body'>
+                      {{> explore}}
+                      <h5 class='m-t-lg'>Search<small> by handle or location</small></h5> 
+                      <br>                       
+                       {{> tabular table=TabularTables.Users selector=selector }}
+                  </div> 
+              </div>
+            {{/if}}
         </div> 
       </div>
       <div class='col-md-3'>
@@ -37,6 +46,25 @@
       </div>
     </div> 
   </div>   
+</template>
+
+<template name='timeChart'>
+  <div class="hpanel">
+      <div class="panel-body">
+        <div class="stats-title pull-left">
+          <h4><a href="/faq">Growth <i class="fa fa-question-circle"></i></a></h4>
+        </div>
+          <div class="pull-right">
+            <button id='value' class="btn btn-success btn-sm graph-btn"> Value </button>
+              <button id='followers' class="btn btn-success btn-sm btn-outline graph-btn"> Followers</button>
+              <button id='engagement' class="btn btn-success btn-sm btn-outline graph-btn"> Engagement</button>
+              
+          </div>
+          <div class="m-t-md">
+              <canvas id="lineOptions" height="60"></canvas>
+          </div>
+      </div>
+  </div>
 </template>
 
 <template name='requests'>
@@ -146,7 +174,7 @@
       </div>
       <div class="panel-footer" >
         <div class="social-form clearfix m-b-sm">
-              <input style='width: 80%; float: left; margin-right: 5px;' id='sendChat' class="form-control" placeholder="Your message">
+              <input style='width: 77%; float: left; margin-right: 5px;' id='sendChat' class="form-control" placeholder="Your message">
               <button id='sendbtn' style='min-width: 0px; min-width: 0px; height: 33px;' class='btn btn-success btn-sm '>Send</button>
         </div>
         <div  style='max-height: 200px; overflow: scroll;'>
@@ -183,7 +211,7 @@
               <img alt="logo" height='100' width='100' class="img-circle m-b" src="{{user.profile_picture}}">
               <h5><span class='label {{backColor}}'>{{type}}</span></h5>
               <h5><small>Joined {{joined}}</small></h5>
-              <h3><a href="">{{user.full_name}}</a></h3>
+              <h3><a href="">@{{user.username}}</a></h3>
               <div class="text-muted font-bold m-b-xs"></div>
               <p>
                  {{user.bio}}
@@ -194,7 +222,11 @@
                 {{/each}}
               </p>
               {{#if thisUser}}
-              <p><a href="/edit"><button class='btn btn-outline btn-success btn-sm'>Update your profile</button></a></p>
+              <p><a href="/edit"><button class='btn btn-success btn-sm'>Update your profile</button></a></p>
+              {{else}}
+                {{#if showRequest}}
+                <p><button id='requestChat' class='btn btn-success btn-sm'>Chat with @{{user.username}}</button></p>
+                {{/if}}
               {{/if}}
           </div>
           <div class="panel-body tour7">

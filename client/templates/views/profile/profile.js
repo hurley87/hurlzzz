@@ -1,4 +1,159 @@
   
+Template.timeChart.events({
+
+});
+
+Template.timeChart.onRendered(function() {
+
+    var username = Router.current().params._id;
+    if(!username) { username = Meteor.users.findOne(Meteor.userId()).profile.username}
+    var value = Meteor.users.findOne({ 'profile.username' : username }).profile.valueGrowth;
+    var engagement = Meteor.users.findOne({ 'profile.username' : username }).profile.engagementGrowth;
+    var followers  = Meteor.users.findOne({ 'profile.username' : username }).profile.followerGrowth;
+
+    var valueLabel = [];
+    var engagementLabel = [];
+    var followersLabel = [];
+
+    for(var i =1; i <= value.length; i++) {
+      valueLabel.push(i);
+    }
+
+    for(var i =1; i <= value.length; i++) {
+      engagementLabel.push(i);
+    }
+
+    for(var i =1; i <= value.length; i++) {
+      followersLabel.push(i);
+    }
+
+    var line = {
+      label: valueLabel,
+      data: value
+    };
+
+    var lineData = {
+        labels: line.label,
+        datasets: [
+            {
+                label: "Example dataset",
+                fillColor: "rgba(98,203,49,0.5)",
+                strokeColor: "rgba(98,203,49,0.7)",
+                pointColor: "rgba(98,203,49,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(26,179,148,1)",
+                data: line.data
+            }
+        ]
+    };
+
+    $('#value').on('click', function(evt) {
+      evt.preventDefault();
+      $('.graph-btn').addClass('btn-outline');
+      $('#value').removeClass('btn-outline');
+      line = {
+        label: valueLabel,
+        data: value
+      };
+lineData = {
+        labels: line.label,
+        datasets: [
+            {
+                label: "Example dataset",
+                fillColor: "rgba(98,203,49,0.5)",
+                strokeColor: "rgba(98,203,49,0.7)",
+                pointColor: "rgba(98,203,49,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(26,179,148,1)",
+                data: line.data
+            }
+        ]
+    };
+    myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+    });
+
+    $('#followers').on('click', function(evt) {
+      evt.preventDefault();
+      $('.graph-btn').addClass('btn-outline');
+      $(this).removeClass('btn-outline');
+      line = {
+        label: followersLabel,
+        data: followers
+      };
+      lineData = {
+        labels: line.label,
+        datasets: [
+            {
+                label: "Example dataset",
+                fillColor: "rgba(98,203,49,0.5)",
+                strokeColor: "rgba(98,203,49,0.7)",
+                pointColor: "rgba(98,203,49,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(26,179,148,1)",
+                data: line.data
+            }
+        ]
+    };
+    myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+    });
+
+    $('#engagement').on('click', function(evt) {
+      evt.preventDefault();
+      $('.graph-btn').addClass('btn-outline');
+      $(this).removeClass('btn-outline');
+      line = {
+        label: engagementLabel,
+        data: engagement
+      };
+lineData = {
+        labels: line.label,
+        datasets: [
+            {
+                label: "Example dataset",
+                fillColor: "rgba(98,203,49,0.5)",
+                strokeColor: "rgba(98,203,49,0.7)",
+                pointColor: "rgba(98,203,49,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(26,179,148,1)",
+                data: line.data
+            }
+        ]
+    };
+    myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+    });
+    
+      var lineOptions = {
+        scaleShowGridLines : true,
+        scaleGridLineColor : "rgba(0,0,0,.05)",
+        scaleGridLineWidth : 1,
+        bezierCurve : false,
+        pointDot : true,
+        pointDotRadius : 3,
+        pointDotStrokeWidth : 1,
+        pointHitDetectionRadius : 20,
+        datasetStroke : false,
+        datasetStrokeWidth : 1,
+        datasetFill : true,
+        responsive: true,
+        tooltipTemplate: "<%= value %>",
+        showTooltips: true,
+        onAnimationComplete: function()
+        {
+            this.showTooltip(this.datasets[0].points, true);
+        },
+        tooltipEvents: []
+
+    };
+
+
+    var ctx = document.getElementById("lineOptions").getContext("2d");
+    var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+});
+
   Template.chats.helpers({
     chats: function() {
       var chats = Chats.find({
@@ -225,7 +380,57 @@ Template.request.helpers({
       var id = Router.current().params._id;
       var length = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth.length;
       return length > 1;
-    }
+    },
+    thisUser: function() {
+      var homePath = Router.current().location.get().path;
+      var path = Router.current().params._id;
+      var username = Meteor.users.findOne(Meteor.userId()).profile.username;
+
+      if(homePath == '/' || path == username ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+      users: function() {
+    return Meteor.users.find({}, {
+      sort: {
+        'profile.data.postValue': -1
+      }
+    });
+  },
+  eliteCount: function() {
+    return Meteor.users.find().count();
+  },
+  selector: function() { 
+    if(Meteor.userId()) { 
+      var myUsername = Meteor.users.findOne(Meteor.userId()).profile.username;
+      var id = Meteor.userId();
+      var requests = Requests.find({}).fetch();
+      var receivers = [];
+
+      for(var i=0; i < requests.length; i++) {
+        if(requests[i].send._id == id) {
+          receivers.push(requests[i].receive._id);
+        }
+        if(requests[i].receive._id == id) {
+          receivers.push(requests[i].send._id);
+        }
+      } 
+
+      return { 
+        'profile.data.postValue' : { $gt : Session.get('value') }, 
+        'profile.stats.followed_by': { $lt : Session.get('flow') }, 
+        'profile.username' : { $ne : myUsername },
+        _id: { $not : { $in : receivers }}
+      };
+    } else {
+      return { 
+         'profile.data.postValue' : { $gt : Session.get('value') },
+         'profile.stats.followed_by': { $lt : Session.get('flow') }
+      }; 
+    } 
+  }
   });
 
   Template.profile.events({
@@ -264,6 +469,23 @@ Template.request.helpers({
     }    
   });
 
+  Template.myStats.events({
+    'click #requestChat': function(evt, templ) {
+      evt.preventDefault();
+      var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.users.findOne(Meteor.userId()).profile.username).profile.username }
+      var receive = Meteor.users.findOne({ 'profile.username' : id });
+      var send = Meteor.users.findOne(Meteor.userId());
+      Meteor.call('requestEmail', send, receive);
+      Meteor.call('sendRequest', send, receive);
+      analytics.track('Request', {
+        send: send,
+        receive: receive
+      });
+      Bert.alert('Chat request sent to @' + receive.profile.username, 'info');
+    }
+  });
+
   Template.myStats.helpers({
     user: function() {
       var id = Router.current().params._id;
@@ -271,9 +493,13 @@ Template.request.helpers({
       return Meteor.users.findOne({ 'profile.username' : id }).profile;
     },
     thisUser: function() {
-      var thisId = Router.current().params._id;
-      var myId = Meteor.users.findOne({ _id : Meteor.userId() }).profile.username;
-      return thisId == myId;
+      var path = Router.current().location.get().path;
+      var username ='/' + Meteor.users.findOne(Meteor.userId()).profile.username;
+      if(path == '/' || path == username) {
+        return true;
+      } else {
+        return false;
+      }
     },
     age: function() {
       var id = Router.current().params._id;
@@ -288,6 +514,22 @@ Template.request.helpers({
       } else {
         return '';
       }
+      },
+  showRequest: function() {
+    var chats =  Chats.find({}).fetch();
+    var inChat = false;
+    var id = Router.current().params._id;
+    var userId = Meteor.users.findOne({ 'profile.username' : id })._id;
+
+    for (var i=0; i < chats.length; i++) {
+      if(chats[i].thisUser._id == userId && chats[i].thatUser._id == Meteor.userId()) {
+        inChat = true;
+      }
+      if(chats[i].thatUser._id == userId && chats[i].thisUser._id == Meteor.userId()) {
+        inChat = true;
+      }
+    }
+    return !inChat;
     },
     panelColor: function() {
       var id = Router.current().params._id;

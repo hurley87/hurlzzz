@@ -22,6 +22,11 @@ Router.route('/updateUsers', {
   }  
 });
 
+Router.route('/contact', {
+  template: 'contact',
+  loadingTemplate: 'loading'
+});
+
 Router.route('/edit', {
   template: 'edit',
   loadingTemplate: 'loading',

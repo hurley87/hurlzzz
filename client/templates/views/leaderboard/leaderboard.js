@@ -52,7 +52,6 @@ Template.userDescription.helpers({
   },
   showRequest: function() {
     var chats =  Chats.find({}).fetch();
-    console.log(chats);
     var inChat = false;
     for (var i=0; i < chats.length; i++) {
       
@@ -170,6 +169,31 @@ Template.leaderboard.events({
         Router.go('/edit'); 
       });
   }
+});
+
+Template.profile.onRendered(function() {
+  $('table').css({'width': '100%'});
+  $('.dataTables_length').parent().hide();
+  $('.dataTables_info').parent().hide();
+  $('.dataTables_paginate').parent().removeClass('col-xs-6').addClass('col-xs-8');
+  $('#DataTables_Table_0_filter label').css({ 'float': 'left'});
+  $('.dataTables_paginate').css({ 'float': 'left' });
+
+  $("#valueInput").TouchSpin({
+      min: 0,
+      max: 100000000000,
+      step: 5,
+      boostat: 5,
+      maxboostedstep: 10
+  }); 
+
+  $('#followingInput').TouchSpin({
+      min: 0,
+      max: 1000000000000000,
+      step: 100,
+      boostat: 2000,
+      maxboostedstep: 30000
+  }); 
 });
 
 Template.leaderboard.onRendered(function() {
@@ -296,7 +320,6 @@ Template.valueChart.onRendered(function() {
       ]
   };
 
-  console.log(singleBarData);
 
   var ctx = document.getElementById("singleBarOptions").getContext("2d");
   var myNewChart = new Chart(ctx).Bar(singleBarData, singleBarOptions);

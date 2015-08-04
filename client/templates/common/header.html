@@ -18,10 +18,15 @@
                         </a>
                         <ul class="dropdown-menu hdropdown notification animated flipInX">
                             <li>
+                                <a href='/'>
+                                     Profile
+                                </a>
+                            </li>                             
+                            <li>
                                 <a href='/edit'>
                                      Edit Profile
                                 </a>
-                            </li>                                                                            
+                            </li>                                                                     
                             <li>
                                 <a href='/about'>
                                      About
@@ -32,7 +37,11 @@
                                      FAQ
                                 </a>
                             </li>
-                        
+                            <li>
+                                <a href='/contact'>
+                                     Contact Us
+                                </a>
+                            </li>                        
                         </ul>
                     </li>                    
                     <li class="dropdown">
@@ -60,6 +69,8 @@
                             {{/each}}
                             {{#if noChats}}
                             <li>0 open chats</li>
+                            {{else}}
+                            <li><a href="/">View Your Chats</a></li>
                             {{/if}}
                         </ul>
                     </li>  
