@@ -131,14 +131,13 @@ Template.leaderboard.helpers({
       var receivers = [];
 
       for(var i=0; i < requests.length; i++) {
-        if(requests[i].send._id == id) {
+        if(requests[i].send && requests[i].send._id == id) {
           receivers.push(requests[i].receive._id);
         }
-        if(requests[i].receive._id == id) {
+        if(requests[i].send && requests[i].receive._id == id) {
           receivers.push(requests[i].send._id);
         }
       } 
-
       return { 
         'profile.data.postValue' : { $gt : Session.get('value') }, 
         'profile.stats.followed_by': { $lt : Session.get('flow') }, 
