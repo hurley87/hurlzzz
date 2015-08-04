@@ -269,3 +269,29 @@ Template.activeUsers.helpers({
   }
 });
 
+Template.topAccounts.helpers({
+  users: function() {
+    var id = Meteor.userId();
+    var requests = Requests.find({}).fetch();
+    var receivers = [];
+
+    for(var i=0; i < requests.length; i++) {
+      if(requests[i].send && requests[i].send._id == id) {
+        receivers.push(requests[i].receive._id);
+      }
+      if(requests[i].send && requests[i].receive._id == id) {
+        receivers.push(requests[i].send._id);
+      }
+    }
+
+    return Meteor.users.find({
+      _id: { $not : { $in : receivers }}
+    }, {
+      sort: {
+        'profile.data.postValue': -1
+      },
+      limit: 10
+    });
+  }
+});
+
