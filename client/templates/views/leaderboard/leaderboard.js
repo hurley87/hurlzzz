@@ -124,7 +124,7 @@ Template.leaderboard.helpers({
     return Meteor.users.find().count();
   },
   selector: function() { 
-    if(Meteor.userId()) { 
+    if(Meteor.users.findOne(Meteor.userId())) { 
       var myUsername = Meteor.users.findOne(Meteor.userId()).profile.username;
       var id = Meteor.userId();
       var requests = Requests.find({}).fetch();
@@ -197,8 +197,6 @@ Template.profile.onRendered(function() {
 
 Template.leaderboard.onRendered(function() {
   $('table').css({'width': '100%'});
-  $('.dataTables_length').parent().hide();
-  $('.dataTables_info').parent().hide();
   $('.dataTables_paginate').parent().removeClass('col-xs-6').addClass('col-xs-8');
   $('#DataTables_Table_0_filter label').css({ 'float': 'left'});
   $('.dataTables_paginate').css({ 'float': 'left' });
@@ -220,31 +218,6 @@ Template.leaderboard.onRendered(function() {
   }); 
 });
 
-Template.topAccounts.helpers({
-  firstFive: function() {
-    var id = Meteor.userId();
-    var requests = Requests.find({}).fetch();
-    var receivers = [];
-    for(var i=0; i < requests.length; i++) {
-      if(requests[i].send._id == id) {
-        receivers.push(requests[i].receive._id);
-      }
-      if(requests[i].receive._id == id) {
-        receivers.push(requests[i].send._id);
-      }
-    }
-
-    return Meteor.users.find({
-      _id: { $not : { $in : receivers }}
-    }, {
-      sort: {
-        'profile.data.postValue': -1
-      },
-      limit: 10
-    });
-  }
-});
-
 Template.recentlyAdded.helpers({
   users: function() {
     var id = Meteor.userId();
@@ -258,7 +231,6 @@ Template.recentlyAdded.helpers({
         receivers.push(requests[i].send._id);
       }
     }
-
     return Meteor.users.find({
       _id: { $not : { $in : receivers }}
     }, {
@@ -275,11 +247,12 @@ Template.activeUsers.helpers({
     var id = Meteor.userId();
     var requests = Requests.find({}).fetch();
     var receivers = [];
+
     for(var i=0; i < requests.length; i++) {
-      if(requests[i].send._id == id) {
+      if(requests[i].send && requests[i].send._id == id) {
         receivers.push(requests[i].receive._id);
       }
-      if(requests[i].receive._id == id) {
+      if(requests[i].send && requests[i].receive._id == id) {
         receivers.push(requests[i].send._id);
       }
     }
@@ -296,51 +269,3 @@ Template.activeUsers.helpers({
   }
 });
 
-Template.valueChart.onRendered(function() {
-  Session.set('accountType', 'Personal');
-  var lessFifty = Meteor.users.find({ 'profile.data.postValue' : { $lt: 50 }}).count(); 
-  var lessHundred = Meteor.users.find({ 'profile.data.postValue' : { $lt: 100, $gt:50 }}).count();
-  var lessOneFifty = Meteor.users.find({ 'profile.data.postValue' : { $lt: 150, $gt:100 }}).count();
-  var lessTwoHund = Meteor.users.find({ 'profile.data.postValue' : { $lt: 200, $gt:150 }}).count();
-  var lessTwoFifty = Meteor.users.find({ 'profile.data.postValue' : { $lt: 250, $gt:200 }}).count();
-  var greaterTwoHun = Meteor.users.find({ 'profile.data.postValue' : { $gt:200 }}).count();
-
-  var singleBarData = {
-      labels: ["$0-$50", "$50-$99", "$100-$149", "$150-$199", "$200-$249", "$250+"],
-      datasets: [
-          {
-              label: "My Second dataset",
-              fillColor: "rgba(98,203,49,0.5)",
-              strokeColor: "rgba(98,203,49,0.8)",
-              highlightFill: "rgba(98,203,49,0.75)",
-              highlightStroke: "rgba(98,203,49,1)",
-              data: [lessFifty, lessHundred, lessOneFifty, lessTwoHund, lessTwoFifty, greaterTwoHun]
-          }
-      ]
-  };
-
-
-  var ctx = document.getElementById("singleBarOptions").getContext("2d");
-  var myNewChart = new Chart(ctx).Bar(singleBarData, singleBarOptions);
-});
-
-Template.featuredAccounts.helpers({
-  randos: function() {
-    var id = Meteor.userId();
-    var requests = Requests.find({}).fetch();
-    var receivers = [];
-    for(var i=0; i < requests.length; i++) {
-      if(requests[i].send._id == id) {
-        receivers.push(requests[i].receive._id);
-      }
-      if(requests[i].receive._id == id) {
-        receivers.push(requests[i].send._id);
-      }
-    }
-
-    var users = Meteor.users.find({
-      _id: { $not : { $in : receivers }}
-    }).fetch();
-    return _.shuffle(users).slice(0,10);
-  }  
-});
