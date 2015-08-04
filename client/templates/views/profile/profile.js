@@ -220,9 +220,9 @@ lineData = {
         user: Meteor.users.findOne(Meteor.userId())
       });
     },
-    'keypress #sendChat': function(evt, templ) {
+    'keypress .sendChat': function(evt, templ) {
       var user = Meteor.users.findOne(Meteor.userId());
-      var text = $('#sendChat').val();
+      var text = $(evt.target).val();
       var createdAt = new Date();
       if(evt.which == 13) {
         Meteor.call('createMessage', this._id, user, text, createdAt);
@@ -230,19 +230,19 @@ lineData = {
           chat: this,
           user: Meteor.users.findOne(Meteor.userId())
         });
-        $('#sendChat').val('');
+        $(evt.target).val('');
       }
     },
-    'click #sendbtn': function(evt, templ) {
+    'click .sendbtn': function(evt, templ) {
       var user = Meteor.users.findOne(Meteor.userId());
-      var text = $('#sendChat').val();
+      var text = $(evt.target).siblings('.sendChat').val();
       var createdAt = new Date();
       Meteor.call('createMessage', this._id, user, text, createdAt);
       analytics.track('Send Message', {
         chat: this,
         user: Meteor.users.findOne(Meteor.userId())
       });
-      $('#sendChat').val('');
+      $(evt.target).siblings('.sendChat').val('');
     }
   })
 
