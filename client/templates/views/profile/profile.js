@@ -71,6 +71,7 @@ lineData = {
             }
         ]
     };
+    ctx = document.getElementById("lineOptions").getContext("2d");
     myNewChart = new Chart(ctx).Line(lineData, lineOptions);
     });
 
@@ -97,6 +98,7 @@ lineData = {
             }
         ]
     };
+    ctx = document.getElementById("lineOptions").getContext("2d");
     myNewChart = new Chart(ctx).Line(lineData, lineOptions);
     });
 
@@ -123,6 +125,7 @@ lineData = {
             }
         ]
     };
+    ctx = document.getElementById("lineOptions").getContext("2d");
     myNewChart = new Chart(ctx).Line(lineData, lineOptions);
     });
     
@@ -472,6 +475,7 @@ Template.request.helpers({
   Template.myStats.events({
     'click #requestChat': function(evt, templ) {
       evt.preventDefault();
+      $(evt.target).hide();
       var id = Router.current().params._id;
       if(!id) { id = Meteor.users.findOne(Meteor.users.findOne(Meteor.userId()).profile.username).profile.username }
       var receive = Meteor.users.findOne({ 'profile.username' : id });
