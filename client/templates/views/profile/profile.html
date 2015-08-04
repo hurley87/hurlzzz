@@ -23,10 +23,17 @@
         </div>               
         {{/if}}
         {{> myStats}}
+        {{#if growth}}
+          {{> valueGrowth}}      
+          {{> followerGrowth}}   
+          {{> engagementGrowth}} 
+        {{/if}}
       </div>
       <div class='col-md-6'> 
         <div class='row'>
+          {{#if growth}}
           {{> timeChart}}
+          {{/if}}
             {{#if thisUser}}
                 {{> chats}}
             {{else}}
@@ -245,10 +252,7 @@
                   </div>
               </div>
           </div>
-      </div>
-      {{> valueGrowth}}      
-      {{> followerGrowth}}   
-      {{> engagementGrowth}}             
+      </div>            
 </template> 
 
 <template name='engagementGrowth'>

@@ -383,8 +383,9 @@ Template.request.helpers({
     },
     growth: function() {
       var id = Router.current().params._id;
+      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
       var length = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth.length;
-      return length > 1;
+      return length > 2;
     },
     thisUser: function() {
       var homePath = Router.current().location.get().path;
