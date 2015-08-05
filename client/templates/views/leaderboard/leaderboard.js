@@ -197,6 +197,8 @@ Template.profile.onRendered(function() {
 
 Template.leaderboard.onRendered(function() {
   $('table').css({'width': '100%'});
+  $('.dataTables_length').parent().hide();
+  $('.dataTables_info').parent().hide();
   $('.dataTables_paginate').parent().removeClass('col-xs-6').addClass('col-xs-8');
   $('#DataTables_Table_0_filter label').css({ 'float': 'left'});
   $('.dataTables_paginate').css({ 'float': 'left' });

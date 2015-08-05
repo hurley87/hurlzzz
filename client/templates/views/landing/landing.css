@@ -5,6 +5,10 @@ body {
 	font-size: 4em;
 }
 
+.white {
+	color: #fff;
+}
+
 .bert-alert  {
 	background-color: #62CB31 !important;
 }
