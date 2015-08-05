@@ -143,7 +143,7 @@ Meteor.methods({
         to: user.profile.other.email,
         subject: "Ignition - your stats have been updated",
         text: "Hey " + user.profile.username + ",\n\n Take a look at your updated Instagram stats, \n\n" +
-        'http://instagram.mod.bz/' + user.profile.username + '\n\n Any questions? Reply to this email. \n\n Thanks!'
+        'http://reachignition.com/' + user.profile.username + '\n\n Any questions? Reply to this email. \n\n Thanks!'
       });     
     }
   },
