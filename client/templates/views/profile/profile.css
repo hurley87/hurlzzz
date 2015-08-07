@@ -1,3 +1,21 @@
+.slackList {
+	background-color: #3498db;
+	height: 100vh;
+	overflow: scroll;
+	width: 100%;
+
+}
+
+.slackChat {
+	height: 100vh;
+	overflow: scroll;
+}
+
+.slackInfo {
+	height: 100vh;
+	overflow: scroll;
+}
+
 .value-text {
  font-size: 3em;
 }
@@ -7,7 +25,7 @@
 }
 
 .blueText {
-	color: #517fa4;
+	color: #3498db;
 }
 
 .purpleText {
@@ -23,7 +41,7 @@
 }
 
 .backBlue {
-	background-color: #517fa4;
+	background-color: #3498db;
 }
 
 .backPurple {

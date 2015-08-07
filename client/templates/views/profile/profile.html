@@ -11,45 +11,52 @@
 </template> 
 
 <template name='profile'>
-  <div class='content'>
+  <div class='myContent'>
     <div class='row m-t-xs'>
+      <div class='col-md-2 col-lg-2'>
+        <div class='slackList'>
+          
+        </div>
+      </div>
       <div class='col-md-6'>
-        {{#if currentUser}}
-        {{else}}
-        <div class='m-b-lg'>
-        <button id='signMeUp' class='btn btn-success btn-lg'>Login with Instagram</button> </div>            
-        {{/if}}
-        <br>
-        <div class='row'>
-          <div class='col-lg-6'>{{> myStats}}</div>
-          <div class='col-lg-6'>
+        <div class='slackChat'>
+          {{> chats}}
+        </div>
+      </div>
+      <div class='col-md-4'>
+        <div class='slackInfo'>
+        <div class='row '>
+          <div class='col-lg-7'>
+            {{> myStats}}
+          </div>
+          <div class='col-lg-5'>
              <div class="hpanel">
               <div class="stats-title">
-                <h4 class='white'>Location <small class='pull-right white'>{{user.other.city}}, {{user.other.country}}</small></h4>
+                <h4>Location <small class='pull-right '>{{user.other.city}}, {{user.other.country}}</small></h4>
               </div>
               <hr>
               <div class="stats-title">
-                <h4 class='white'>Rank <small class='pull-right white'>{{user.data.rank}}</small></h4>
+                <h4>Rank <small class='pull-right '>{{user.data.rank}}</small></h4>
               </div>
               <hr>
               <div class="stats-title">
-                  <h4 class='white'>Joined <small class='pull-right white'>{{joined}}</small></h4>
+                  <h4>Joined <small class='pull-right '>{{joined}}</small></h4>
               </div>
               <hr>
               <div class="stats-title">
-                <h4 class='white'>Followers <small class='pull-right white'>{{stats.followed_by}}</small></h4>
+                <h4>Followers <small class='pull-right '>{{stats.followed_by}}</small></h4>
               </div>
               <hr>
               <div class="stats-title">
-                <h4 class='white'>Follower Ratio <small class='pull-right white'>{{ratio}}</small></h4>
+                <h4>Follower Ratio <small class='pull-right '>{{ratio}}</small></h4>
               </div>
 <!--          <hr>
               <div class="stats-title">
-                <h4 class='white'>Times Viewed <small class='pull-right white'>20</small></h4>
+                <h4>Times Viewed <small class='pull-right '>20</small></h4>
               </div>
               <hr>
               <div class="stats-title">
-                <h4 class='white'>Post Frequency <small class='pull-right white'>daily</small></h4>
+                <h4>Post Frequency <small class='pull-right '>daily</small></h4>
               </div> -->
              </div>
           </div>
@@ -63,76 +70,45 @@
           {{> engagementGrowth}}
         {{/if}}
           <hr>
-          {{> analytics}} 
-          {{#if thisUser}}
-          {{else}}
-            <hr>
-            {{> gallery}}
-          {{/if}}
-      </div>
-      {{#if thisUser}}     
-      <div class='col-md-6'> 
-        <div class='row'>
-          {{> chats}}
-        </div> 
-        {{> gallery}}
-      </div>
-      {{else}}
-        <div class='col-md-6'> 
-          <div class='row'> 
-            <div class='hpanel hblue content'>
-                {{> explore}}
-                <h5 class='m-t-lg white'>Search<small class='white'> by handle or location</small></h5> 
-                <br>                       
-                 {{> tabular table=TabularTables.Users selector=selector }}
-            </div>
-          </div>
+         {{> gallery}}
         </div>
-      {{/if}}
+      </div>
     </div> 
   </div>   
 </template>
  
 <template name='myStats'>
-  <div class="hpanel {{panelColor}}" style='border-right: 1px solid white; padding-right: 30px;'>
-    <div class="pull-right text-right white">
+  <div class="hpanel {{panelColor}}">
+    <div class="pull-right text-right ">
       <small>This Instagram is worth</small>
       <h1 class='font-extra-bold text-success value-text'>${{user.data.postValue}}</h1>
-      <small><a href="/faq" class='white'>per post <i class="fa fa-question-circle"></i></a></small>
+      <small><a href="/faq">per post <i class="fa fa-question-circle"></i></a></small>
 
     </div>
     <img alt="logo" height='100' width='100' class="img-circle m-b" src="{{user.profile_picture}}">
-    <h5><span class='label {{backColor}}'>{{type}}</span></h5>
-    <h3 class='white'>@{{user.username}}</h3>
-    <p class='white'>
+    <h3>@{{user.username}}</h3>
+    <p>
        {{user.bio}}
     </p> 
-    {{#if thisUser}}
-      <p><a href="/edit"><button class='btn btn-success m-t-lg'>Update your profile</button></a></p>
-    {{else}}
-      {{#if showRequest}}
-      <p><button id='requestChat' class='btn btn-success m-t-lg'>Chat with @{{user.username}}</button></p>
-      {{/if}}
-    {{/if}}
   </div>            
 </template> 
 
 <template name='engagementGrowth'>
   <div class="hpanel">
     <div class="stats-title">
-      <h4 class='white'>Engagement</h4>
+      <h4>Engagement</h4>
     </div>
     <br>
     <div class="row">
       <div class="col-md-2 text-center">
-        <h3 class="white m-t-sm"><i class="pe-7s-gleam fa-2x"></i></h3>
-        <h3 class="white">
+        <h3 class=" m-t-sm"><i class="pe-7s-gleam fa-2x"></i></h3>
+        <h3 class="">
             {{lastWeek}}
         </h3>
-        <small><a href="/faq" class='white'>current <br> <i class="fa fa-question-circle"></i></a></small>
+        <small><a href="/faq">current <br> <i class="fa fa-question-circle"></i></a></small>
       </div>
       <div class="col-md-8">
-          <div class="text-center small white">
+          <div class="text-center small ">
               {{increase}}% change week to week
           </div>
           <div class="flot-chart" style="height: 160px">
@@ -141,11 +117,11 @@
       </div>  
       <div class="col-md-2 text-center">
           <div>
-            <h3 class="white m-t-sm"><i class="pe-7s-gleam fa-2x"></i></h3>
-            <h3 class="white">
+            <h3 class=" m-t-sm"><i class="pe-7s-gleam fa-2x"></i></h3>
+            <h3 class="">
                 {{today}}
             </h3>
-            <small><a href="/faq" class='white'>last week <br><i class="fa fa-question-circle"></i></a></small>
+            <small><a href="/faq">last week <br><i class="fa fa-question-circle"></i></a></small>
           </div>
       </div>
     </div> 
@@ -155,19 +131,19 @@
 <template name='followerGrowth'> 
   <div class="hpanel">
     <div class="stats-title">
-      <h4 class='white'>Followers</h4>
+      <h4>Followers</h4>
     </div>
     <br>
     <div class="row">
       <div class="col-md-2 text-center">
-        <h3 class="white m-t-sm"><i class="pe-7s-look fa-2x"></i></h3>
-        <h3 class="white">
+        <h3 class=" m-t-sm"><i class="pe-7s-look fa-2x"></i></h3>
+        <h3 class="">
             {{lastWeek}}
         </h3>
-        <small><a href="/faq" class='white'>current <br> <i class="fa fa-question-circle"></i></a></small>
+        <small><a href="/faq">current <br> <i class="fa fa-question-circle"></i></a></small>
       </div>
       <div class="col-md-8">
-          <div class="text-center small white">
+          <div class="text-center small ">
               {{increase}}% change week to week
           </div>
           <div class="flot-chart" style="height: 160px">
@@ -176,11 +152,11 @@
       </div>  
       <div class="col-md-2 text-center">
           <div>
-            <h3 class="white m-t-sm"><i class="pe-7s-look fa-2x"></i></h3>
-            <h3 class="white">
+            <h3 class=" m-t-sm"><i class="pe-7s-look fa-2x"></i></h3>
+            <h3 class="">
                 {{today}}
             </h3>
-            <small><a href="/faq" class='white'>last week <br><i class="fa fa-question-circle"></i></a></small>
+            <small><a href="/faq">last week <br><i class="fa fa-question-circle"></i></a></small>
           </div>
       </div>
     </div> 
@@ -190,19 +166,19 @@
 <template name='valueGrowth'> 
   <div class="hpanel">
     <div class="stats-title">
-      <h4 class='white'>Value</h4>
+      <h4>Value</h4>
     </div>
     <br>
     <div class="row">
       <div class="col-md-2 text-center">
-        <h3 class="white m-t-sm"><i class="pe-7s-cash fa-2x"></i></h3>
-        <h3 class="white">
+        <h3 class=" m-t-sm"><i class="pe-7s-cash fa-2x"></i></h3>
+        <h3 class="">
             {{lastWeek}}
         </h3>
-        <small><a href="/faq" class='white'>current <br> <i class="fa fa-question-circle"></i></a></small>
+        <small><a href="/faq">current <br> <i class="fa fa-question-circle"></i></a></small>
       </div>
       <div class="col-md-8">
-          <div class="text-center small white">
+          <div class="text-center small ">
               {{increase}}% change week to week
           </div>
           <div class="flot-chart" style="height: 160px">
@@ -211,11 +187,11 @@
       </div>  
       <div class="col-md-2 text-center">
           <div>
-            <h3 class="white m-t-sm"><i class="pe-7s-cash fa-2x"></i></h3>
-            <h3 class="white">
+            <h3 class=" m-t-sm"><i class="pe-7s-cash fa-2x"></i></h3>
+            <h3 class="">
                 {{today}}
             </h3>
-            <small><a href="/faq" class='white'>last week <br><i class="fa fa-question-circle"></i></a></small>
+            <small><a href="/faq">last week <br><i class="fa fa-question-circle"></i></a></small>
           </div>
       </div>
     </div> 
@@ -225,20 +201,20 @@
 <template name='analytics'>
   <div class="hpanel">
     <div class="stats-title">
-      <h4 class='white'>Likes and Comments</h4>
+      <h4>Likes and Comments</h4>
     </div>
     <br>
     <div class="row">
       <div class="col-md-2 text-center">
-        <h3 class="white m-t-sm"><i class="fa fa-heart-o"></i></h3>
-        <h3 class="white">
+        <h3 class=" m-t-sm"><i class="fa fa-heart-o"></i></h3>
+        <h3 class="">
             {{user.data.avgLikes}}
         </h3>
-        <small><a href="/faq" class='white'>avg likes <br> <i class="fa fa-question-circle"></i></a></small>
-        <h4 class='white'> {{user.data.likesConsist}} <small class='white'>SD</small></h4>
+        <small><a href="/faq">avg likes <br> <i class="fa fa-question-circle"></i></a></small>
+        <h4> {{user.data.likesConsist}} <small>SD</small></h4>
       </div>
       <div class="col-md-8">
-          <div class="text-center small white">
+          <div class="text-center small ">
               data taken from last 20 posts
           </div>
           <div class="flot-chart" style="height: 160px">
@@ -247,13 +223,13 @@
       </div>  
       <div class="col-md-2 text-center">
           <div>
-            <h3 class="white m-t-sm"><i class="fa fa-comment-o"></i></h3>
-            <h3 class="white">
+            <h3 class=" m-t-sm"><i class="fa fa-comment-o"></i></h3>
+            <h3 class="">
                 {{user.data.avgComments}}
             </h3>
-            <small><a href="/faq" class='white'>avg comments <i class="fa fa-question-circle"></i></a></small>
-            <h4 class="white">
-               {{user.data.commentsConsist}} <small class='white'>SD</small>
+            <small><a href="/faq">avg comments <i class="fa fa-question-circle"></i></a></small>
+            <h4 class="">
+               {{user.data.commentsConsist}} <small>SD</small>
             </h4>
           </div>
       </div>
@@ -268,7 +244,7 @@
         <div class='gImage'>
             <a href="{{images.standard_resolution.url}}" title="{{caption.text}}" data-gallery=""><img src="{{images.thumbnail.url}}"></a>
         </div>
-        <div class='gOverlay {{backColor}} white'>
+        <div class='gOverlay {{backColor}} '>
           <i class="fa fa-heart"></i> {{likes.count}}  &nbsp; <i class="fa fa-comment"></i>  {{comments.count}} 
         </div>
       </div> 

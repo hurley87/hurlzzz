@@ -1,8 +1,14 @@
 body {
-	background-color: #517fa4;
+	background-color: #3498db;
+	font-family: 'Lato', sans-serif !important;
+	letter-spacing: 1px;
 }
 .title {
 	font-size: 4em;
+}
+
+#wrapper {
+	min-height: 0% !important;
 }
 
 .white {
@@ -89,7 +95,6 @@ footer a {
 .hpanel {
 	/*height: 300px !important;*/
 }
-.content {
-	background-color: #517fa4;
-	min-height: 100vh;
+.myContent {
+	background-color: #fff !important;
 }
