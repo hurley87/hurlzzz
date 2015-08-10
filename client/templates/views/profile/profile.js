@@ -72,12 +72,15 @@
       }; 
     } 
   },
-    joined: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      var createdAt = Meteor.users.findOne({ 'profile.username' : id }).createdAt;
-      return moment(createdAt).fromNow();
-    }
+  joined: function() {
+    var id = Router.current().params._id;
+    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+    var createdAt = Meteor.users.findOne({ 'profile.username' : id }).createdAt;
+    return moment(createdAt).fromNow();
+  },
+  myList: function() {
+    
+  } 
   });
 
   Template.profile.events({
@@ -108,9 +111,9 @@
       var search = $('.thisSearch');
 
       if(profile.hasClass('hideMe')) {
-    profile.removeClass('hideMe');
-    search.addClass('hideMe');
-    $('.searchHeader h4').text('Search');
+        profile.removeClass('hideMe');
+        search.addClass('hideMe');
+        $('.searchHeader h4').text('Search');
       } else {
         search.removeClass('hideMe');
         profile.addClass('hideMe');
@@ -130,13 +133,10 @@ Template.slackMessage.helpers({
 });
 
 Template.slackMessage.onRendered(function() {
-
   $('.thisText').each(function() {
     var text  = $(this).data('text');
     $(this).html(text);
   });
- 
- 
 });
 
 Template.slackChat.onRendered(function() {

@@ -84,13 +84,11 @@ Template.userDescription.events({
     Bert.alert('Chat request sent to @' + receive.profile.username, 'info');
   },
   'click .userCard': function(evt, templ) {
-    var btns = $('.actionBtns');
+    var btns = $(evt.target).find('.actionBtns');
     if(btns.hasClass('hideMe')) {
       btns.removeClass('hideMe');
-      $('.caretMe').removeClass('pe-7s-angle-down').addClass('pe-7s-angle-up');
     } else {
       btns.addClass('hideMe');
-      $('.caretMe').removeClass('pe-7s-angle-up').addClass('pe-7s-angle-down');
     }
   },
   'click .viewProfile': function(evt, templ) {
