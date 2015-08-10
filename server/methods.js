@@ -177,10 +177,10 @@ Meteor.methods({
   removeChat: function(id) {
     Chats.remove({ _id: id });
   },
-  createMessage: function(id, user, text, createdAt) {
+  createMessage: function(thatUser, thisUser, text, createdAt) {
     Messages.insert({
-      chat_id: id,
-      user: user,
+      thatUser: thatUser,
+      thisUser: thisUser,
       text: text,
       createdAt: createdAt
     });

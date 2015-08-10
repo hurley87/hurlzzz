@@ -1,7 +1,7 @@
 
 Template.userDescription.helpers({
   user: function() {
-    return this.profile.other;
+    return this.profile
   },
   img: function() {
     return this.profile.profile_picture;
@@ -82,6 +82,25 @@ Template.userDescription.events({
       receive: receive
     });
     Bert.alert('Chat request sent to @' + receive.profile.username, 'info');
+  },
+  'click .userCard': function(evt, templ) {
+    var btns = $('.actionBtns');
+    if(btns.hasClass('hideMe')) {
+      btns.removeClass('hideMe');
+      $('.caretMe').removeClass('pe-7s-angle-down').addClass('pe-7s-angle-up');
+    } else {
+      btns.addClass('hideMe');
+      $('.caretMe').removeClass('pe-7s-angle-up').addClass('pe-7s-angle-down');
+    }
+  },
+  'click .viewProfile': function(evt, templ) {
+      evt.preventDefault();
+      Router.go('/'+this.profile.username);
+      var profile =  $('.thisProfile');
+      var search = $('.thisSearch');
+      profile.removeClass('hideMe');
+      search.addClass('hideMe');
+      $('.searchHeader h4').text('Search');
   }
 });
 
@@ -268,6 +287,17 @@ Template.activeUsers.helpers({
       },
       limit: 10
     });
+  }
+});
+
+Template.directMessage.helpers({
+  online: function() {
+    var id = Router.current().params._id;
+    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+    var user = Meteor.users.findOne({ 'profile.username' : id });
+    if(user.status) {
+      return user.status.online;
+    }
   }
 });
 

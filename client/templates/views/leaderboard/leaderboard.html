@@ -1,46 +1,37 @@
 <template name='leaderboard'>
-<div class='content'>
-    <div class="row m-t-xs">
-        <div class="col-md-6 col-md-offset-3"> 
-            <div class='row'> 
-                <div class='hpanel hblue'>
-                        {{> explore}}
-                        <h5 class='m-t-lg white'>Search<small class='white'> by handle or location</small></h5>                       
-                         {{> tabular table=TabularTables.Users selector=selector }}
-                </div> 
-            </div>
-        </div>
+    <div class="">
+        {{> explore}}
+        <h5 class='m-t-lg'><small>* by handle or location</small></h5>                    
+         {{> tabular table=TabularTables.Users selector=selector }}
     </div>
-</div>
 </template>
 
 <template name='userDescription'>
-    <div class="hpanel {{panelColor}}">  
-        <div class='panel-body' style='padding: 5px 5px 7px 5px;'>
-            <div class="media">
-                <div class="media-image pull-left">
-                    <a href="{{id}}"><img class='profileImg' src="{{img}}" alt="profile-picture"></a>
-                </div>
-                <div class="media-body text-left">
-                    <div class='row'>
-                        <div class='col-lg-7 col-md-12 col-sm-12'>
-                            <a href="{{id}}">
-                                <h5 style='line-height: 25px;'>
-                                    <span class='text-success'>${{value}}</span>
-                                    {{#if online}}
-                                    <span class='label label-success' style='position: relative; bottom: 3px;'>Online</span>
-                                    {{else}}
-                                    <span class='label backRed' style='position: relative; bottom: 3px;'>Offline</span>
-                                    {{/if}}
-                                    <strong>@{{handle}}</strong>
-                                    {{#if userInfo}}
-                                        <small>{{user.city}}, {{user.country}}</small>
-                                    {{/if}}
-                                </h5>
-                            </a>
-                        </div>
-                    </div>
-                </div> 
+    <div class='userCard'>
+        <div class='row'>
+            <div class='col-md-1'>
+                <img alt="logo" height='25' width='25' class="profile-img" src="{{img}}">
+            </div>
+            <div class='col-md-11'>
+                <h5 class='username'>
+                    <span class='text-success'>${{value}}</span> 
+                    @{{handle}}
+                    {{#if online}}
+                    <div class='green'></div>
+                    {{else}}
+                    <div class='red'></div>
+                    {{/if}}
+                    {{user.other.city}}, {{user.other.country}}
+                </h5>
+            </div>
+        </div>
+        <div class='row actionBtns hideMe m-t-sm'>
+            <div class='col-md-6'>
+              <p class='m-t-sm'>Post Value: ${{user.data.postValue}}</p>
+              <p>Followers: {{user.stats.followed_by}}</p>
+              <p>Average Likes: {{user.data.avgLikes}}</p>
+              <p>Average Comments: {{user.data.avgComments}}</p>
+              <p><a href="{{id}}"><button class='newBtn viewProfile'>View Profile</button></a></p>
             </div>
         </div>
     </div>
@@ -48,41 +39,48 @@
 
 <template name='explore'>
     <div class='row'>
-        <div class='col-md-6 white'>
-            <h5>Value</h5>
-            <br>
+        <div class='col-md-12'>
             <input id="valueInput" type="text" name="demo1" value="{{value}}">
-            <p>Worth <strong>MORE</strong> then <strong>${{value}}</strong>.</p>
-        </div>
-        <div class='col-md-6 white'>
-            <h5>Followers</h5>
-            <br>
-            <input id="followingInput" type="text" name="demo1" value="{{flow2}}">
-            <p>Has <strong>LESS</strong> then <strong>{{flow1}} followers.</strong></p>
+            <p>Search accounts worth <strong>MORE</strong> then <strong>${{value}}</strong>.</p>
         </div>
     </div>   
 </template> 
 
 <template name='activeUsers'>
-    <div class='row'>
+    <div class='row messageUser white'>
         {{#each users}}
-            {{> userDescription}}
+            {{> directMessage}}
         {{/each}}
     </div>     
-</template>  
+</template> 
+
+<template name='directMessage'> 
+    <a href="/{{profile.username}}">
+        <h5>
+            {{#if online}}
+            <div class='green'></div>
+            {{else}}
+            <div class='red'></div>
+            {{/if}}
+            @{{profile.username}}
+            <span class='text-success'>${{profile.data.postValue}}</span>
+            
+        </h5>
+    </a>
+</template>    
 
 <template name='recentlyAdded'>
     <div class='row'>
         {{#each users}}
-            {{> userDescription}}
+            {{> directMessage}}
         {{/each}}
     </div>     
 </template>   
 
 <template name='topAccounts'>
-    <div class='row'>
+    <div class='row messageUser white'>
         {{#each users}}
-            {{> userDescription}}
+            {{> directMessage}}
         {{/each}}
     </div>   
 </template>           

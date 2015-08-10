@@ -90,17 +90,114 @@
             console.log('login failed ' + err);
           }
           var users = Meteor.users.find({}, { sort: { 'profile.data.postValue': -1 } }).fetch();
-          Meteor.call('setRank', users);
           Router.go('/edit'); 
         });
+    },
+    'click .moreInfo': function(evt, templ) {
+      evt.preventDefault();
+      var analytics = $('.analytics');
+      if(analytics.hasClass('hideMe')) {
+        analytics.removeClass('hideMe').addClass('showMe');
+      } else {
+        analytics.removeClass('showMe').addClass('hideMe');
+      }
+    },
+    'click .searchHeader': function(evt, templ) {
+      evt.preventDefault();
+      var profile =  $('.thisProfile');
+      var search = $('.thisSearch');
+
+      if(profile.hasClass('hideMe')) {
+    profile.removeClass('hideMe');
+    search.addClass('hideMe');
+    $('.searchHeader h4').text('Search');
+      } else {
+        search.removeClass('hideMe');
+        profile.addClass('hideMe');
+        $('.searchHeader h4').text('Profile');
+      }
     } 
   });
+
+Template.slackMessage.helpers({
+  ago: function() {
+
+  },
+  text: function() {
+    var text = this.text;
+    return $('<div/>').html(text).text();
+  }
+});
+
+Template.slackMessage.onRendered(function() {
+
+  $('.thisText').each(function() {
+    var text  = $(this).data('text');
+    $(this).html(text);
+  });
+ 
+ 
+});
+
+Template.slackChat.onRendered(function() {
+    $('.summerNote').trigger('focus');
+    $(".slackMessages").animate({ scrollTop: $('.slackMessages')[0].scrollHeight}, 1000);
+});
+
+Template.slackChat.events({
+  'click .clearMessage':function(evt, templ) {
+    $('.summerNote').val('');
+  },
+  'click .sendMessage':function(evt, templ) {
+    var thisUser = Meteor.users.findOne(Meteor.userId());
+    var id = Router.current().params._id;
+    var thatUser = Meteor.users.findOne({ 'profile.username' : id });
+    var text = $('.summerNote').val();
+    var createdAt = new Date();
+    Meteor.call('createMessage', thatUser, thisUser, text, createdAt);
+    analytics.track('Send Message', {
+      chat: this,
+      user: Meteor.users.findOne(Meteor.userId())
+    });
+    $('.summerNote').val('');  
+    $(".slackMessages").animate({ scrollTop: $('.slackMessages')[0].scrollHeight}, 1000);  
+  }
+});
+
+Template.slackChat.helpers({
+  thisUser: function() {
+    var path = Router.current().location.get().path;
+    var username ='/' + Meteor.users.findOne(Meteor.userId()).profile.username;
+    if(path == '/' || path == username) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+  user: function() {
+    var id = Router.current().params._id;
+    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+    return Meteor.users.findOne({ 'profile.username' : id });
+  },
+  messages: function() {
+    var id = Router.current().params._id;
+    var thatUser = Meteor.users.findOne({ 'profile.username' : id });
+    var messages = Messages.find({
+      $or: [{'thatUser._id' : thatUser._id, 'thisUser._id': Meteor.userId()}, 
+      {'thatUser._id' : Meteor.userId(), 'thisUser._id': thatUser._id }]
+    },
+    {
+
+    });
+    return messages;
+  }
+});
 
   Template.gallery.helpers({
     posts: function() {
       var id = Router.current().params._id;
       if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      return Meteor.users.findOne({ 'profile.username' : id }).profile.posts.slice(0,4);
+      return Meteor.users.findOne({ 'profile.username' : id }).profile.posts;
     },
     backColor: function() {
       var id = Router.current().params._id;
