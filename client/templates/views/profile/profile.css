@@ -43,6 +43,7 @@
 
 .showMe {
 	display: block;
+    transition: 0.5s all ease;
 }
 
 .sendMyMessage {
@@ -101,6 +102,7 @@
 	font-weight: 700;
 	color: #3498db;
     pointer-events: none;
+    display: inline;
 }
 
 .white {
@@ -189,7 +191,7 @@
 }
 
 .slackMessages {
-	height: 550px;
+	height: 500px;
 	overflow: scroll;
 	overflow-x: hidden; 
 }

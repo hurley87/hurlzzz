@@ -20,6 +20,7 @@
         @{{this.thisUser.profile.username}}
         <div class='green'></div>
       </h5>
+      <br>
       {{text}}
     </div>
   </div>
@@ -63,9 +64,10 @@
     </div>
     {{else}}
     <div class='chatMessage'>
-      <div class='slackMessages'>
-      <h4>@{{user.profile.username}} <div class='green'></div></h4> 
-      <h4>This is your direct message history with @{{user.profile.username}}. Direct messages are private between the two of you.</h4>
+      
+      <h4>@{{user.profile.username}} <div class='green'></div></h4>
+      <div class='slackMessages'> 
+      <h4 class='m-t-lg'>This is your direct message history with @{{user.profile.username}}. Direct messages are private between the two of you.</h4>
       <hr>
       {{#each messages}}
         {{> slackMessage}}
@@ -95,7 +97,7 @@
       <h5>Welcome back @{{currentUser.profile.username}}!</h5>
       <h4 class='m-t-sm'>Messages</h4>
       {{#each myList}}
-       
+
       {{/each}}
       <h4 class='m-t-sm'>Online</h4>
       {{> activeUsers}}
@@ -127,7 +129,7 @@
           {{/if}}
         </div>
       </div>
-        <div class='analytics hideMe'>
+        <div class='analytics hideMe padding-sm'>
           {{> analytics}}
         {{#if growth}}
           <hr>

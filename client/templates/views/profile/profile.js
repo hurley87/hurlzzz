@@ -79,7 +79,7 @@
     return moment(createdAt).fromNow();
   },
   myList: function() {
-    
+
   } 
   });
 
@@ -211,24 +211,6 @@ Template.slackChat.helpers({
         return 'backBlue';
       }   
     }    
-  });
-
-  Template.myStats.events({
-    'click #requestChat': function(evt, templ) {
-      evt.preventDefault();
-      $(evt.target).hide();
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.users.findOne(Meteor.userId()).profile.username).profile.username }
-      var receive = Meteor.users.findOne({ 'profile.username' : id });
-      var send = Meteor.users.findOne(Meteor.userId());
-      Meteor.call('requestEmail', send, receive);
-      Meteor.call('sendRequest', send, receive);
-      analytics.track('Request', {
-        send: send,
-        receive: receive
-      });
-      Bert.alert('Chat request sent to @' + receive.profile.username, 'info');
-    }
   });
 
   Template.myStats.helpers({

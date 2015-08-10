@@ -70,6 +70,18 @@ Template.userDescription.helpers({
   }
 });
 
+Template.userDescription.onRendered(function() {
+  $('.userCard').on('click', function() {
+    var btns = $(this).find('.actionBtns');
+    console.log(btns);
+    if (btns.hasClass('hideMe')) {
+      btns.removeClass('hideMe');
+    } else {
+      btns.addClass('hideMe');
+    }
+  }); 
+}); 
+
 Template.userDescription.events({
   'click .request': function(evt, templ) {
     evt.preventDefault();
@@ -82,14 +94,6 @@ Template.userDescription.events({
       receive: receive
     });
     Bert.alert('Chat request sent to @' + receive.profile.username, 'info');
-  },
-  'click .userCard': function(evt, templ) {
-    var btns = $(evt.target).find('.actionBtns');
-    if(btns.hasClass('hideMe')) {
-      btns.removeClass('hideMe');
-    } else {
-      btns.addClass('hideMe');
-    }
   },
   'click .viewProfile': function(evt, templ) {
       evt.preventDefault();
