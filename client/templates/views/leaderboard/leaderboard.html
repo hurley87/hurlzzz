@@ -7,12 +7,12 @@
 </template>
 
 <template name='userDescription'>
-    <div class='userCard'>
+    <a href="{{id}}"><div class='userCard'>
         <div class='row'>
             <div class='col-md-1'>
                 <img alt="logo" height='25' width='25' class="profile-img" src="{{img}}">
             </div>
-            <div class='col-md-5'>
+            <div class='col-md-9'>
                 <h5 class='username'>
                     <span class='text-success'>${{value}}</span> 
                     @{{handle}}
@@ -21,21 +21,10 @@
                     {{else}}
                     <div class='red'></div>
                     {{/if}}
-                    
                 </h5>
             </div>
         </div>
-        <div class='row actionBtns hideMe m-t-sm'>
-            <div class='col-md-6'>
-              <p class='m-t-sm'>Post Value: ${{user.data.postValue}}</p>
-              <p>Followers: {{user.stats.followed_by}}</p>
-              <p>Average Likes: {{user.data.avgLikes}}</p>
-              <p>Average Comments: {{user.data.avgComments}}</p>
-              <p>Location: {{user.other.city}}, {{user.other.country}}</p>
-              <p><a href="{{id}}"><button class='newBtn viewProfile'>View Profile</button></a></p>
-            </div>
-        </div>
-    </div>
+    </div></a>
 </template>  
 
 <template name='explore'>

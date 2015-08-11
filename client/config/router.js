@@ -8,8 +8,6 @@ Router.route('/', {
   loadingTemplate: 'loading',
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
-    this.subscribe('requests');
-    this.subscribe('chats');
     this.subscribe('messages');
   }
 });
@@ -79,28 +77,8 @@ Router.route('/about', function () {
 Router.route('/:_id', {
   template: 'profile',
   loadingTemplate: 'loading',
-  data: function() {
-    return Meteor.users.findOne({ username: this.params._id });
-  },
-  waitOn: function() {
-    return [Meteor.subscribe('allLeaderboardUsers'), Meteor.subscribe('requests'), Meteor.subscribe('chats'), Meteor.subscribe('messages')];
+  subscriptions: function() {
+    this.subscribe('allLeaderboardUsers');
+    this.subscribe('messages');
   }
 });
-
-// var mustBeSignedIn = function(pause) {
-//   if (!(Meteor.user() || Meteor.loggingIn())) {
-//     Router.go('landingPage');
-//     this.next();
-//   }
-// };
-
-// var goToProfile = function(pause) {
-//   if (Meteor.user()) {
-//     console.log(Meteor.user());
-//     Router.go('/');
-//     this.next();
-//   }
-// };
-
-// Router.onBeforeAction(mustBeSignedIn, {except: ['signin']});
-// Router.onBeforeAction(goToProfile, {only: ['landingPage']});

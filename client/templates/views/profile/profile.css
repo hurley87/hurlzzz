@@ -103,6 +103,7 @@
 	color: #3498db;
     pointer-events: none;
     display: inline;
+    line-height: 25px;
 }
 
 .white {
@@ -167,20 +168,22 @@
 }
 
 .userCard {
-	border-radius: 5px;
 	border: 1px solid transparent;
 	cursor: pointer;
 	padding: 5px;
 	height: auto;
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
 }
 
 .userCard:hover {
-	border: 1px solid #d9d9d9;
+    background-color: #f1f1f1;
 	transition: 1s all ease;
 }
 
 .profile-img {
-	border-radius: 5px;
+	border-radius: 30px;
+    border: 2px solid #fff;
 }
 
 .searchHeader:hover {

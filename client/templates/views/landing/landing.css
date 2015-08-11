@@ -1,5 +1,5 @@
 body {
-	background-color: #3498db;
+	background-color: #303232;
 	font-family: 'Lato', sans-serif !important;
 	letter-spacing: 1px;
 }
@@ -20,13 +20,17 @@ body {
 }
 
 .bootstrap-touchspin-up {
-	background-color: #62CB31 !important;
+	background-color: #3498db !important;
 	color: white !important;
+	border-color: #3498db !important;
+	border-radius: 0 !important;
 }
 
 .bootstrap-touchspin-down {
-	background-color: #62CB31 !important;
+	background-color: #3498db !important;
+	border-color: #3498db !important;
 	color: white !important;
+	border-radius: 0 !important;
 }
 
 

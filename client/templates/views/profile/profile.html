@@ -93,51 +93,24 @@
 </template>  
 
 <template name='profile'>
-    <div class='slackList white'>
-      <h5>Welcome back @{{currentUser.profile.username}}!</h5>
-      <h4 class='m-t-sm'>Messages</h4>
-    </div>
-
-    <div class='slackInfo'>
-    <div class='searchHeader m-b-sm'>
-      <h4>Search</h4>
-    </div> 
-    <div class='thisProfile'>
-      {{#if thisUser}}
-      {{else}}
       {{> myStats}}
-      {{/if}}
       <p class='m-t-sm'>Post Value: ${{user.data.postValue}}</p>
       <p>Followers: {{user.stats.followed_by}}</p>
       <p>Average Likes: {{user.data.avgLikes}}</p>
       <p>Average Comments: {{user.data.avgComments}}</p>
-      <div class='row m-t-md'>
-        <div class='col-md-6'>
-          {{#if thisUser}}
-          <p><a href="/edit"><button class='newBtn'>Update Profile</button></a></p>
-          {{else}}
-          <p><button class='newBtn moreInfo'>More Info</button></p>
-          {{/if}}
-        </div>
+      <div class='padding-sm'>
+        {{> analytics}}
+      {{#if growth}}
+        <hr>
+        {{> valueGrowth}}  
+        <hr>    
+        {{> followerGrowth}} 
+        <hr>
+        {{> engagementGrowth}}
+      {{/if}}
+        <hr>
+       {{> gallery}}
       </div>
-        <div class='analytics hideMe padding-sm'>
-          {{> analytics}}
-        {{#if growth}}
-          <hr>
-          {{> valueGrowth}}  
-          <hr>    
-          {{> followerGrowth}} 
-          <hr>
-          {{> engagementGrowth}}
-        {{/if}}
-          <hr>
-         {{> gallery}}
-        </div>
-      </div> 
-      <div class='thisSearch hideMe'>
-        {{> leaderboard}}
-      </div>
-    </div>
 </template>
  
 <template name='myStats'>
