@@ -73,7 +73,6 @@ Template.userDescription.helpers({
 Template.userDescription.onRendered(function() {
   $('.userCard').on('click', function() {
     var btns = $(this).find('.actionBtns');
-    console.log(btns);
     if (btns.hasClass('hideMe')) {
       btns.removeClass('hideMe');
     } else {
