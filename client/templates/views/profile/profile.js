@@ -92,8 +92,8 @@ Template.myStats.helpers({
   Template.analytics.onRendered(function(){
     var id = Router.current().params._id;
     if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-    var likes = Meteor.users.findOne({ 'profile.username' : id }).profile.data.likes;
-    var comments = Meteor.users.findOne({ 'profile.username' : id }).profile.data.comments;
+    var likes = Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile.data.likes;
+    var comments = Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile.data.comments;
     var max = _.max(_.flatten(likes))
 
     var data5 = [
