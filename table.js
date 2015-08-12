@@ -24,7 +24,7 @@ TabularTables.Users = new Tabular.Table({
   pageLength: 10,
   scrollCollapse: true,
   columnDefs : [
-    {className: 'imgCol', 'targets':[1,2,3]}
+    {className: 'imgCol', 'targets':[1,2,3,4]}
   ]
 });
 
