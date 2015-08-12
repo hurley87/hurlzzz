@@ -1,6 +1,17 @@
 .myNav {
 	width: 100%;
 	color: white;
-	height: 50px;
+	height: 55px;
 	background-color: #303232 !important;
+	position: fixed;
+	top: 0;
+}
+
+
+#myMenu {
+	cursor: pointer;
+}
+
+#mySearch {
+	cursor: pointer;
 }

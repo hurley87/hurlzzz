@@ -21,7 +21,7 @@ Template.updateUser.helpers({
     }
 });
 
-Template.contact.events({
+Template.contactForm.events({
   'submit #create': function(evt, temp) {
     evt.preventDefault();
     var email = $('#email').val();
@@ -33,7 +33,8 @@ Template.contact.events({
       message: message,
       name: name
     });
-    Meteor.call('addContact', email, name, message);
+    var username = Meteor.users.findOne(Meteor.userId()).profile.username;
+    Meteor.call('addContact', email, name, message, username);
     $('#email').val('');
     $('#name').val('');
     $('#message').val('');

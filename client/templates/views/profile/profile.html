@@ -8,125 +8,64 @@
 
 <template name='loading'>
   {{> spinner}}
-</template>
-
-<template name='slackMessage'>
-  <div class='row m-t-sm'>
-    <div class='col-md-1'>
-        <img alt="logo" height='50' width='50' class="profile-img" src="{{this.thisUser.profile.profile_picture}}">    
-    </div>
-    <div class='col-md-11'>
-      <h5 class='username'>
-        @{{this.thisUser.profile.username}}
-        <div class='green'></div>
-      </h5>
-      <br>
-      {{text}}
-    </div>
-  </div>
 </template> 
 
-<template name='slackChat'>
-  <div class='padding-sm'>
-    {{#if thisUser}}
-    <div class='chatMessage'>
-      <h4>@{{user.profile.username}}</h4>
-      <div class='row'>
-        <div class='col-md-8'>
-          <div class='row m-t-lg'>
-            <div class='col-md-3'>
-               <img alt="logo" height='100' width='100' class="profile-img" src="{{user.profile.profile_picture}}">
-            </div>
-            <div class='col-md-9'>
-              <h5 class='username'>
-                @{{user.profile.username}}
-                <div class='green'></div>
-              </h5>
-              <p>
-                 {{user.profile.bio}}
-              </p>
-              <p>{{user.profile.other.city}}, {{user.profile.other.country}}</p>
-            </div>
-          </div>
-        </div>
-      </div> 
-        {{> analytics}}
-        {{#if growth}}
-          <hr>
-          {{> valueGrowth}}  
-          <hr>    
-          {{> followerGrowth}} 
-          <hr>
-          {{> engagementGrowth}}
-        {{/if}}
-          <hr>
-         {{> gallery}}
-    </div>
-    {{else}}
-    <div class='chatMessage'>
-      
-      <h4>@{{user.profile.username}} <div class='green'></div></h4>
-      <div class='slackMessages'> 
-      <h4 class='m-t-lg'>This is your direct message history with @{{user.profile.username}}. Direct messages are private between the two of you.</h4>
-      <hr>
-      {{#each messages}}
-        {{> slackMessage}}
-      {{/each}}
-      </div>
-    </div>    
-    {{/if}}
-    {{#if thisUser}}
-    {{else}}
-    <input type='text' class='summerNote'>
-    <div class='sendMyMessage'>
-      <div class='row'>
-        <div class='col-md-6'>
-          <p><button class='newBtn clearMessage'>Clear Message</button></p>   
-        </div>
-        <div class='col-md-6'>
-          <p class='text-right'><button class='newBtn sendMessage'>Send Message</button></p>
-        </div>
-      </div>
-    </div>
-    {{/if}}
-  </div>
-</template>  
-
 <template name='profile'>
+  <div class='row'>
+    <div class='col-md-8'>
       {{> myStats}}
-      <p class='m-t-sm'>Post Value: ${{user.data.postValue}}</p>
-      <p>Followers: {{user.stats.followed_by}}</p>
-      <p>Average Likes: {{user.data.avgLikes}}</p>
-      <p>Average Comments: {{user.data.avgComments}}</p>
-      <div class='padding-sm'>
-        {{> analytics}}
+      {{> analytics}}
       {{#if growth}}
         <hr>
-        {{> valueGrowth}}  
-        <hr>    
-        {{> followerGrowth}} 
-        <hr>
-        {{> engagementGrowth}}
+         <div class='row'>
+          {{> followerGrowth}}
+          <hr>
+          {{> engagementGrowth}}
+         </div>  
       {{/if}}
         <hr>
-       {{> gallery}}
-      </div>
+      {{> gallery}}
+    </div>
+    <div class='col-md-4 messagePanel'>
+      <button class='newBtn searchBtn'>Search</button>
+      {{#if thisUser}}
+      <h5 class='m-t-md'>Want to boost your Instagram account? We can help you generate a loyal and engaged audience the right way. Contact us for a free consultation.</h5>
+      {{else}}
+      <h5 class='m-t-md'>Would you like an account like this to feature you? Let us know and we can help set that up.</h5>
+      {{/if}}
+      {{> contactForm}}
+    </div>
+  </div>
 </template>
  
 <template name='myStats'>
   <div class='row'>
     <div class='col-md-3'>
-       <img alt="logo" height='100' width='100' class="profile-img" src="{{user.profile_picture}}">
+       <img alt="logo" height='175' width='175' class="profile-img" src="{{user.profile_picture}}">
+        <p class='m-t-md'>Post Value: ${{user.data.postValue}}</p>
+        <p>Followers: {{user.stats.followed_by}}</p>
+        <p>Average Likes: {{user.data.avgLikes}}</p>
+        <p>Average Comments: {{user.data.avgComments}}</p>
+        <p>Location: {{user.other.city}}, {{user.other.country}}</p>
+        <a href="/edit"><button class='newBtn'>Edit Profile</button></a>
     </div>
     <div class='col-md-9'>
       <h5 class='username'>
         @{{user.username}}
+        {{#if online}}
         <div class='green'></div>
+        {{else}}
+        <div class='red'></div>
+        {{/if}}
       </h5>
       <p>
          {{user.bio}}
       </p>
-      <p>{{user.other.city}}, {{user.other.country}}</p>
+      {{#if growth}}
+      <div class='m-t-md'>
+        {{> valueGrowth}} 
+      </div>
+      {{/if}}
     </div>
   </div>          
 </template> 
@@ -171,7 +110,6 @@
     <div class="stats-title">
       <h4>Followers</h4>
     </div>
-    <br>
     <div class="row">
       <div class="col-md-2 text-center">
         <h3 class=" m-t-sm"><i class="pe-7s-look fa-2x"></i></h3>
@@ -206,7 +144,6 @@
     <div class="stats-title">
       <h4>Value</h4>
     </div>
-    <br>
     <div class="row">
       <div class="col-md-2 text-center">
         <h3 class=" m-t-sm"><i class="pe-7s-cash fa-2x"></i></h3>
@@ -241,7 +178,6 @@
     <div class="stats-title">
       <h4>Likes and Comments</h4>
     </div>
-    <br>
     <div class="row">
       <div class="col-md-12">
           <div class="text-center small ">

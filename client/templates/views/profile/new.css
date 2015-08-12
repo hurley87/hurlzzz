@@ -96,6 +96,13 @@ html, body {
   background-color: #303232;
 }
 
+.snap-drawer-right h5{
+    padding: 17px;
+    border-bottom: 1px solid white;  
+}
+
+
+
 .snapjs-left .snap-drawer-right,
 .snapjs-right .snap-drawer-left {
   display: none;

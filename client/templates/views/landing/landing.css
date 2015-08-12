@@ -60,10 +60,14 @@ footer a {
 }
 
 .theLanding {
-  height: 500px;
+  position: fixed;
+  top: 55px;
+  bottom: 0;
+  right: 0;
+  left: 0;
   background-image: url('/header.jpg');
-  background-size: auto 600px;
-  background-position: -500px 500px;
+  background-size: cover;
+  background-position: -500px 0px;
 }
 
 .theLanding .landerNav {

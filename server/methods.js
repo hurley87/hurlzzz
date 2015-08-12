@@ -185,7 +185,7 @@ Meteor.methods({
       createdAt: createdAt
     });
   },
-  addContact: function(email, name, message) {
+  addContact: function(email, name, message, username) {
     Contacts.insert({
       email: email,
       name: name,
@@ -203,7 +203,7 @@ Meteor.methods({
       from: "dhurls99@gmail.com",
       to: "dhurls99@gmail.com",
       subject: "Hot lead",
-      text: message + "\n\n This is a lead from Ignition."
+      text: message + "\n\n This is a lead from Ignition. From @" + username + '. \n\n His name is ' + name
     });
 
   },

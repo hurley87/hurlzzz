@@ -1,7 +1,7 @@
 <template name='leaderboard'>
     <div class="">
         {{> explore}}
-        <h5 class='m-t-lg'><small>* by handle or location</small></h5>                    
+        <h6 class='m-t-lg white'><small>* by handle or location</small></h6>                    
          {{> tabular table=TabularTables.Users selector=selector }}
     </div>
 </template>
@@ -13,7 +13,7 @@
                 <img alt="logo" height='25' width='25' class="profile-img" src="{{img}}">
             </div>
             <div class='col-md-9'>
-                <h5 class='username'>
+                <h4 class='username'>
                     <span class='text-success'>${{value}}</span> 
                     @{{handle}}
                     {{#if online}}
@@ -21,7 +21,7 @@
                     {{else}}
                     <div class='red'></div>
                     {{/if}}
-                </h5>
+                </h4>
             </div>
         </div>
     </div></a>
@@ -36,53 +36,7 @@
     </div>   
 </template> 
 
-<template name='activeUsers'>
-    <div class='row messageUser white'>
-        {{#each users}}
-            {{> directMessage}}
-        {{/each}}
-    </div>     
-</template> 
 
-<template name='directMessage'> 
-    <a href="/{{profile.username}}">
-        <h5>
-            {{#if online}}
-            <div class='green'></div>
-            {{else}}
-            <div class='red'></div>
-            {{/if}}
-            @{{profile.username}}
-            <span class='text-success'>${{profile.data.postValue}}</span>
-        </h5>
-    </a>
-</template>    
-
-<template name='recentlyAdded'>
-    <div class='row'>
-        {{#each users}}
-            {{> directMessage}}
-        {{/each}}
-    </div>     
-</template>   
-
-<template name='topAccounts'>
-    <div class='row messageUser white'>
-        {{#each users}}
-            {{> directMessage}}
-        {{/each}}
-    </div>   
-</template>           
-
-<template name='featuredAccounts'>
-    <h5>Featured</h5>
-    <br>
-    <div class='row'>
-        {{#each randos}}
-            {{> userDescription}}
-        {{/each}}
-    </div>  
-</template>    
 
     
    

@@ -1,306 +1,82 @@
-
-  Template.profile.helpers({
-    user: function() {
-      var id = Router.current().params._id;
-      if(id == undefined) { id = Meteor.users.findOne(Meteor.userId()).profile.username; }
-      return Meteor.users.findOne({ 'profile.username' : id }).profile;
-    },
-    stats: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      return Meteor.users.findOne({ 'profile.username' : id }).profile.stats;
-    },
-    growth: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      var length = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth.length;
-      return length > 2;
-    },
-    ratio: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username }
-      var followed = Meteor.users.findOne({ 'profile.username' : id }).profile.stats.followed_by;
-      var followers = Meteor.users.findOne({ 'profile.username' : id }).profile.stats.follows;
-      return (followed/followers).toFixed(2);
-    },
-    thisUser: function() {
-      var homePath = Router.current().location.get().path;
-      var path = Router.current().params._id;
-      var username = Meteor.users.findOne(Meteor.userId()).profile.username;
-
-      if(homePath == '/' || path == username ) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    users: function() {
-      return Meteor.users.find({}, {
-        sort: {
-          'profile.data.postValue': -1
-        }
-    });
-  },
-  eliteCount: function() {
-    return Meteor.users.find().count();
-  },
-  selector: function() { 
-    if(Meteor.users.findOne(Meteor.userId())) { 
-      var myUsername = Meteor.users.findOne(Meteor.userId()).profile.username;
-      var id = Meteor.userId();
-      var requests = Requests.find({}).fetch();
-      var receivers = [];
-
-      for(var i=0; i < requests.length; i++) {
-        if(requests[i].send && requests[i].send._id == id) {
-          receivers.push(requests[i].receive._id);
-        }
-        if(requests[i].send && requests[i].receive._id == id) {
-          receivers.push(requests[i].send._id);
-        }
-      } 
-      return { 
-        'profile.data.postValue' : { $gt : Session.get('value') }, 
-        'profile.stats.followed_by': { $lt : Session.get('flow') }, 
-        'profile.username' : { $ne : myUsername },
-        _id: { $not : { $in : receivers }}
-      };
-    } else {
-      return { 
-         'profile.data.postValue' : { $gt : Session.get('value') },
-         'profile.stats.followed_by': { $lt : Session.get('flow') }
-      }; 
-    } 
-  },
-  joined: function() {
+Template.profile.helpers({
+  growth: function() {
     var id = Router.current().params._id;
     if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-    var createdAt = Meteor.users.findOne({ 'profile.username' : id }).createdAt;
-    return moment(createdAt).fromNow();
-  },
-  myList: function() {
-
-  } 
-  });
-
-  Template.profile.events({
-    'click #signMeUp': function(evt, temp) {
-        evt.preventDefault();
-        Meteor.loginWithInstagram(function (err, res) {
-          if (err !== undefined) {
-            console.log('sucess ' + res);
-          } else {
-            console.log('login failed ' + err);
-          }
-          var users = Meteor.users.find({}, { sort: { 'profile.data.postValue': -1 } }).fetch();
-          Router.go('/edit'); 
-        });
-    },
-    'click .moreInfo': function(evt, templ) {
-      evt.preventDefault();
-      var analytics = $('.analytics');
-      if(analytics.hasClass('hideMe')) {
-        analytics.removeClass('hideMe').addClass('showMe');
-      } else {
-        analytics.removeClass('showMe').addClass('hideMe');
-      }
-    },
-    'click .searchHeader': function(evt, templ) {
-      evt.preventDefault();
-      var profile =  $('.thisProfile');
-      var search = $('.thisSearch');
-
-      if(profile.hasClass('hideMe')) {
-        profile.removeClass('hideMe');
-        search.addClass('hideMe');
-        $('.searchHeader h4').text('Search');
-      } else {
-        search.removeClass('hideMe');
-        profile.addClass('hideMe');
-        $('.searchHeader h4').text('Profile');
-      }
+    var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
+    if(user) {
+      return user.profile.followerGrowth.length > 2;
     } 
-  });
-
-Template.slackMessage.helpers({
-  ago: function() {
-
   },
-  text: function() {
-    var text = this.text;
-    return $('<div/>').html(text).text();
-  }
-});
-
-Template.slackMessage.onRendered(function() {
-  $('.thisText').each(function() {
-    var text  = $(this).data('text');
-    $(this).html(text);
-  });
-});
-
-Template.slackChat.onRendered(function() {
-    $('.summerNote').trigger('focus');
-    $(".slackMessages").animate({ scrollTop: $('.slackMessages')[0].scrollHeight}, 1000);
-});
-
-Template.slackChat.events({
-  'click .clearMessage':function(evt, templ) {
-    $('.summerNote').val('');
-  },
-  'click .sendMessage':function(evt, templ) {
-    var thisUser = Meteor.users.findOne(Meteor.userId());
-    var id = Router.current().params._id;
-    var thatUser = Meteor.users.findOne({ 'profile.username' : id });
-    var text = $('.summerNote').val();
-    var createdAt = new Date();
-    Meteor.call('createMessage', thatUser, thisUser, text, createdAt);
-    analytics.track('Send Message', {
-      chat: this,
-      user: Meteor.users.findOne(Meteor.userId())
-    });
-    $('.summerNote').val('');  
-    $(".slackMessages").animate({ scrollTop: $('.slackMessages')[0].scrollHeight}, 1000);  
-  }
-});
-
-Template.slackChat.helpers({
   thisUser: function() {
     var path = Router.current().location.get().path;
-    var username ='/' + Meteor.users.findOne(Meteor.userId()).profile.username;
-    if(path == '/' || path == username) {
-      return true;
-    } else {
-      return false;
-    }
-  },
-  user: function() {
-    var id = Router.current().params._id;
-    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-    return Meteor.users.findOne({ 'profile.username' : id });
-  },
-  messages: function() {
-    var id = Router.current().params._id;
-    var thatUser = Meteor.users.findOne({ 'profile.username' : id });
-    var messages = Messages.find({
-      $or: [{'thatUser._id' : thatUser._id, 'thisUser._id': Meteor.userId()}, 
-      {'thatUser._id' : Meteor.userId(), 'thisUser._id': thatUser._id }]
-    },
-    {
-
-    });
-    return messages;
-  }
-});
-
-  Template.gallery.helpers({
-    posts: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      return Meteor.users.findOne({ 'profile.username' : id }).profile.posts;
-    },
-    backColor: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
-      if(account == 'Business') {
-        return 'backBlue';
-      } else if(account == 'Personal'){
-        return 'backBlue';
-      } else {
-        return 'backBlue';
-      }   
-    }    
-  });
-
-  Template.myStats.helpers({
-    user: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      return Meteor.users.findOne({ 'profile.username' : id }).profile;
-    },
-    thisUser: function() {
-      var path = Router.current().location.get().path;
-      var username ='/' + Meteor.users.findOne(Meteor.userId()).profile.username;
+    if(Meteor.userId()) {
+      var username = '/' + Meteor.users.findOne(Meteor.userId()).profile.username;
       if(path == '/' || path == username) {
         return true;
       } else {
         return false;
       }
-    },
-    age: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      var birthdate = Meteor.users.findOne({ 'profile.username' : id }).profile.other.age;
-      var birthdate = Session.get('datapicker2');
-      if(birthdate) {
-        var year = parseInt(birthdate.substr(birthdate.length - 4));
-        var currentTime = new Date();
-        var yearNow = currentTime.getFullYear();
-        return yearNow - year;
-      } else {
-        return '';
-      }
-      },
-  showRequest: function() {
-    var chats =  Chats.find({}).fetch();
-    var inChat = false;
-    var id = Router.current().params._id;
-    var userId = Meteor.users.findOne({ 'profile.username' : id })._id;
+    }
+  },
+});
 
-    for (var i=0; i < chats.length; i++) {
-      if(chats[i].thisUser._id == userId && chats[i].thatUser._id == Meteor.userId()) {
-        inChat = true;
-      }
-      if(chats[i].thatUser._id == userId && chats[i].thisUser._id == Meteor.userId()) {
-        inChat = true;
-      }
+Template.profile.events({
+  'click .searchBtn': function(evt, templ) {
+      var snapper = new Snap({
+        element: document.getElementById('snapper')
+      });
+
+      if( snapper.state().state == "closed" ) {
+        snapper.open('right');
+      } else {
+        snapper.close();
+      } 
+  } 
+});
+
+Template.gallery.helpers({
+  posts: function() {
+    var id = Router.current().params._id;
+    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+    var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
+    if(user) {
+      return user.profile.posts;
     }
-    return !inChat;
-    },
-    panelColor: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
-      if(account == 'Personal') {
-        return 'hblue';
-      } else if(account == 'Business'){
-        return 'hred';
-      } else {
-        return 'hviolet';
-      }   
-    },
-    backColor: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
-      if(account == 'Business') {
-        return 'backRed';
-      } else if(account == 'Personal'){
-        return 'backBlue';
-      } else {
-        return 'backPurple';
-      }   
-    },
-    type: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
-      if(account == 'Business') {
-        return 'Business';
-      } else if(account == 'Personal'){
-        return 'Personal';
-      } else {
-        return 'Animal';
-      }   
-    },
-    joined: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      var createdAt = Meteor.users.findOne({ 'profile.username' : id }).createdAt;
-      return moment(createdAt).fromNow();
+  }   
+});
+
+Template.myStats.helpers({
+  user: function() {
+    var id = Router.current().params._id;
+    if(!id) { 
+      return Meteor.users.findOne(Meteor.userId()).profile;
+    } else {
+      return Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile;
     }
-  });
+  },
+  joined: function() {
+    var id = Router.current().params._id;
+    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+    var createdAt = Meteor.users.find({ 'profile.username' : id }).createdAt;
+    return moment(createdAt).fromNow();
+  },    
+  growth: function() {
+    var id = Router.current().params._id;
+    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+    var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
+    if(user) {
+      return user.profile.followerGrowth.length > 2;
+    } 
+  },
+  online: function() {
+    var id = Router.current().params._id;
+    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+    var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
+    if(user && user.status) {
+      return user.status.online;
+    }
+  }
+});
 
 
   Template.analytics.helpers({
@@ -308,30 +84,6 @@ Template.slackChat.helpers({
       var id = Router.current().params._id;
       if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
       return Meteor.users.findOne({ 'profile.username' : id }).profile;
-    },
-    textColor: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
-      if(account == 'Personal') {
-        return 'blueText';
-      } else if(account == 'Business'){
-        return 'redText';
-      } else {
-        return 'purpleText';
-      }
-    },
-    panelColor: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
-      if(account == 'Personal') {
-        return 'hblue';
-      } else if(account == 'Business'){
-        return 'hred';
-      } else {
-        return 'hviolet';
-      }   
     }
   });
 
@@ -453,30 +205,6 @@ Template.followerGrowth.helpers({
     var big = engagement[engagement.length - 1]; 
     var small = engagement[0];
     return ((big - small)/small*100 ).toFixed(1);
-  },
-  textColor: function() {
-    var id = Router.current().params._id;
-    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-    var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
-    if(account == 'Personal') {
-      return 'blueText';
-    } else if(account == 'Business'){
-      return 'redText';
-    } else {
-      return 'purpleText';
-    }
-  },
-  panelColor: function() {
-    var id = Router.current().params._id;
-    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-    var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
-    if(account == 'Personal') {
-      return 'hblue';
-    } else if(account == 'Business'){
-      return 'hred';
-    } else {
-      return 'hviolet';
-    }   
   }
 }); 
 
@@ -540,31 +268,7 @@ Template.valueGrowth.helpers({
     var big = engagement[engagement.length - 1]; 
     var small = engagement[0];
     return ((big - small)/small*100 ).toFixed(1);
-  },
-    textColor: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
-      if(account == 'Personal') {
-        return 'blueText';
-      } else if(account == 'Business'){
-        return 'redText';
-      } else {
-        return 'purpleText';
-      }
-    },
-    panelColor: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      var account = Meteor.users.findOne({ 'profile.username' : id }).profile.other.account;
-      if(account == 'Personal') {
-        return 'hblue';
-      } else if(account == 'Business'){
-        return 'hred';
-      } else {
-        return 'hviolet';
-      }   
-    }
+  }
 }); 
 
 Template.valueGrowth.onRendered(function() {

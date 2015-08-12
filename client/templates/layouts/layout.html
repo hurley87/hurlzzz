@@ -2,29 +2,48 @@
 	{{> bertAlert}}   
 	<div class="snap-drawers">
         <div class="snap-drawer snap-drawer-left">
-        	<h5><img class='profile-img' height='30' width='30' src="{{currentUser.profile.profile_picture}}"> @{{currentUser.profile.username}}</h5>
+          {{#if currentUser}}
+        	<h5><a href="/"><img class='profile-img' height='30' width='30' src="{{currentUser.profile.profile_picture}}"></a> @{{currentUser.profile.username}}</h5>
+          {{/if}}
           <ul>
-            <li><a href="/">Profile</a></li>
-            <li><a href="/edit">Edit</a></li>
+            {{#if currentUser}}
+              <li><a href="/">Profile</a></li>
+              <li><a href="/edit">Edit</a></li>
+            {{else}}
+            <li class='m-t-md'><a href="/">Home</a></li>  
+            {{/if}}
             <li><a href="/about">About</a></li>
             <li><a href="/faq">FAQ</a></li>
-            <li><a href="/contact">Contact</a></li>
+            {{#if currentUser}}
+            <li><a class='logout' href="#">Logout</a></li>
+            {{/if}}
           </ul>
         </div>
         <div class="snap-drawer snap-drawer-right">
+          <h5>Search</h5>
           {{> leaderboard}}
         </div>
     </div>
     <div id="snapper" class="snap-content">
     	{{> myNav}}
-    	<div class="col-md-8 col-md-offset-2">
-           {{> yield}}
+    	<div style='padding-top: 75px;' class="col-md-10 col-md-offset-1">
+          {{> yield}}
      	</div>
     </div>
 </template> 
 
 <template name='myNav'>
-	<div class='myNav'>
-
+	<div class='myNav' style='padding: 0px 10px;'>
+    <div class='row'>
+      <div class='col-md-2 col-xs-2'>
+        <h2 id='myMenu' class='pull-left white'><i class="fa fa-bars"></i> </h2>
+      </div>
+      <div class='col-md-8 col-xs-8'>
+        <h2 class='text-center'><a href="/"><img style='position: relative; bottom: 5px;' src="/logo.png" height='50'></a></h2>
+      </div>
+      <div class='col-md-2 col-xs-2'>
+        <h2 id='mySearch' class='pull-right white'> <i class="fa fa-search"></i></h2>
+      </div>
+    </div>
 	</div>
 </template>
