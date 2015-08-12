@@ -83,7 +83,8 @@ Meteor.methods({
     check(user, Object);
     try {
       Meteor.users.update({_id: user._id}, {$set: {
-        'profile.other.email' : argument.email
+        'profile.other.email' : argument.email,
+        'profile.other.city' : argument.city
       }});
     } catch(exception) {
       return exception;

@@ -21,6 +21,14 @@ Template.updateUser.helpers({
     }
 });
 
+Template.updateUser.onRendered(function() {
+  this.autorun(function () {
+    if (GoogleMaps.loaded()) {
+      $("#location").geocomplete();
+    }
+  });
+});
+
 Template.contactForm.events({
   'submit #create': function(evt, temp) {
     evt.preventDefault();
@@ -45,7 +53,8 @@ Template.updateUser.events({
     'submit #update': function(evt, temp) {
         evt.preventDefault();
         var userDetails = {
-                email: $('#email').val()
+                email: $('#email').val(),
+                city: $('#location').val()
             };
         var user = Meteor.users.findOne(Meteor.userId());
         Meteor.call('updateUser', userDetails, user);

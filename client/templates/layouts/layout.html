@@ -4,6 +4,7 @@
         <div class="snap-drawer snap-drawer-left">
           {{#if currentUser}}
         	<h5><a href="/"><img class='profile-img' height='30' width='30' src="{{currentUser.profile.profile_picture}}"></a> @{{currentUser.profile.username}}</h5>
+          {{else}}
           {{/if}}
           <ul>
             {{#if currentUser}}

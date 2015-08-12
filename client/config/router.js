@@ -82,3 +82,11 @@ Router.route('/:_id', {
     this.subscribe('messages');
   }
 });
+
+Router.onBeforeAction(function() {
+  GoogleMaps.load({
+    key: "AIzaSyAaZm16_mMzjs34LmNqaQaANCELQVY5lq4",
+    libraries: 'places'
+  });
+  this.next();
+}, { only: ['/edit'] });
