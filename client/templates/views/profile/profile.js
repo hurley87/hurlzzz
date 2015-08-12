@@ -48,10 +48,12 @@ Template.gallery.helpers({
 Template.myStats.helpers({
   user: function() {
     var id = Router.current().params._id;
-    if(!id && Meteor.userId()) { 
-      return Meteor.users.findOne(Meteor.userId()).profile;
-    } else {
+    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+    var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
+    if(user) { 
       return Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile;
+    } else {
+      return Meteor.users.findOne(Meteor.userId()).profile;
     }
   },
   joined: function() {
