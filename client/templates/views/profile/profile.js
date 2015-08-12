@@ -48,7 +48,7 @@ Template.gallery.helpers({
 Template.myStats.helpers({
   user: function() {
     var id = Router.current().params._id;
-    if(!id) { 
+    if(!id && Meteor.userId()) { 
       return Meteor.users.findOne(Meteor.userId()).profile;
     } else {
       return Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile;
