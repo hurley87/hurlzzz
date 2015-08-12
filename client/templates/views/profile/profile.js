@@ -40,7 +40,7 @@ Template.gallery.helpers({
     if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
     var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
     if(user) {
-      return user.profile.posts;
+      return user.profile.posts.slice(0,8);
     }
   }   
 });
