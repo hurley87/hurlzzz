@@ -196,7 +196,7 @@ Meteor.methods({
       from: "dhurls99@gmail.com",
       to: email,
       subject: "Thanks for inquiring about Ignition!",
-      text: "Hey " + name + ", \n\n I'll get back to you as soon as I can. Things are busy but that doesn't mean I won't forget about you."
+      text: "Hey " + name + ", \n\n I'll get back to you as soon as I can. Things are busy but that doesn't mean I won't forget about you. \n\n  Thanks, \n\n Dave"
     });
 
     Email.send({

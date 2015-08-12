@@ -35,10 +35,10 @@ Template.explore.events({
     var newValue = parseInt($('#valueInput').val());
     Session.set('value', newValue);
   },
-  'change #followingInput': function(evt, temp) {
+  'change #thisValue': function(evt, temp) {
     evt.preventDefault();
-    var newValue = parseInt($('#followingInput').val());
-    Session.set('flow', newValue);
+    var newValue = parseInt($('#thisValue').val());
+    Session.set('thisValue', newValue);
   }
 });
 
@@ -46,13 +46,8 @@ Template.explore.helpers({
   value: function() {
     return Session.get('value');
   },
-  flow1: function() {
-    var followers = Session.get('flow');
-    var num = accounting.formatNumber(parseInt(followers));
-    return num;
-  },
-  flow2: function() {
-    return Session.get('flow');
+  thisValue: function() {
+    return Session.get('thisValue');
   }
 });
 
@@ -68,32 +63,9 @@ Template.leaderboard.helpers({
     return Meteor.users.find().count();
   },
   selector: function() { 
-    if(Meteor.users.findOne(Meteor.userId())) { 
-      var myUsername = Meteor.users.findOne(Meteor.userId()).profile.username;
-      var id = Meteor.userId();
-      var requests = Requests.find({}).fetch();
-      var receivers = [];
-
-      for(var i=0; i < requests.length; i++) {
-        if(requests[i].send && requests[i].send._id == id) {
-          receivers.push(requests[i].receive._id);
-        }
-        if(requests[i].send && requests[i].receive._id == id) {
-          receivers.push(requests[i].send._id);
-        }
-      } 
-      return { 
-        'profile.data.postValue' : { $gt : Session.get('value') }, 
-        'profile.stats.followed_by': { $lt : Session.get('flow') }, 
-        'profile.username' : { $ne : myUsername },
-        _id: { $not : { $in : receivers }}
-      };
-    } else {
-      return { 
-         'profile.data.postValue' : { $gt : Session.get('value') },
-         'profile.stats.followed_by': { $lt : Session.get('flow') }
-      }; 
-    } 
+    return { 
+       'profile.data.postValue' : { $gt : Session.get('value'), $lt: Session.get('thisValue') }
+    }; 
   }
 });
 
@@ -113,12 +85,12 @@ Template.leaderboard.onRendered(function() {
       maxboostedstep: 10
   }); 
 
-  $('#followingInput').TouchSpin({
+  $('#thisValue').TouchSpin({
       min: 0,
-      max: 1000000000000000,
-      step: 100,
-      boostat: 2000,
-      maxboostedstep: 30000
+      max: 100000000000,
+      step: 5,
+      boostat: 5,
+      maxboostedstep: 10
   }); 
 });
 

@@ -1,8 +1,7 @@
 <template name='leaderboard'>
     <div class="">
         {{> explore}}
-        <h6 class='m-t-lg white'><small>* by handle or location</small></h6>                    
-         {{> tabular table=TabularTables.Users selector=selector }}
+        {{> tabular table=TabularTables.Users selector=selector }}
     </div>
 </template>
 
@@ -13,7 +12,7 @@
                 <img alt="logo" height='25' width='25' class="profile-img" src="{{img}}">
             </div>
             <div class='col-md-9'>
-                <h4 class='username'>
+                <h6 class='username'>
                     <span class='text-success'>${{value}}</span> 
                     @{{handle}}
                     {{#if online}}
@@ -21,17 +20,21 @@
                     {{else}}
                     <div class='red'></div>
                     {{/if}}
-                </h4>
+                </h6>
             </div>
         </div>
     </div></a>
 </template>  
 
 <template name='explore'>
-    <div class='row'>
+    <div class='row padding-sm'>
         <div class='col-md-12'>
             <input id="valueInput" type="text" name="demo1" value="{{value}}">
             <p>Search accounts worth <strong>MORE</strong> then <strong>${{value}}</strong>.</p>
+        </div>
+        <div class='col-md-12'>
+            <input id="thisValue" type="text" name="demo1" value="{{thisValue}}">
+            <p>Search accounts worth <strong>LESS</strong> then <strong>${{thisValue}}</strong>.</p>
         </div>
     </div>   
 </template> 
