@@ -22,15 +22,14 @@ Template.profile.helpers({
 
 Template.profile.events({
   'click .searchBtn': function(evt, templ) {
-      var snapper = new Snap({
-        element: document.getElementById('snapper')
-      });
-
-      if( snapper.state().state == "closed" ) {
-        snapper.open('right');
-      } else {
-        snapper.close();
-      } 
+    var snapper = new Snap({
+      element: document.getElementById('snapper')
+    });
+    if( snapper.state().state == "closed" ) {
+      snapper.open('right');
+    } else {
+      snapper.close();
+    } 
   } 
 });
 
@@ -81,48 +80,46 @@ Template.myStats.helpers({
 });
 
 
-  Template.analytics.helpers({
-    user: function() {
-      var id = Router.current().params._id;
-      if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-      return Meteor.users.findOne({ 'profile.username' : id }).profile;
-    }
-  });
-
-  Template.analytics.onRendered(function(){
+Template.analytics.helpers({
+  user: function() {
     var id = Router.current().params._id;
-    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-    var likes = Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile.data.likes;
-    var comments = Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile.data.comments;
-    var max = _.max(_.flatten(likes))
+    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+    return Meteor.users.findOne({ 'profile.username' : id }).profile;
+  }
+});
 
-    var data5 = [
-        { data: likes, label: "likes"},
-        { data: comments, label: "comments"}
-    ];
+Template.analytics.onRendered(function(){
+  var id = Router.current().params._id;
+  if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
+  var likes = Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile.data.likes;
+  var comments = Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile.data.comments;
+  var max = _.max(_.flatten(likes))
 
-    var chartUsersOptions5 = {
-            series: {
-                lines: {
-                    show: true
-                },
-                points: {
-                    show: true
-                }
-            },
-            yaxis: {
-                min: 0,
-                max: max
-            },
-            colors: [ "#3498DB", "#efefef"],
-            labels: {
-              show: false
-            }
-        };
+  var data5 = [
+      { data: likes, label: "likes"},
+      { data: comments, label: "comments"}
+  ];
 
-    $.plot($("#flot-line-chart"), data5, chartUsersOptions5);
+  var chartUsersOptions5 = {
+          series: {
+              lines: {
+                  show: true
+              },
+              points: {
+                  show: true
+              }
+          },
+          yaxis: {
+              min: 0,
+              max: max
+          },
+          colors: [ "#3498DB", "#efefef"],
+          labels: {
+            show: false
+          }
+      };
 
-
+  $.plot($("#flot-line-chart"), data5, chartUsersOptions5);
 });
 
 Template.engagementGrowth.helpers({
@@ -314,7 +311,7 @@ Template.valueGrowth.onRendered(function() {
 
  
 
-  Meteor.Spinner.options = {
+Meteor.Spinner.options = {
     lines: 10, 
     length: 40, // The length of each line
     width: 15, // The line thickness
