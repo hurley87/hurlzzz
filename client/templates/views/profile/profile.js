@@ -84,8 +84,6 @@ Template.myStats.helpers({
     } else {
       var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
       return user.profile;
-    } else {
-      return
     }
   },
   joined: function() {
