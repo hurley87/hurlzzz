@@ -78,33 +78,45 @@ Template.gallery.helpers({
 Template.myStats.helpers({
   user: function() {
     var id = Router.current().params._id;
-    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-    var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
-    if(user) {
-      var profile = Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile;
-      return profile;
+    if(!id && Meteor.userId()) { 
+      var user = Meteor.users.findOne(Meteor.userId());
+      return user.profile;
     } else {
-      var profile = Meteor.users.findOne(Meteor.userId()).profile;
-      return profile;
+      var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
+      return user.profile;
+    } else {
+      return
     }
   },
   joined: function() {
     var id = Router.current().params._id;
-    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-    var createdAt = Meteor.users.find({ 'profile.username' : id }).fetch()[0].createdAt;
-    return moment(createdAt).fromNow();
+    if(!id && Meteor.userId()) { 
+      var user = Meteor.users.findOne(Meteor.userId());
+    } else {
+      var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
+    }
+    if(user) {
+      return moment(user.createdAt).fromNow();
+    } else {
+      return
+    }
   },    
   growth: function() {
     var id = Router.current().params._id;
-    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-    var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
+    if(!id && Meteor.userId()) { 
+      var user = Meteor.users.findOne(Meteor.userId());
+    } else {
+      var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
+    }
     if(user) {
       return user.profile.followerGrowth.length > 2;
+    } else {
+      return
     } 
   },
   online: function() {
     var id = Router.current().params._id;
-    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+    if(!id && Meteor.userId()) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
     var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
     if(user && user.status) {
       return user.status.online;
