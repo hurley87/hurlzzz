@@ -10,22 +10,25 @@ Template.layout.onRendered(function() {
     	element: document.getElementById('snapper')
   	});
 
-	$('#myMenu').on('click', function(){
+	$('#myMenu, .leftNav').on('click', function(){
 	    if( snapper.state().state == "left" ){
 	        snapper.close();
+	        
 	    } else {
 	        snapper.open('left');
+	       
 	    }
 
 	});
 
-	$('#mySearch').on('click', function(){
+	$('#mySearch, .rightNav').on('click', function(){
 		console.log(snapper.state().state);
 	    if( snapper.state().state == "right" ){
-
+	 
 	        snapper.close();
 	    } else {
 	        snapper.open('right');
+	    
 	    }
 
 	});	

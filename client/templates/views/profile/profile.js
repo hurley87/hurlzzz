@@ -20,17 +20,48 @@ Template.profile.helpers({
   },
 });
 
-Template.profile.events({
-  'click .searchBtn': function(evt, templ) {
-    var snapper = new Snap({
-      element: document.getElementById('snapper')
+Template.proposal.events({
+  'submit #createProposal': function(evt, temp) {
+    evt.preventDefault();
+    var intro = $('#intro').val();
+    var plan = $('#plan').val();
+    var perks = $('#perks').val();
+    var budget = $('#budget').val();
+    var sender = Meteor.users.findOne(Meteor.userId());
+    var receiver = Meteor.users.find({ 'profile.username' : Router.current().params._id}).fetch()[0];
+
+    var proposal = {
+      intro: intro,
+      plan: plan,
+      perks: perks,
+      sender: sender,
+      budget: budget,
+      receiver: receiver,
+      createdAt: new Date()      
+    };
+    console.log(proposal);
+
+    Bert.alert('Proposal Sent!', 'info');
+    analytics.track('Proposal Sent', {
+      sender: sender,
+      budget: budget,
+      receiver: receiver
     });
-    if( snapper.state().state == "closed" ) {
-      snapper.open('right');
-    } else {
-      snapper.close();
-    } 
-  } 
+    Meteor.call('proposal', proposal);
+    $('#intro').val('');
+    $('#plan').val('');
+    $('#perks').val('');
+    $('#budget').val('10');
+  }
+});
+
+Template.proposal.helpers({
+  thatUser: function() {
+    var username = Router.current().params._id;
+    if(username) { 
+      return Meteor.users.find({ 'profile.username' : username }).fetch()[0];
+    }
+  }
 });
 
 Template.gallery.helpers({
@@ -49,16 +80,18 @@ Template.myStats.helpers({
     var id = Router.current().params._id;
     if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
     var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
-    if(user) { 
-      return Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile;
+    if(user) {
+      var profile = Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile;
+      return profile;
     } else {
-      return Meteor.users.findOne(Meteor.userId()).profile;
+      var profile = Meteor.users.findOne(Meteor.userId()).profile;
+      return profile;
     }
   },
   joined: function() {
     var id = Router.current().params._id;
     if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-    var createdAt = Meteor.users.find({ 'profile.username' : id }).createdAt;
+    var createdAt = Meteor.users.find({ 'profile.username' : id }).fetch()[0].createdAt;
     return moment(createdAt).fromNow();
   },    
   growth: function() {

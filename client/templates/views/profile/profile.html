@@ -18,6 +18,8 @@
       {{#if growth}}
         <hr>
          <div class='row'>
+          {{> valueGrowth}} 
+          <hr>
           {{> followerGrowth}}
           <hr>
           {{> engagementGrowth}}
@@ -27,28 +29,70 @@
       {{> gallery}}
     </div>
     <div class='col-md-4 messagePanel'>
-      <button class='newBtn searchBtn'>Search</button>
-      {{#if thisUser}}
-      <h5 class='m-t-md'>Want to boost your Instagram account? We can help you generate a loyal and engaged audience the right way. Contact us for a free consultation.</h5>
+      {{#if currentUser}}
+        {{#if thisUser}}
+          <h5 class='m-t-md'>Want to boost your Instagram account? We can help you with your Instagram strategy. Contact us for a free consultation.</h5>
+          {{> contactForm}}
+        {{else}}
+          {{> proposal}}
+        {{/if}}
       {{else}}
-      <h5 class='m-t-md'>Would you like your account to be featured on Instagram? Let us know and we can help set that up.</h5>
+        <h5 class='m-t-md'>Would you like your account to be featured on Instagram? Let us know and we can help set that up.</h5>
+        {{> contactForm}}
       {{/if}}
-      {{> contactForm}}
     </div>
   </div>
+</template>
+
+<template name='proposal'>
+  <h5 class='m-t-md'>Would you like @{{thatUser.profile.username}} to feature you? </h5>
+  <form id='createProposal' class="form-horizontal" role="form" method="post" action="#">
+      <div class="form-group">
+          <div class='col-sm-12'>
+            <label for="name" class="control-label"  style=''>Introduction</label>
+          </div>
+          <div class="col-sm-12 m-t-xs">
+              <input type="text" class="form-control" id="intro" name="name" placeholder="Say hi and a bit about your business" value="">
+          </div>
+      </div>
+      <div class="form-group">
+          <div class='col-sm-12'>
+            <label for="name" class="control-label"  style=''>Game Plan</label>
+          </div>
+          <div class="col-sm-12 m-t-xs">
+              <textarea type="text" class="form-control" id="plan" name="name" placeholder="Maybe" value="Anything special you would like @{{thatUser.profile.username}} to do?"></textarea>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class='col-sm-12'>
+            <label for="name" class="control-label"  style=''>Perks</label>
+          </div>
+          <div class="col-sm-12 m-t-xs">
+              <input type="text" class="form-control" id="perks" name="name" placeholder="What's in it for {{thatUser.profile.username}}?" value="">
+          </div>
+      </div>
+      <div class="form-group">
+          <div class='col-sm-12'>
+            <label for="name" class="control-label"  style=''>Budget</label>
+          </div>
+          <div class="col-sm-12">
+              <input type='number' class="form-control" id='budget' value='10' required>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="col-sm-12">
+              <input id="submit" name="submit" type="submit" value="Send us a message" class="btn btn-success">
+          </div>
+      </div>
+  </form>
 </template>
  
 <template name='myStats'>
   <div class='row'>
-    <div class='col-md-3'>
-       <img alt="logo" height='175' width='175' class="profile-img" src="{{user.profile_picture}}">
-        <p class='m-t-md'>Post Value: ${{user.data.postValue}}</p>
-        <p>Followers: {{user.stats.followed_by}}</p>
-        <p>Average Likes: {{user.data.avgLikes}}</p>
-        <p>Average Comments: {{user.data.avgComments}}</p>
-        <p>Location: {{user.other.city}}</p>
+    <div class='col-md-2'>
+       <img alt="logo" height='100' width='100' class="profile-img" src="{{user.profile_picture}}">
     </div>
-    <div class='col-md-9'>
+    <div class='col-md-7'>
       <h5 class='username'>
         @{{user.username}}
         {{#if online}}
@@ -57,16 +101,27 @@
         <div class='red'></div>
         {{/if}}
       </h5>
+      <p>joined {{joined}}</p>
       <p>
          {{user.bio}}
       </p>
-      {{#if growth}}
-      <div class='m-t-md'>
-        {{> valueGrowth}} 
-      </div>
-      {{/if}}
     </div>
-  </div>          
+    <div class='col-md-3'><h3>${{user.data.postValue}}<small>/per post</small></h3></div>
+  </div>
+    <hr>
+  <div class='row'>
+    <div class='col-md-6'>
+      <p>Location: {{user.other.city}}</p>
+      <br>
+      <p>Followers: {{user.stats.followed_by}}</p>
+    </div>
+    <div class='col-md-6'>
+      <p>Average Likes: {{user.data.avgLikes}}</p>
+      <br>
+      <p>Average Comments: {{user.data.avgComments}}</p>
+    </div>
+  </div>  
+  <hr>        
 </template> 
 
 <template name='engagementGrowth'>

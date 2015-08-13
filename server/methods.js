@@ -165,6 +165,28 @@ Meteor.methods({
       createdAt: new Date()
     });
   },
+  proposal: function(proposal) {
+    console.log(proposal);
+    Proposals.insert(proposal);
+
+    var receiver = proposal.receiver;
+    var sender = proposal.sender;
+
+    Email.send({
+      from: "dhurls99@gmail.com",
+      to: receiver.profile.other.email,
+      subject: "@" + sender.profile.username + " wants you to feature them!" ,
+      text: "Hey " + receiver.profile.username + ", \n\n From: @" + sender.profile.username + ", \n\n Introduction: " + proposal.intro + ", \n\n Perks: " + proposal.perks + ", \n\n Game Plan: " + proposal.plan + ", \n\n Budget: $" + proposal.budget +"\n\n   Thanks, \n\n Dave"
+    });
+
+    Email.send({
+      from: "dhurls99@gmail.com",
+      to: "dhurley@hashtagpaid.com",
+      subject: "@" + sender.profile.username + " wants you to feature them!" ,
+      text: "Hey " + receiver.profile.username + ", \n\n From: @" + sender.profile.username  + ", \n\n Introduction: " + proposal.intro + ", \n\n Perks: " + proposal.perks + ", \n\n Game Plan: " + proposal.plan + ", \n\n Budget: $" + proposal.budget +"\n\n   Thanks, \n\n Dave"
+    });
+
+  },
   removeRequest: function(id) {
     Requests.remove({ _id : id });
   },

@@ -1,3 +1,15 @@
+.messagePanel {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 30px 55px;
+}
+
+.messagePanel h5 {
+    width: 90%;
+    line-height: 110%;
+    margin-bottom: 25px;
+}
+
 .newBtn {
     -webkit-font-smoothing: antialiased;
     font-family: Lato,appleLogo,sans-serif;

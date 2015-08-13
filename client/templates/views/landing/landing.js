@@ -49,6 +49,7 @@ Template.contactForm.events({
   }
 });
 
+
 Template.updateUser.events({
     'submit #update': function(evt, temp) {
         evt.preventDefault();
