@@ -68,12 +68,12 @@
             <label for="name" class="control-label"  style=''>Perks</label>
           </div>
           <div class="col-sm-12 m-t-xs">
-              <input type="text" class="form-control" id="perks" name="name" placeholder="What's in it for {{thatUser.profile.username}}?" value="">
+              <input type="text" class="form-control" id="perks" name="name" placeholder="What's in it for @{{thatUser.profile.username}}?" value="">
           </div>
       </div>
       <div class="form-group">
           <div class='col-sm-12'>
-            <label for="name" class="control-label"  style=''>Budget</label>
+            <label for="name" class="control-label"  style=''>Budget($)</label>
           </div>
           <div class="col-sm-12">
               <input type='number' class="form-control" id='budget' value='10' required>
@@ -81,7 +81,7 @@
       </div>
       <div class="form-group">
           <div class="col-sm-12">
-              <input id="submit" name="submit" type="submit" value="Send us a message" class="btn btn-success">
+              <input id="submit" name="submit" type="submit" value="Send @{{thatUser.profile.username}} a message" class="btn btn-success">
           </div>
       </div>
   </form>
