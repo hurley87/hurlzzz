@@ -14,8 +14,10 @@ Template.userDescription.helpers({
   },
   online: function() {
     var user = Meteor.users.findOne(this._id);
-    if(user.status) {
+    if(user && user.status) {
       return user.status.online;
+    } else {
+      return false;
     }
   }
 });

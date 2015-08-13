@@ -22,9 +22,7 @@ Template.layout.onRendered(function() {
 	});
 
 	$('#mySearch, .rightNav').on('click', function(){
-		console.log(snapper.state().state);
 	    if( snapper.state().state == "right" ){
-	 
 	        snapper.close();
 	    } else {
 	        snapper.open('right');
