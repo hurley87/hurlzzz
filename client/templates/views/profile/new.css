@@ -24,7 +24,8 @@ html, body {
       -ms-transform: translate3d(0, 0, 0);
        -o-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
-  background-color: #f2f4f7;        
+  background-color: #f2f4f7;  
+  overflow-x: hidden;      
 }
 
 .snap-drawers {
@@ -58,6 +59,7 @@ html, body {
   left: 0;
   z-index: 1;
   background-color: #303232;
+  overflow-x: hidden;
 }
 
 .snap-drawer-left h5 {
@@ -94,6 +96,7 @@ html, body {
   z-index: 1;
   color: white;
   background-color: #303232;
+  overflow-x: hidden;
 }
 
 .snap-drawer-right h5{
