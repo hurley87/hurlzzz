@@ -12,41 +12,38 @@
 
 .newBtn {
     -webkit-font-smoothing: antialiased;
-    font-family: Lato,appleLogo,sans-serif;
-    line-height: 1.2rem;
-    font-weight: 900;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    text-decoration: none;
     cursor: pointer;
-    text-shadow: 0 1px 1px rgba(0,0,0,.1);
-    border-radius: .25rem;
-    border: 1px solid #9e9ea6;
-    box-shadow: none;
-    position: relative;
-    display: inline-block;
-    vertical-align: bottom;
+    border-radius: 5px;
     text-align: center;
     white-space: nowrap;
     margin: 0;
     -webkit-appearance: none;
     -webkit-tap-highlight-color: transparent;
-    padding: 10px 15px;
+    padding: 15px 25px;
     font-size: 15px;	
-    width: 95%;
+    width: 100%;
     margin: auto;
-    background: #fbfbfa;
+    background: #3498db;
     font-weight: 700;
     text-shadow: none;
-     font-size: 14px;
-    border-width: 1px;
+    font-size: 16px;
     max-width: 300px;
-    color: #9e9ea6;
+    color: #fff;
     transition: 0.5s all ease;
     margin-right: 2px;
+    border: none;
 }
+
+.newBtn-outline {
+    border: 1px solid #3498db;
+    background-color: #fff;
+    color: #3498db;
+}
+
+.newBtn:hover {
+   opacity: 0.9;
+}
+
 
 .hideMe {
 	display: none;
@@ -102,12 +99,6 @@
 }
 .messageUser a h5:hover {
 	background-color: #3fa6ea;
-}
-
-.newBtn:hover {
-	border: 1px solid #3498db;
-	background-color: white;
-	color: #3498db;
 }
 
 .username {
@@ -275,7 +266,7 @@
   position: relative;
   bottom: 11px;
   max-width: 150px;
-  left: 5px;
+  left: 9px;
   background-color: #3498db;
 }
 

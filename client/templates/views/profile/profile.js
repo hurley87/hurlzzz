@@ -20,6 +20,16 @@ Template.profile.helpers({
   },
 });
 
+Template.profile.onRendered(function() {
+  $(document).ready(function() {
+    $('.moreInfo').hide();
+    $('#moreInfo').on('click', function() {
+        $('.moreInfo').toggle(650);
+        $('#recentPosts').toggle(650);
+    });
+  });
+});
+
 Template.proposal.events({
   'submit #createProposal': function(evt, temp) {
     evt.preventDefault();
@@ -70,7 +80,7 @@ Template.gallery.helpers({
     if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
     var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
     if(user) {
-      return user.profile.posts.slice(0,8);
+      return user.profile.posts.slice(0,4);
     }
   }   
 });
@@ -132,37 +142,40 @@ Template.analytics.helpers({
 });
 
 Template.analytics.onRendered(function(){
-  var id = Router.current().params._id;
-  if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-  var likes = Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile.data.likes;
-  var comments = Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile.data.comments;
-  var max = _.max(_.flatten(likes))
+  $(document).ready(function() {
+    var id = Router.current().params._id;
+    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
+    var likes = Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile.data.likes;
+    var comments = Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile.data.comments;
+    var max = _.max(_.flatten(likes))
 
-  var data5 = [
-      { data: likes, label: "likes"},
-      { data: comments, label: "comments"}
-  ];
+    var data5 = [
+        { data: likes, label: "likes"},
+        { data: comments, label: "comments"}
+    ];
 
-  var chartUsersOptions5 = {
-          series: {
-              lines: {
-                  show: true
-              },
-              points: {
-                  show: true
-              }
-          },
-          yaxis: {
-              min: 0,
-              max: max
-          },
-          colors: [ "#3498DB", "#efefef"],
-          labels: {
-            show: false
-          }
-      };
+    var chartUsersOptions5 = {
+            series: {
+                lines: {
+                    show: true
+                },
+                points: {
+                    show: true
+                }
+            },
+            yaxis: {
+                min: 0,
+                max: max
+            },
+            colors: [ "#3498DB", "#efefef"],
+            labels: {
+              show: false
+            }
+        };
 
-  $.plot($("#flot-line-chart"), data5, chartUsersOptions5);
+    $.plot($("#flot-line-chart"), data5, chartUsersOptions5);
+  });
+
 });
 
 Template.engagementGrowth.helpers({

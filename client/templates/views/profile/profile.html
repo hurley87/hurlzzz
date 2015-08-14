@@ -14,19 +14,22 @@
   <div class='row'>
     <div class='col-md-8'>
       {{> myStats}}
-      {{> analytics}}
-      {{#if growth}}
-        <hr>
-         <div class='row'>
-          {{> valueGrowth}} 
-          <hr>
-          {{> followerGrowth}}
-          <hr>
-          {{> engagementGrowth}}
-         </div>  
-      {{/if}}
-        <hr>
       {{> gallery}}
+      <br>
+        <button id='moreInfo' class='newBtn newBtn-outline'>More Info</button>
+        <div class='moreInfo'>
+        {{> analytics}}
+        {{#if growth}}
+          <hr>
+           <div class='row'>
+            {{> valueGrowth}} 
+            <hr>
+            {{> followerGrowth}}
+            <hr>
+            {{> engagementGrowth}}
+           </div>  
+        {{/if}}
+        </div>
     </div>
     <div class='col-md-4 messagePanel'>
       {{#if currentUser}}
@@ -116,9 +119,9 @@
       <p>Followers: {{user.stats.followed_by}}</p>
     </div>
     <div class='col-md-6'>
-      <p>Average Likes: {{user.data.avgLikes}}</p>
+      <p>Average Likes: {{user.data.avgLikes}} per post</p>
       <br>
-      <p>Average Comments: {{user.data.avgComments}}</p>
+      <p>Average Comments: {{user.data.avgComments}} per post</p>
     </div>
   </div>  
   <hr>        
@@ -229,7 +232,7 @@
 
 <template name='analytics'>
     <div class="stats-title">
-      <h4>Likes and Comments</h4>
+      <h4 id='likesComments'>Likes and Comments</h4>
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -244,9 +247,13 @@
 </template>   
 
 <template name='gallery'>
-  <div class="lightBoxGallery">
+  <div id='recentPosts'>
+  <div class="stats-title">
+    <h4>Recent Posts</h4>
+  </div>
+  <div class="lightBoxGallery row">
     {{#each posts}}
-      <div class='galleryItem'>
+      <div class='galleryItem col-md-3'>
         <div class='gImage'>
             <a href="{{images.standard_resolution.url}}" title="{{caption.text}}" data-gallery=""><img src="{{images.thumbnail.url}}"></a>
         </div>
@@ -255,5 +262,6 @@
         </div>
       </div> 
     {{/each}}
+  </div>
   </div>
 </template> 
