@@ -65,9 +65,18 @@ Template.leaderboard.helpers({
     return Meteor.users.find().count();
   },
   selector: function() { 
-    return { 
-       'profile.data.postValue' : { $gt : Session.get('value'), $lt: Session.get('thisValue') }
-    }; 
+    var more = Session.get('value');
+    var less = Session.get('thisValue');
+    if (more > 1 && less > 1) {
+      return { 
+         'profile.data.postValue' : { $gt : more, $lt: less }
+      };
+    } else {
+      return { 
+         'profile.data.postValue' : { $gt : 25, $lt: 150 }
+      };      
+    }
+ 
   }
 });
 
