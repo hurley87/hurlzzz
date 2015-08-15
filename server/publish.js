@@ -3,16 +3,8 @@ Meteor.publish('allLeaderboardUsers', function() {
   return data;
 });
 
-Meteor.publish('elites', function() {
-	var data = Meteor.users.find({
-		'profile.data.postValue' : {
-			$gt : 50
-		}
-	},
-	{
-		sort: { 'profile.data.postValue': -1 }
-	});
-	return data;
+Meteor.publish('updates', function() {
+	return Updates.find({});
 });
 
 Meteor.publish('requests', function() {

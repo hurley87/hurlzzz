@@ -90,7 +90,7 @@ Meteor.methods({
       return exception;
     }
   },
-  updateAnalytics: function(user) {
+  updateAnalytics: function(user, updater) {
     var ig = Meteor.npmRequire('instagram-node').instagram(); 
     var Future = Npm.require('fibers/future');
 
@@ -100,6 +100,7 @@ Meteor.methods({
     var currentValue = new Future();
     var currentEngagment = new Future();
     var currentFollowers = new Future();
+
 
     ig.use({ client_id: Meteor.settings.instagram_id, client_secret: Meteor.settings.instagram_secret });
 
@@ -131,32 +132,24 @@ Meteor.methods({
       }
   });
 
+    Meteor.call('createUserUpdate', updater, user);
+
     if(user.profile.other.email) {
        Email.send({
-        from: "meteor.email.2014@gmail.com",
+        from: updater.profile.other.email,
         to: user.profile.other.email,
-        subject: "Ignition - your stats have been updated",
+        subject: "@" + updater.profile.username + " just updated the value of your Instagram account!",
         text: "Hey " + user.profile.username + ",\n\n Take a look at your updated Instagram stats, \n\n" +
         'http://reachignition.com/' + user.profile.username + '\n\n Any questions? Reply to this email. \n\n Thanks!'
       });     
     }
   },
-  setRank: function(users) { 
-    for(var i=0; i < users.length; i++) {
-      var newRank = i + 1;
-      Meteor.users.update({ _id: users[i]._id }, { $set: {
-        'profile.data.rank' : newRank
-      }});       
-    }
-  },
-  addGrowth: function(user) {
-    var engagement = parseFloat(user.profile.data.engagement)
-    Meteor.users.update({ _id: user._id}, {$set: {
-      'profile.followerGrowth' : [user.profile.stats.followed_by],
-      'profile.engagementGrowth': [engagement],
-      'profile.valueGrowth': [user.profile.data.postValue],
-      'profile.other.account': 'Personal'
-    }});    
+  createUserUpdate: function(updater, updated) {
+    Updates.insert({
+      updater: updater,
+      updated: updated,
+      createdAt: new Date()
+    });
   },
   sendRequest: function(send, receive) {
     Requests.insert({

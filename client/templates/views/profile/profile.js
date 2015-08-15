@@ -17,7 +17,7 @@ Template.profile.helpers({
         return false;
       }
     }
-  },
+  }
 });
 
 Template.profile.onRendered(function() {
@@ -29,6 +29,7 @@ Template.profile.onRendered(function() {
     });
   });
 });
+
 
 Template.proposal.events({
   'submit #createProposal': function(evt, temp) {
@@ -49,7 +50,7 @@ Template.proposal.events({
       receiver: receiver,
       createdAt: new Date()      
     };
-    console.log(proposal);
+ 
 
     Bert.alert('Proposal Sent!', 'info');
     analytics.track('Proposal Sent', {
@@ -85,15 +86,31 @@ Template.gallery.helpers({
   }   
 });
 
+Template.myStats.events({
+  'click .updateThisUser': function() {
+    var updater = Meteor.users.findOne(Meteor.userId());
+    var id = Router.current().params._id;
+    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
+    var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
+    if(user) {
+      Meteor.call('updateAnalytics', user, updater);
+    }
+  }
+}); 
+
 Template.myStats.helpers({
   user: function() {
     var id = Router.current().params._id;
     if(!id && Meteor.userId()) { 
       var user = Meteor.users.findOne(Meteor.userId());
-      return user.profile;
+      if(user) {
+        return user.profile;
+      }
     } else {
       var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
-      return user.profile;
+      if(user) {
+        return user.profile;
+      }
     }
   },
   joined: function() {
@@ -129,6 +146,45 @@ Template.myStats.helpers({
     if(user && user.status) {
       return user.status.online;
     }
+  },
+  beenUpdated: function() {
+    var username = Router.current().params._id;
+    if(username) { 
+      var userId =  Meteor.users.find({ 'profile.username' : username }).fetch()[0]._id;
+    } else {
+      var userId = Meteor.userId();
+    }
+
+    var updates = Updates.find({
+      'updated._id' : userId
+    }).fetch();
+    
+    var lastUpdate = _.last(updates);
+    var time = lastUpdate.createdAt
+    var future = moment(lastUpdate.createdAt).add(1, 'days').calendar();
+
+    var dayAfter = time.setDate(time.getDate() + 1);
+    var today = new Date();
+
+    return today > dayAfter;
+  },
+  updater: function() {
+    var username = Router.current().params._id;
+    if(username) { 
+      var userId =  Meteor.users.find({ 'profile.username' : username }).fetch()[0]._id;
+    } else {
+      var userId = Meteor.userId();
+    }
+
+    var updates = Updates.find({
+      'updated._id' : userId
+    }).fetch();
+    
+    var lastUpdate = _.last(updates);
+    return {
+      name: lastUpdate.updater.profile.username,
+      time: moment(lastUpdate.createdAt).fromNow()
+    };
   }
 });
 

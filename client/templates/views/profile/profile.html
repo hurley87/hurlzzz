@@ -16,17 +16,16 @@
       {{> myStats}}
       {{> gallery}}
         <br>
-        <button id='moreInfo' class='newBtn newBtn-outline'>More Info</button>
+        <button id='moreInfo' class='newBtn newBtn-outline'>View Stats</button>
         <br>
         <div class='moreInfo'>
         {{> analytics}}
         {{#if growth}}
-          <hr>
            <div class='row'>
             {{> valueGrowth}} 
-            <hr>
+ 
             {{> followerGrowth}}
-            <hr>
+ 
             {{> engagementGrowth}}
            </div>  
         {{/if}}
@@ -35,7 +34,7 @@
     <div class='col-md-4 messagePanel'>
       {{#if currentUser}}
         {{#if thisUser}}
-          <h5 class='m-t-md'>Want to boost your Instagram account? We can help you with your Instagram strategy. Contact us for a free consultation.</h5>
+          <h5 class='m-t-md'>Want to boost your Instagram account? Get advice from one of our Instagram experts.</h5>
           {{> contactForm}}
         {{else}}
           {{> proposal}}
@@ -77,7 +76,7 @@
       </div>
       <div class="form-group">
           <div class='col-sm-12'>
-            <label for="name" class="control-label"  style=''>Budget($)</label>
+            <label for="name" class="control-label pull-left"  style=''>How much would you pay @{{thatUser.profile.username}}?($)</label>
           </div>
           <div class="col-sm-12">
               <input type='number' class="form-control" id='budget' value='10' required>
@@ -85,12 +84,12 @@
       </div>
       <div class="form-group">
           <div class="col-sm-12">
-              <input id="submit" name="submit" type="submit" value="Send message" class="newBtn">
+              <input id="submit" name="submit" type="submit" value="Send @{{thatUser.profile.username}} a message" class="newBtn">
           </div>
       </div>
   </form>
 </template>
- 
+
 <template name='myStats'>
   <div class='row'>
     <div class='col-md-2'>
@@ -112,20 +111,34 @@
     </div>
     <div class='col-md-3'><h3><span class='font-extra-bold text-success'>${{user.data.postValue}}</span><small>/per post</small></h3></div>
   </div>
-    <hr>
-  <div class='row'>
-    <div class='col-md-6'>
-      <p>Location: {{user.other.city}}</p>
-      <br>
-      <p>Followers: {{user.stats.followed_by}}</p>
-    </div>
-    <div class='col-md-6'>
-      <p>Average Likes: {{user.data.avgLikes}} per post</p>
-      <br>
-      <p>Average Comments: {{user.data.avgComments}} per post</p>
-    </div>
-  </div>  
-  <hr>        
+  <br>
+  {{#if currentUser}}
+    {{#if beenUpdated}}
+      <div class='row'>
+        <div class='col-md-4'><button class='updateThisUser newBtn'>Update @{{user.username}}</button></div>
+      </div> 
+    {{else}}
+      <div class='row'>
+        <div class='col-md-4'><div class='newBtn newBtn-outline'>Updated</div></div>
+      </div>  
+    {{/if}}
+  {{/if}}  
+    <br>
+    <div class='row'>
+      <div class='col-md-4'>
+        <p>Last Updated: {{updater.time}} </p>
+        <p>Update By: @{{updater.name}}</p>
+      </div>
+      <div class='col-md-4'>
+        <p>Location: {{user.other.city}}</p>
+        <p>Followers: {{user.stats.followed_by}}</p>
+
+      </div>
+      <div class='col-md-4'>
+        <p>Average Likes: {{user.data.avgLikes}} per post</p>
+        <p>Average Comments: {{user.data.avgComments}} per post</p>
+      </div>
+    </div> 
 </template> 
 
 <template name='engagementGrowth'>

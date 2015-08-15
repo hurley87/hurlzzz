@@ -8,16 +8,8 @@ Router.route('/', {
   loadingTemplate: 'loading',
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
-    this.subscribe('messages');
+    this.subscribe('updates');
   }
-});
-
-Router.route('/updateUsers', {
-  template: 'updateAllUsers',
-  loadingTemplate: 'loading',
-  subscriptions: function() {
-    this.subscribe('allLeaderboardUsers');
-  }  
 });
 
 Router.route('/contact', {
@@ -30,6 +22,7 @@ Router.route('/edit', {
   loadingTemplate: 'loading',
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
+    this.subscribe('updates');
   }
 });
 
@@ -38,6 +31,7 @@ Router.route('/search', {
   loadingTemplate: 'loading',
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
+    this.subscribe('updates');
   }
 });
 
@@ -54,7 +48,7 @@ Router.route('/:_id', {
   loadingTemplate: 'loading',
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
-    this.subscribe('messages');
+    this.subscribe('updates');
   }
 });
 

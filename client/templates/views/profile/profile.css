@@ -9,6 +9,11 @@
     line-height: 110%;
     margin-bottom: 25px;
 }
+.moreInfo {
+    height: 215px;
+    overflow: scroll;
+    overflow-x: hidden; 
+}
 
 .newBtn {
     -webkit-font-smoothing: antialiased;
