@@ -32,7 +32,7 @@ if(Meteor.isClient) {
   Meteor.startup(function() {
     GoogleMaps.load({
       key: "AIzaSyAaZm16_mMzjs34LmNqaQaANCELQVY5lq4",
-      libraries: 'places'  // also accepts an array if you need more than one
+      libraries: 'places'  
     });
   });
 }

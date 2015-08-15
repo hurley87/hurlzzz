@@ -15,8 +15,9 @@
     <div class='col-md-8'>
       {{> myStats}}
       {{> gallery}}
-      <br>
+        <br>
         <button id='moreInfo' class='newBtn newBtn-outline'>More Info</button>
+        <br>
         <div class='moreInfo'>
         {{> analytics}}
         {{#if growth}}
@@ -84,7 +85,7 @@
       </div>
       <div class="form-group">
           <div class="col-sm-12">
-              <input id="submit" name="submit" type="submit" value="Send @{{thatUser.profile.username}} a message" class="btn btn-success">
+              <input id="submit" name="submit" type="submit" value="Send message" class="newBtn">
           </div>
       </div>
   </form>
@@ -109,7 +110,7 @@
          {{user.bio}}
       </p>
     </div>
-    <div class='col-md-3'><h3>${{user.data.postValue}}<small>/per post</small></h3></div>
+    <div class='col-md-3'><h3><span class='font-extra-bold text-success'>${{user.data.postValue}}</span><small>/per post</small></h3></div>
   </div>
     <hr>
   <div class='row'>
@@ -251,13 +252,11 @@
   <div class="stats-title">
     <h4>Recent Posts</h4>
   </div>
-  <div class="lightBoxGallery row">
+  <div class="row">
     {{#each posts}}
-      <div class='galleryItem col-md-3'>
-        <div class='gImage'>
-            <a href="{{images.standard_resolution.url}}" title="{{caption.text}}" data-gallery=""><img src="{{images.thumbnail.url}}"></a>
-        </div>
-        <div class='gOverlay'>
+      <div class='col-md-3'>
+            <div><a href="{{images.standard_resolution.url}}" title="{{caption.text}}" data-gallery=""><img src="{{images.thumbnail.url}}"></a></div>
+        <div>
           <i class="fa fa-heart"></i> {{likes.count}}  &nbsp; <i class="fa fa-comment"></i>  {{comments.count}} 
         </div>
       </div> 

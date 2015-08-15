@@ -80,8 +80,8 @@
 <template name='edit'>
   <div class='myContent'>
     <div class='row'>
-      <h1 class='font-extra-bold text-center m-t-lg'>Your Instagram is worth <br><span class='text-success'>${{currentUser.profile.data.postValue}}</span> per post</h1>
-      <h5 class='text-center m-t-lg'>This value changes over time. Subscribe below for weekly updates! </h5>
+      <h3 class='font-extra-bold text-center m-t-lg'>Your Instagram is worth <br><span class='text-success'>${{currentUser.profile.data.postValue}}</span> per post</h3>
+      <h5 class='text-center m-t-lg'>This value changes over time.<br> Start getting paid!</h5><br>
       <div class='m-t-sm'>
        {{> updateUser}}
       </div>
@@ -101,6 +101,7 @@
       <div class="form-group">
           <div class="text-center"><input id='location' type="text" value='{{user.other.city}}' class="form-control input-lg" placeholder='Location'></div>
       </div>
+      <br>
       <div class="form-group">
         <div class="text-center">
           <p><button class="btn btn-success btn-lg">Update</button></p>

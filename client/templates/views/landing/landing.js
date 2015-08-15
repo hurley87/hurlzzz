@@ -8,7 +8,6 @@
           console.log('login failed ' + err);
         }
         var users = Meteor.users.find({}, { sort: { 'profile.data.postValue': -1 } }).fetch();
-        Meteor.call('setRank', users);
         Bert.alert('Almost there!', 'info');
         Router.go('/edit'); 
       });

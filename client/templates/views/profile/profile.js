@@ -24,8 +24,8 @@ Template.profile.onRendered(function() {
   $(document).ready(function() {
     $('.moreInfo').hide();
     $('#moreInfo').on('click', function() {
-        $('.moreInfo').toggle(650);
-        $('#recentPosts').toggle(650);
+        $('.moreInfo').toggle(100);
+        $('#recentPosts').toggle(100);
     });
   });
 });
