@@ -17,17 +17,28 @@ Template.profile.helpers({
         return false;
       }
     }
+  },
+  thatUser: function() {
+    var username = Router.current().params._id;
+    if(username) { 
+      return Meteor.users.find({ 'profile.username' : username }).fetch()[0];
+    }
   }
 });
 
 Template.profile.onRendered(function() {
   $(document).ready(function() {
-    $('.moreInfo').hide();
-    $('#moreInfo').on('click', function() {
-        $('.moreInfo').toggle(100);
-        $('#recentPosts').toggle(100);
-    });
+    $('.info').hide();
   });
+});
+
+Template.profile.events({
+  'click #moreInfo': function(evt) {
+    console.log('hello');
+    evt.preventDefault();
+    $('.info').toggle(100);
+    $('#recentPosts').toggle(100);
+  }
 });
 
 

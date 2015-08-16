@@ -9,12 +9,13 @@
     line-height: 110%;
     margin-bottom: 25px;
 }
-.moreInfo {
+.info {
     height: 255px;
     overflow: scroll;
     overflow-x: hidden;
     background-color: #fff;
     padding-left: 10px;
+    display: none;
 }
 
 .newBtn {

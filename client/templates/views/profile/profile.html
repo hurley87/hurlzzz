@@ -19,7 +19,7 @@
         <br>
         <button id='moreInfo' class='newBtn newBtn-outline'>More Info</button>
         <br>
-        <div class='moreInfo'>
+        <div class='info'>
           {{> valueGrowth}} 
           <hr>
           {{> followerGrowth}}
@@ -37,7 +37,7 @@
           {{> proposal}}
         {{/if}}
       {{else}}
-        <h5 class='m-t-md'>Would you like your account to be featured on Instagram? Let us know and we can help set that up.</h5>
+        <h5 class='m-t-md'>Would you like @{{thatUser.profile.username}} to feature you on Instagram? Let us know and we can help set that up.</h5>
         {{> contactForm}}
       {{/if}}
     </div>
@@ -112,7 +112,7 @@
   {{#if currentUser}}
     {{#if beenUpdated}}
       <div class='row'>
-        <div class='col-md-4'><button class='updateThisUser newBtn'>Update @{{user.username}}</button></div>
+        <div class='col-md-6'><button class='updateThisUser newBtn'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button></div>
       </div> 
     {{/if}}
   {{/if}}  
