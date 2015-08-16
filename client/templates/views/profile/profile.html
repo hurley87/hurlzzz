@@ -110,10 +110,16 @@
   </div>
   <br>
   {{#if currentUser}}
-    {{#if beenUpdated}}
+    {{#if thisUser}}
       <div class='row'>
-        <div class='col-md-6'><button class='updateThisUser newBtn'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button></div>
+        <div class='col-md-6'><button class='mySearch newBtn'><i class="fa fa-search"></i> Ignite another account</button></div>
       </div> 
+    {{else}}
+      {{#if beenUpdated}}
+        <div class='row'>
+          <div class='col-md-6'><button class='updateThisUser newBtn'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button></div>
+        </div> 
+      {{/if}}
     {{/if}}
   {{/if}}  
     <br>

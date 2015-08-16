@@ -62,12 +62,56 @@ footer a {
 .theLanding {
   position: fixed;
   top: 55px;
-  bottom: 0;
   right: 0;
   left: 0;
+  height: 600px;
   background-image: url('/header.jpg');
   background-size: cover;
   background-position: -500px 0px;
+}
+
+.theAds {
+	margin-top: 625px;
+	height: 500px;
+}
+
+.algor {
+	margin-top: 175px;
+}
+
+.theAds .phone {
+	margin: auto;
+	width: 300px;
+	height: 610px;
+	background-image: url('/phone.png');
+	z-index: 4;
+	position: relative; 
+}
+
+.theAds .phone .ad {
+    width: 290px;
+    height: 568px;
+    max-height: 550px;
+	z-index: 1;
+	position: relative; 
+}
+.theAds .phone .one {
+	background-image: url('/ad2.png');
+}
+.theAds .phone .two {
+	background-image: url('/ad1.png');
+}
+.theAds .phone .three {
+	background-image: url('/ad3.png');
+}
+.theAds .phone .four {
+	background-image: url('/ad4.png');
+}
+.theAds .phone .five {
+	background-image: url('/ad5.png');
+}
+.theAds .phone .six {
+	background-image: url('/ad6.png');
 }
 
 .theLanding .landerNav {

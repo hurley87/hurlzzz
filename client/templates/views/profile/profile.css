@@ -248,6 +248,11 @@
 	color: #3498db;
 }
 
+.spacerBlue {
+    padding-top: 60px;
+    border-top: 1px solid #3498db;
+}
+
 .purpleText {
 	color: #9b59b6;
 }
@@ -290,4 +295,7 @@
 	.card-row {
 		height: 400px;
 	}
+    .phone {
+        display: none;
+    }
 }

@@ -8,11 +8,35 @@
           console.log('login failed ' + err);
         }
         var users = Meteor.users.find({}, { sort: { 'profile.data.postValue': -1 } }).fetch();
-        Bert.alert('Almost there!', 'info');
         Router.go('/edit'); 
       });
     }
   });
+
+Template.hey.rendered = function () {
+  $(document).ready(function(){
+    $('#slider').slick({
+        arrows: false,
+        verticalSwiping: true,
+        vertical: true,
+        adaptiveHeight: true,
+        centerPadding: '0px'
+    });
+    var snapper = new Snap({
+      element: document.getElementById('snapper')
+    });
+    $('.mySearch').on('click', function(){
+      if( snapper.state().state == "right" ){
+          snapper.close();
+      } else {
+          snapper.open('right');
+      
+      }
+
+  });
+  });
+
+};
 
 Template.updateUser.helpers({
     user: function() {

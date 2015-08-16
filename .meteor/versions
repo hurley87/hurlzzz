@@ -87,6 +87,7 @@ routepolicy@1.0.5
 sacha:spin@2.3.1
 service-configuration@1.0.4
 session@1.1.0
+shcherbin:slickjs@1.5.8
 spacebars@1.0.6
 spacebars-compiler@1.0.6
 templating@1.1.1

@@ -12,9 +12,76 @@
   <div class='theLanding'>
     <div class='row'>
       <div class='col-lg-12 text-center'>
-        <h2 class='title font-extra-bold m-t-xxxl' style='color: white;'>Everyone is worth something.</h2>
-        <h3 class='tagline m-t-xl' style='color: white'>Easily track the performance of your Instagram account.</h3>    
-        <h1 class='m-t-xl'><button class='insta btn btn-success btn-lg'>Calculate my Instagram Score</button></h1>
+        <h2 class='title font-extra-bold m-t-xxxl' style='color: white;'>Every account is worth something</h2>
+        <h3 class='tagline m-t-xl' style='color: white'>Easily track the value of your Instagram account</h3>    
+      </div>
+      <h1 class='m-t-xl col-md-2 col-md-offset-5 col-xs-8 col-xs-offset-2'><button class='newBtn insta'>Get Started</button></h1>
+    </div>
+  </div>
+  <div class='theAds'>
+    <div class='row'>
+      <div class='col-md-6'>
+        <h1 class='m-t-lg'>Everyday, someone is making money featuring a business on Instagram.</h1>
+        <h3 class='m-t-lg'>At <a href="https://www.hashtagpaid.com/">#paid</a>, we help businesses create beautiful Instagram ads while paying influencers to do what they love.</h3>
+        <h3 class='m-t-lg'>Anyone has the potential to be an influencer on Instagram.</h3>
+        <div class='row m-t-lg'>
+          <div class='col-md-6'><button class='newBtn insta'>Link Your Instagram</button></div>
+        </div>
+      </div>
+      <div class='col-md-6'>
+        <div class='phone'>
+          <div id='slider'>
+            <div class='ad one'></div>
+            <div class='ad two'></div>
+            <div class='ad three'></div>
+            <div class='ad four'></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class='algor text-center'>
+    <h1 class='spacerBlue'>Based on your followers, average likes and comments<br>we can calculate the value of your Instagram account.</h1>
+    <div class='row m-t-lg'>
+      <div class='col-md-3'>
+       <h3>Followers</h3>
+       <h1><i class="fa fa-user fa-3x blueText"></i></h1>
+       <h1>1,000</h1>
+      
+     </div>
+      <div class='col-md-3'>
+        <h3>Avg Likes</h3>
+        <h1><i class="fa fa-heart fa-3x blueText"></i></h1>
+        <h1>300</h1>
+        
+      </div>
+      <div class='col-md-3'>
+        <h3>Avg Comments</h3>
+        <h1><i class="fa fa-comment fa-3x blueText"></i></h1>
+        <h1>10</h1>
+        
+      </div>
+      <div class='col-md-3'>
+        <h3>Value</h3>
+        <h1><i class="fa fa-money fa-3x blueText"></i></h1>
+        <h1 class='font-extra-bold text-success'>$54</h1>
+      </div>
+    </div>
+    <div class='row m-t-lg m-b-lg'>
+      <div class='col-md-4 col-md-offset-4'><button class='newBtn mySearch'>See what other accounts are worth</button></div>
+    </div>
+    <h1 class='spacerBlue  m-t-xxxl'>Ignite your Instagram Account</h1>
+    <h3 class='m-t-lg text-center'>Everytime you ignite someone's account your updating their value. This make is easy to track your value over time. There's only two rules to Ignition: </h3>
+    <div class='row'>
+    <ol class='col-md-4 col-md-offset-4 m-t-lg text-left'>
+      <li><h3>Your account can only be ignited once a day.</h3></li>
+      <li><h3>You can't ignite your own account.</h3></li>
+    </ol>
+    </div>
+    <div class='row'>
+      <div class='col-md-4 col-md-offset-4 m-t-lg'>
+        <button class='newBtn insta'>Join the community</button>
       </div>
     </div>
   </div>
@@ -81,7 +148,7 @@
   <div class='myContent'>
     <div class='row'>
       <h3 class='font-extra-bold text-center m-t-lg'>Your Instagram is worth <br><span class='text-success'>${{currentUser.profile.data.postValue}}</span> per post</h3>
-      <h5 class='text-center m-t-lg'>This value changes over time.<br> Now it's time to start getting paid!</h5>
+      <h5 class='text-center m-t-lg'> Now it's time to start getting paid!</h5>
       <div class='m-t-sm'>
        {{> updateUser}}
       </div>

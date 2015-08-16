@@ -104,6 +104,19 @@ Template.myStats.events({
     if(user) {
       Meteor.call('updateAnalytics', user, updater);
     }
+  },
+  'click .mySearch':function(evt) {
+    evt.preventDefault();
+    var snapper = new Snap({
+      element: document.getElementById('snapper')
+    });
+    $('.mySearch').on('click', function(){
+      if( snapper.state().state == "right" ){
+        snapper.close();
+      } else {
+        snapper.open('right');
+      }
+    });
   }
 }); 
 
@@ -202,6 +215,17 @@ Template.myStats.helpers({
         name: 'n/a',
         time: 'n/a'
       };
+    }
+  },
+  thisUser: function() {
+    var path = Router.current().location.get().path;
+    if(Meteor.userId()) {
+      var username = '/' + Meteor.users.findOne(Meteor.userId()).profile.username;
+      if(path == '/' || path == username) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 });
