@@ -15,16 +15,16 @@
     <div class='col-md-8'>
       {{> myStats}}
       {{> gallery}}
-        {{#if growth}}
+      {{#if growth}}
         <br>
         <button id='moreInfo' class='newBtn newBtn-outline'>More Info</button>
         <br>
         <div class='moreInfo'>
-            {{> valueGrowth}} 
-            {{> followerGrowth}}
-            {{> engagementGrowth}}
-        {{/if}}
+          {{> valueGrowth}} 
+          {{> followerGrowth}}
+          {{> engagementGrowth}}
         </div>
+      {{/if}}
     </div>
     <div class='col-md-4 messagePanel'>
       {{#if currentUser}}
