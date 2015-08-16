@@ -10,9 +10,11 @@
     margin-bottom: 25px;
 }
 .moreInfo {
-    height: 215px;
+    height: 255px;
     overflow: scroll;
-    overflow-x: hidden; 
+    overflow-x: hidden;
+    background-color: #fff;
+    padding-left: 10px;
 }
 
 .newBtn {
