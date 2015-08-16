@@ -15,12 +15,11 @@
     <div class='col-md-8'>
       {{> myStats}}
       {{> gallery}}
+        {{#if growth}}
         <br>
-        <button id='moreInfo' class='newBtn newBtn-outline'>View Stats</button>
+        <button id='moreInfo' class='newBtn newBtn-outline'>More Info</button>
         <br>
         <div class='moreInfo'>
-        {{> analytics}}
-        {{#if growth}}
             {{> valueGrowth}} 
             {{> followerGrowth}}
             {{> engagementGrowth}}

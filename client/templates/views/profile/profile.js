@@ -252,7 +252,7 @@ Template.engagementGrowth.helpers({
     var id = Router.current().params._id;
     if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
     var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.engagementGrowth;
-    var big = engagement[engagement.length - 1]; 
+    var big = _.last(engagement); 
     var small = engagement[0];
     return ((big - small)/small*100 ).toFixed(1);
   }
@@ -308,7 +308,7 @@ Template.followerGrowth.helpers({
     var id = Router.current().params._id;
     if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
     var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth;
-    var big = engagement[engagement.length - 1]; 
+    var big = _.last(engagement); 
     var small = engagement[0];
     return ((big - small)/small*100 ).toFixed(1);
   }
@@ -365,7 +365,7 @@ Template.valueGrowth.helpers({
     var id = Router.current().params._id;
     if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
     var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.valueGrowth;
-    var big = engagement[engagement.length - 1]; 
+    var big = _.last(engagement); 
     var small = engagement[0];
     return ((big - small)/small*100 ).toFixed(1);
   }
