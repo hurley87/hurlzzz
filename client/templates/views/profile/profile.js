@@ -50,8 +50,6 @@ Template.proposal.events({
       receiver: receiver,
       createdAt: new Date()      
     };
- 
-
     Bert.alert('Proposal Sent!', 'info');
     analytics.track('Proposal Sent', {
       sender: sender,
@@ -154,24 +152,26 @@ Template.myStats.helpers({
     } else {
       var userId = Meteor.userId();
     }
-
     var updates = Updates.find({
       'updated._id' : userId
     }).fetch();
-    
     var lastUpdate = _.last(updates);
-    var time = lastUpdate.createdAt
-    var future = moment(lastUpdate.createdAt).add(1, 'days').calendar();
+      if(lastUpdate) {
+      var time = lastUpdate.createdAt
+      var future = moment(lastUpdate.createdAt).add(1, 'days').calendar();
+      var dayAfter = time.setDate(time.getDate() + 1);
+      var today = new Date();
 
-    var dayAfter = time.setDate(time.getDate() + 1);
-    var today = new Date();
-
-    return today > dayAfter;
+      return today > dayAfter;
+    } else {
+      return true;
+    }
   },
   updater: function() {
     var username = Router.current().params._id;
     if(username) { 
-      var userId =  Meteor.users.find({ 'profile.username' : username }).fetch()[0]._id;
+      var user = Meteor.users.find({ 'profile.username' : username }).fetch()[0]
+      var userId =  user._id;
     } else {
       var userId = Meteor.userId();
     }
@@ -181,10 +181,17 @@ Template.myStats.helpers({
     }).fetch();
     
     var lastUpdate = _.last(updates);
-    return {
-      name: lastUpdate.updater.profile.username,
-      time: moment(lastUpdate.createdAt).fromNow()
-    };
+    if(lastUpdate) {
+      return {
+        name: lastUpdate.updater.profile.username,
+        time: moment(lastUpdate.createdAt).fromNow()
+      };
+    } else {
+      return {
+        name: 'n/a',
+        time: 'n/a'
+      };
+    }
   }
 });
 
@@ -240,12 +247,6 @@ Template.engagementGrowth.helpers({
     if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
     var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.engagementGrowth;
     return engagement[engagement.length - 1];
-  },
-  lastWeek: function() {
-    var id = Router.current().params._id;
-    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.engagementGrowth;
-    return engagement[0];
   },
   increase: function() {
     var id = Router.current().params._id;
@@ -303,12 +304,6 @@ Template.followerGrowth.helpers({
     var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth;
     return engagement[engagement.length - 1];
   },
-  lastWeek: function() {
-    var id = Router.current().params._id;
-    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth;
-    return engagement[0];
-  },
   increase: function() {
     var id = Router.current().params._id;
     if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
@@ -365,12 +360,6 @@ Template.valueGrowth.helpers({
     if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
     var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.valueGrowth;
     return engagement[engagement.length - 1];
-  },
-  lastWeek: function() {
-    var id = Router.current().params._id;
-    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.valueGrowth;
-    return engagement[0];
   },
   increase: function() {
     var id = Router.current().params._id;
