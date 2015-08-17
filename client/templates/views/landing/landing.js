@@ -1,4 +1,4 @@
-  Template.hey.events({
+  Template.landing.events({
     'click .insta': function(evt, temp) {
       evt.preventDefault();
       Meteor.loginWithInstagram(function (err, res) {
@@ -13,7 +13,7 @@
     }
   });
 
-Template.hey.rendered = function () {
+Template.landing.rendered = function () {
   $(document).ready(function(){
     $('#slider').slick({
         arrows: false,
@@ -27,76 +27,13 @@ Template.hey.rendered = function () {
     });
     $('.mySearch').on('click', function(){
       if( snapper.state().state == "right" ){
-          snapper.close();
+        snapper.close();
       } else {
-          snapper.open('right');
-      
+        snapper.open('right');
       }
-
+    });
   });
-  });
-
 };
 
-Template.updateUser.helpers({
-    user: function() {
-      return Meteor.users.findOne(Meteor.userId()).profile;
-    }
-});
-
-Template.updateUser.onRendered(function() {
-  this.autorun(function () {
-    if (GoogleMaps.loaded()) {
-      $("#location").geocomplete();
-    }
-  });
-});
-
-Template.contactForm.events({
-  'submit #create': function(evt, temp) {
-    evt.preventDefault();
-    var email = $('#email').val();
-    var message = $('#message').val();
-    var name = $('#name').val();
-    Bert.alert('Thanks for saying hello.', 'info');
-    analytics.track('Hot Lead', {
-      email: email,
-      message: message,
-      name: name
-    });
-    var username = Meteor.users.findOne(Meteor.userId()).profile.username;
-    Meteor.call('addContact', email, name, message, username);
-    $('#email').val('');
-    $('#name').val('');
-    $('#message').val('');
-  }
-});
-
-
-Template.updateUser.events({
-    'submit #update': function(evt, temp) {
-        evt.preventDefault();
-        var userDetails = {
-                email: $('#email').val(),
-                city: $('#location').val()
-            };
-        var user = Meteor.users.findOne(Meteor.userId());
-        Meteor.call('updateUser', userDetails, user);
-        analytics.track('Update', {
-          userDetails: userDetails,
-          name: user.profile.username
-        });
-        Bert.alert('Your soo good looking!', 'info');
-        Router.go('/');
-    }
-});
  
 
-Template.updateAllUsers.events({
-  'click button': function(evt, temp) {
-    var users = Meteor.users.find().fetch();
-    for (var i = 0; i < users.length; i++) {
-      Meteor.call('updateAnalytics', users[i]);
-    }
-  }
-})

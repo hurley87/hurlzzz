@@ -4,7 +4,7 @@ Template.profile.helpers({
     if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
     var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
     if(user) {
-      return user.profile.followerGrowth.length > 2;
+      return user.profile.followerGrowth.length > 1;
     } 
   },
   thisUser: function() {
@@ -23,80 +23,77 @@ Template.profile.helpers({
     if(username) { 
       return Meteor.users.find({ 'profile.username' : username }).fetch()[0];
     }
+  },
+  engagement: function() {
+    var id = Router.current().params._id;
+    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
+    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.engagementGrowth; 
+    var engageData = [];
+    var max = _.max(_.flatten(engagement))*1.25;
+    var last = _.last(engagement); 
+    var first = engagement[0];
+    var increase = ((last - first)/first*100 ).toFixed(1);
+    for (var i =0; i < engagement.length; i++) {
+      engageData.push([i+1, engagement[i]]);
+    } 
+    return {
+      max: max,
+      data: engageData,
+      increase: increase,
+      today: last
+    };  
+  },
+  followers: function() {
+    var id = Router.current().params._id;
+    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
+    var followers = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth; 
+    var followerData = [];
+    var max = _.max(_.flatten(followers))*1.25;
+    var last = _.last(followers); 
+    var first = followers[0];
+    var increase = ((last - first)/first*100 ).toFixed(1);
+    for (var i =0; i < followers.length; i++) {
+      followerData.push([i+1, followers[i]]);
+    } 
+    return {
+      max: max,
+      data: followerData,
+      increase: increase,
+      today: last
+    };   
+  },
+  value: function() {
+    var id = Router.current().params._id;
+    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
+    var value = Meteor.users.findOne({ 'profile.username' : id }).profile.valueGrowth; 
+    var valueData = [];
+    var max = _.max(_.flatten(value))*1.25;
+    var last = _.last(value); 
+    var first = value[0];
+    var increase = ((last - first)/first*100 ).toFixed(1);
+    for (var i =0; i < value.length; i++) {
+      valueData.push([i+1, value[i]]);
+    } 
+    return {
+      max: max,
+      data: valueData,
+      increase: increase,
+      today: last
+    };   
   }
-});
-
-Template.profile.onRendered(function() {
-  $(document).ready(function() {
-    $('.info').hide();
-  });
 });
 
 Template.profile.events({
   'click #moreInfo': function(evt) {
-    console.log('hello');
     evt.preventDefault();
     $('.info').toggle(100);
     $('#recentPosts').toggle(100);
   }
 });
 
-
-Template.proposal.events({
-  'submit #createProposal': function(evt, temp) {
-    evt.preventDefault();
-    var intro = $('#intro').val();
-    var plan = $('#plan').val();
-    var perks = $('#perks').val();
-    var budget = $('#budget').val();
-    var sender = Meteor.users.findOne(Meteor.userId());
-    var receiver = Meteor.users.find({ 'profile.username' : Router.current().params._id}).fetch()[0];
-
-    var proposal = {
-      intro: intro,
-      plan: plan,
-      perks: perks,
-      sender: sender,
-      budget: budget,
-      receiver: receiver,
-      createdAt: new Date()      
-    };
-    Bert.alert('Proposal Sent!', 'info');
-    analytics.track('Proposal Sent', {
-      sender: sender,
-      budget: budget,
-      receiver: receiver
-    });
-    Meteor.call('proposal', proposal);
-    $('#intro').val('');
-    $('#plan').val('');
-    $('#perks').val('');
-    $('#budget').val('10');
-  }
-});
-
-Template.proposal.helpers({
-  thatUser: function() {
-    var username = Router.current().params._id;
-    if(username) { 
-      return Meteor.users.find({ 'profile.username' : username }).fetch()[0];
-    }
-  }
-});
-
-Template.gallery.helpers({
-  posts: function() {
-    var id = Router.current().params._id;
-    if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-    var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
-    if(user) {
-      return user.profile.posts.slice(0,4);
-    }
-  }   
-});
-
 Template.myStats.events({
-  'click .updateThisUser': function() {
+  'click .updateThisUser': function(evt) {
+    $(evt.target).hide();
     var updater = Meteor.users.findOne(Meteor.userId());
     var id = Router.current().params._id;
     if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
@@ -230,87 +227,28 @@ Template.myStats.helpers({
   }
 });
 
-
-Template.analytics.helpers({
-  user: function() {
+Template.gallery.helpers({
+  posts: function() {
     var id = Router.current().params._id;
     if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-    return Meteor.users.findOne({ 'profile.username' : id }).profile;
-  }
-});
-
-Template.analytics.onRendered(function(){
-  $(document).ready(function() {
-    var id = Router.current().params._id;
-    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-    var likes = Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile.data.likes;
-    var comments = Meteor.users.find({ 'profile.username' : id }).fetch()[0].profile.data.comments;
-    var max = _.max(_.flatten(likes))
-
-    var data5 = [
-        { data: likes, label: "likes"},
-        { data: comments, label: "comments"}
-    ];
-
-    var chartUsersOptions5 = {
-            series: {
-                lines: {
-                    show: true
-                },
-                points: {
-                    show: true
-                }
-            },
-            yaxis: {
-                min: 0,
-                max: max
-            },
-            colors: [ "#3498DB", "#efefef"],
-            labels: {
-              show: false
-            }
-        };
-
-    $.plot($("#flot-line-chart"), data5, chartUsersOptions5);
-  });
-
-});
-
-Template.engagementGrowth.helpers({
-  today: function() {
-    var id = Router.current().params._id;
-    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.engagementGrowth;
-    return engagement[engagement.length - 1];
-  },
-  increase: function() {
-    var id = Router.current().params._id;
-    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.engagementGrowth;
-    var big = _.last(engagement); 
-    var small = engagement[0];
-    return ((big - small)/small*100 ).toFixed(1);
-  }
-});  
-
-Template.engagementGrowth.onRendered(function() {
-    var id = Router.current().params._id;
-    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.engagementGrowth;
-    var engageData = [];
-    var max = _.max(_.flatten(engagement))*1.25;
-
-    for (var i =0; i < engagement.length; i++) {
-      engageData.push([i+1, engagement[i]]);
+    var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
+    if(user) {
+      return user.profile.posts.slice(0,4);
     }
-    var chartIncomeData = [
+  }   
+});
+
+Template.growthChart.rendered=function(){
+    var data = this.data.thisData;
+    var max = this.data.max;
+
+    var chartData = [
         {
-            label: "engagement",
-            data: engageData
+            data: data
         }
     ];
 
-    var chartIncomeOptions = {
+    var options = {
             series: {
                 lines: {
                     show: true
@@ -329,121 +267,9 @@ Template.engagementGrowth.onRendered(function() {
             }
         };
 
-    $.plot($("#engagement-chart"), chartIncomeData, chartIncomeOptions);
-}); 
+    $.plot($("#" + this.data.title), chartData, options);
+};
 
-Template.followerGrowth.helpers({
-  today: function() {
-    var id = Router.current().params._id;
-    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth;
-    return engagement[engagement.length - 1];
-  },
-  increase: function() {
-    var id = Router.current().params._id;
-    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth;
-    var big = _.last(engagement); 
-    var small = engagement[0];
-    return ((big - small)/small*100 ).toFixed(1);
-  }
-}); 
-
-Template.followerGrowth.onRendered(function() {
-    var id = Router.current().params._id;
-    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-    var followers = Meteor.users.findOne({ 'profile.username' : id }).profile.followerGrowth;
-    var followerData = [];
-    var max = _.max(_.flatten(followers))*1.25;
-
-    for (var i =0; i < followers.length; i++) {
-      followerData.push([i+1, followers[i]]);
-    }
-
-    var chartIncomeData = [
-        {
-            label: "followers",
-            data: followerData
-        }
-    ];
-
-    var chartIncomeOptions = {
-            series: {
-                lines: {
-                    show: true
-                },
-                points: {
-                    show: true
-                }
-            },
-            yaxis: {
-                min: 0,
-                max: max
-            },
-            colors: [ "#3498DB"],
-            labels: {
-              show: false
-            }
-        };
-
-    $.plot($("#follower-chart"), chartIncomeData, chartIncomeOptions);
-});
-
-Template.valueGrowth.helpers({
-  today: function() {
-    var id = Router.current().params._id;
-    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.valueGrowth;
-    return engagement[engagement.length - 1];
-  },
-  increase: function() {
-    var id = Router.current().params._id;
-    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-    var engagement = Meteor.users.findOne({ 'profile.username' : id }).profile.valueGrowth;
-    var big = _.last(engagement); 
-    var small = engagement[0];
-    return ((big - small)/small*100 ).toFixed(1);
-  }
-}); 
-
-Template.valueGrowth.onRendered(function() {
-    var id = Router.current().params._id;
-    if(!id) {id = Meteor.users.findOne(Meteor.userId()).profile.username;}
-    var value = Meteor.users.findOne({ 'profile.username' : id }).profile.valueGrowth;
-    var followerData = [];
-    var max = _.max(_.flatten(value))*1.25;
-
-    for (var i =0; i < value.length; i++) {
-      followerData.push([i+1, value[i]]);
-    }
-    var chartIncomeData = [
-        {
-            label: "value",
-            data: followerData
-        }
-    ];
-
-    var chartIncomeOptions = {
-            series: {
-                lines: {
-                    show: true
-                },
-                points: {
-                    show: true
-                }
-            },
-            yaxis: {
-                min: 0,
-                max: max
-            },
-            colors: [ "#3498DB"],
-            labels: {
-              show: false
-            }
-        };
-
-    $.plot($("#value-chart"), chartIncomeData, chartIncomeOptions);
-});  
 
  
 

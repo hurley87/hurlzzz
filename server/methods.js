@@ -151,15 +151,7 @@ Meteor.methods({
       createdAt: new Date()
     });
   },
-  sendRequest: function(send, receive) {
-    Requests.insert({
-      receive: receive, 
-      send: send,
-      createdAt: new Date()
-    });
-  },
   proposal: function(proposal) {
-    console.log(proposal);
     Proposals.insert(proposal);
 
     var receiver = proposal.receiver;
@@ -179,27 +171,6 @@ Meteor.methods({
       text: "Hey " + receiver.profile.username + ", \n\n From: @" + sender.profile.username  + ", \n\n Introduction: " + proposal.intro + ", \n\n Perks: " + proposal.perks + ", \n\n Game Plan: " + proposal.plan + ", \n\n Budget: $" + proposal.budget +"\n\n   Thanks, \n\n Dave"
     });
 
-  },
-  removeRequest: function(id) {
-    Requests.remove({ _id : id });
-  },
-  createChat: function(send, receive) {
-    Chats.insert({ 
-      thatUser: send, 
-      thisUser: receive,
-      createdAt: new Date()
-    });
-  },
-  removeChat: function(id) {
-    Chats.remove({ _id: id });
-  },
-  createMessage: function(thatUser, thisUser, text, createdAt) {
-    Messages.insert({
-      thatUser: thatUser,
-      thisUser: thisUser,
-      text: text,
-      createdAt: createdAt
-    });
   },
   addContact: function(email, name, message, username) {
     Contacts.insert({
@@ -222,31 +193,5 @@ Meteor.methods({
       text: message + "\n\n This is a lead from Ignition. From @" + username + '. \n\n His name is ' + name
     });
 
-  },
-  requestEmail: function(send, receive) {
-    if(receive.profile.other.email) {
-      Email.send({
-        from: "dhurls99@gmail.com",
-        to: receive.profile.other.email,
-        subject: "Chat request sent from @" + send.profile.username,
-        text: "Hey " + receive.profile.username + ", \n\n Accept or reject the following chat request: \n\n http://reachignition.com/" + send.profile.username
-      });
-    }
-  },
-  requestAcceptedEmail: function(send, receive) {
-    Email.send({
-      from: "dhurls99@gmail.com",
-      to: send.profile.other.email,
-      subject: '@' + receive.profile.username + ' accepted your chat request.',
-      text: "Hey " + send.profile.username + ", \n\n  Click here to start chatting: \n\n http://reachignition.com/" + receive.profile.username
-    });
-  },
-  requestRejectedEmail: function(send, receive) {
-    Email.send({
-      from: "dhurls99@gmail.com",
-      to: send.profile.other.email,
-      subject: '@' + receive.profile.username + ' rejected your chat request.',
-      text: "Hey " + send.profile.username + ", \n\n Try sending a chat request to someone else. \n\n http://reachignition.com/explore"
-    });
   }
 });

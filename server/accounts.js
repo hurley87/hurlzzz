@@ -58,7 +58,5 @@ Accounts.onCreateUser(function(options, user) {
 
   user.profile.other = other;
 
-  Meteor.call('addGrowth', user);
-
   return user;
 });

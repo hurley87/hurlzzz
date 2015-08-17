@@ -4,11 +4,11 @@
 	  {{> navigation }}
     {{> profile}}
     {{else}}
-      {{> hey}}
+      {{> landing}}
     {{/if}}
 </template>	
 
-<template name="hey">
+<template name="landing">
   <div class='theLanding'>
     <div class='row'>
       <div class='col-lg-12 text-center'>
@@ -87,94 +87,6 @@
   </div>
 </template>
 
-<template name='contact'>
-  <h1 class='title font-extra-bold text-center' style=''>Contact</h1>
-  <div class="container">
-      <div class="row text-center">
-          <div class="col-md-6 col-md-offset-3">
-              <p style=''>
-                  Want to boost your Instagram account? We can help you generate a loyal and engaged audience the right way. Contact us for a free consultation.
-              </p>
-          </div>
-      </div>
-      <div class="row text-center m-t-lg">
-          <div class="col-md-4 col-md-offset-4">
-            {{> contactForm}}
-          </div>
-      </div>
-  </div>  
-</template> 
 
-<template name='contactForm'>
-  <form id='create' class="form-horizontal" role="form" method="post" action="#"  data-snap-ignore="true">
-      <div class="form-group">
-          <div class='col-sm-12'>
-            <label for="name" class="control-label"  style=''>Name</label>
-          </div>
-          <div class="col-sm-12 m-t-xs">
-              <input type="text" class="form-control" id="name" name="name" placeholder="Your full name" value="">
-          </div>
-      </div>
-      <div class="form-group">
-          <div class='col-sm-12'>
-            <label for="name" class="control-label"  style=''>Email</label>
-          </div>
-          <div class="col-sm-12">
-              <input type="email" class="form-control" id="email" name="email" placeholder="user@example.com" value="" required='required'>
-          </div>
-      </div>
-      <div class="form-group">
-          <div class='col-sm-12'>
-            <label for="name" class="control-label"  style=''>Question</label>
-          </div>
-          <div class="col-sm-12">
-              <textarea id='message' class="form-control" rows="3" name="message"  placeholder="Your question here..."></textarea>
-          </div>
-      </div>
-      <br>
-      <div class="form-group">
-          <div class="col-sm-12">
-              <input id="submit" name="submit" type="submit" value="Send us a message" class="newBtn">
-          </div>
-      </div>
-  </form>
-</template>
 
-<template name='bye'>
-	<button>Say goodbye</button>
-</template>
-
-<template name='edit'>
-  <div class='myContent'>
-    <div class='row'>
-      <h3 class='font-extra-bold text-center m-t-lg'>Your Instagram is worth <br><span class='text-success'>${{currentUser.profile.data.postValue}}</span> per post</h3>
-      <h5 class='text-center m-t-lg'> Now it's time to start getting paid!</h5>
-      <div class='m-t-sm'>
-       {{> updateUser}}
-      </div>
-      <div class='clearfix'></div>
-    </div>
-  </div>
-</template>  
-
-<template name='updateUser'>
-  <div class='col-md-4 col-md-offset-4' data-snap-ignore="true">
-    <form id='update' class="form-horizontal">
-      <h4 style='padding-left: 0px;'>Email</h4>
-      <div class="form-group">
-          <div class="text-center"><input id='email' type="email" value='{{user.other.email}}' class="form-control input-lg" placeholder='Email' required></div>
-      </div>
-      <h4 class='m-t-sm' style='padding-left: 0px;'>Location</h4>
-      <div class="form-group">
-          <div class="text-center"><input id='location' type="text" value='{{user.other.city}}' class="form-control input-lg" placeholder='Location'></div>
-      </div>
-      <div class="form-group">
-        <div class="text-center">
-          <p><button class="newBtn">Update</button></p>
-        </div>
-      </div>         
-    </form>
-  </div>
-</template> 
-  
  
