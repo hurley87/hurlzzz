@@ -187,7 +187,7 @@ Meteor.methods({
     });
 
     Email.send({
-      from: "dhurls99@gmail.com",
+      from: email,
       to: "dhurls99@gmail.com",
       subject: "Hot lead",
       text: message + "\n\n This is a lead from Ignition. From @" + username + '. \n\n His name is ' + name
