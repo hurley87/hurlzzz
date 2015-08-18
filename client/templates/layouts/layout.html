@@ -8,15 +8,15 @@
           {{/if}}
           <ul>
             {{#if currentUser}}
-              <li><a href="/">Profile</a></li>
-              <li><a href="/edit">Edit</a></li>
+              <li class='closeMe'><a href="/">Profile</a></li>
+              <li class='closeMe'><a href="/edit">Edit</a></li>
             {{else}}
-            <li class='m-t-xxxl'><a href="/">Home</a></li>  
+            <li class='m-t-xxxl closeMe'><a href="/">Home</a></li>  
             {{/if}}
-            <li><a href="/about">About</a></li>
-            <li><a href="/faq">FAQ</a></li>
+            <li class='closeMe'><a href="/about">About</a></li>
+            <li class='closeMe'><a href="/faq">FAQ</a></li>
             {{#if currentUser}}
-            <li><a class='logout' href="#">Logout</a></li>
+            <li class='closeMe'><a class='logout' href="#">Logout</a></li>
             {{/if}}
           </ul>
         </div>

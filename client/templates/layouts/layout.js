@@ -31,7 +31,7 @@ Template.layout.onRendered(function() {
 	    }
 
 	});	
-	$('.snap-drawer-left ul li a').on('click', function(){
+	$('.snap-drawer-left ul li a, .closeMe').on('click', function(){
 		snapper.close();
 	});
 
