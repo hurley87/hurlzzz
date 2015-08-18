@@ -88,7 +88,25 @@ Template.profile.events({
     evt.preventDefault();
     $('.info').toggle(100);
     $('#recentPosts').toggle(100);
+  },    
+  'click .insta': function(evt, temp) {
+    evt.preventDefault();
+    Meteor.loginWithInstagram(function (err, res) {
+      if (err !== undefined) {
+        console.log('sucess ' + res);
+      } else {
+        console.log('login failed ' + err);
+      }
+      Router.go('/edit');
+      var user = Meteor.users.findOne(Meteor.userId());
+      if(user) {
+        analytics.identify(user._id, {
+          name: user.profile.username
+        });       
+      }
+    });
   }
+
 });
 
 Template.myStats.events({
@@ -100,6 +118,9 @@ Template.myStats.events({
     var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
     if(user) {
       Meteor.call('updateAnalytics', user, updater);
+      analytics.track('Ignite', {
+
+      });
     }
   },
   'click .mySearch':function(evt) {
