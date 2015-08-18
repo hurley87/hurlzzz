@@ -27,7 +27,6 @@ Template.updateUser.events({
           userDetails: userDetails,
           name: user.profile.username
         });
-        Bert.alert('Your soo good looking!', 'info');
         Router.go('/');
     }
 });

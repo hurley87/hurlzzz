@@ -3,5 +3,11 @@
 	"instagram_secret":"f6bb95856dff4486b2795d42eb436adc",
 	"kadira_id" : "qHiwS3NNeJAyGSaLb",
 	"kadira_secret" : "d2d456ca-0832-452d-808c-cafe5a1bae34",
-	"google_maps": "AIzaSyAaZm16_mMzjs34LmNqaQaANCELQVY5lq4"
+	"google_maps": "AIzaSyAaZm16_mMzjs34LmNqaQaANCELQVY5lq4",
+	"public": {
+	    "analyticsSettings": {
+	      "Mixpanel"         : {"token":  "673fb63c891a493ca24dd6f01d09f4d4", "people": true}
+	    }
+	}
+
 }
