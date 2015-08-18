@@ -16,9 +16,6 @@
       {{> myStats}}
       {{> gallery}}
       {{#if growth}}
-        <br>
-        <button id='moreInfo' class='newBtn newBtn-outline'>More Info</button>
-        <br>
         <div class='info'>
           {{> growthChart title='Value' today=value.today increase=value.increase thisData=value.data max=value.max symbol='pe-7s-cash'}}
           <hr>
@@ -70,17 +67,27 @@
   {{#if currentUser}}
     {{#if thisUser}}
       <div class='row'>
-        <div class='col-md-6'><button class='mySearch newBtn'><i class="fa fa-search"></i> Ignite another account</button></div>
+        <div class='col-md-6'><a href="/edit"><button class='newBtn'><i class="fa fa-edit"></i> &nbsp; Update your account</button></a></div>
+        <div class='col-md-6'><button class='newBtn newBtn-outline mySearch'><i class="fa fa-search"></i> &nbsp; Search for someone to Ignite</button></div>
       </div> 
     {{else}}
-      {{#if beenUpdated}}
         <div class='row'>
-          <div class='col-md-6'><button class='updateThisUser newBtn'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button></div>
-        </div> 
-      {{/if}}
+        {{#if beenUpdated}}
+            <div class='col-md-6'><button class='updateThisUser newBtn'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button></div> 
+        {{else}}
+          <div class='col-md-6'>
+            <a href="/"><button class='newBtn'>
+              Back to your profile
+            </button></a>
+          </div>
+        {{/if}}  
+        <div class='col-md-6'>
+          <button class='newBtn newBtn-outline mySearch'><i class="fa fa-search"></i> &nbsp; Search for someone to Ignite</button>
+        </div>
+      </div>  
     {{/if}}
-  {{/if}}  
-    <br>
+  {{/if}} 
+  <br> 
     <div class='row'>
       <div class='col-md-4'>
         <p>Last Updated: {{updater.time}} </p>
@@ -96,6 +103,7 @@
         <p>Average Comments: {{user.data.avgComments}} per post</p>
       </div>
     </div> 
+    <hr>
 </template> 
 
 <template name='growthChart'>
@@ -140,4 +148,5 @@
     {{/each}}
   </div>
   </div>
+  <hr>
 </template> 

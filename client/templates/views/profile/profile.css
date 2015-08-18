@@ -10,12 +10,8 @@
     margin-bottom: 25px;
 }
 .info {
-    height: 255px;
-    overflow: scroll;
     overflow-x: hidden;
-    background-color: #fff;
     padding-left: 10px;
-    display: none;
 }
 
 .newBtn {

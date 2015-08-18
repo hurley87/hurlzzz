@@ -83,12 +83,7 @@ Template.profile.helpers({
   }
 });
 
-Template.profile.events({
-  'click #moreInfo': function(evt) {
-    evt.preventDefault();
-    $('.info').toggle(100);
-    $('#recentPosts').toggle(100);
-  },    
+Template.profile.events({ 
   'click .insta': function(evt, temp) {
     evt.preventDefault();
     Meteor.loginWithInstagram(function (err, res) {
