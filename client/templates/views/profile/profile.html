@@ -34,7 +34,7 @@
           {{> proposal}}
         {{/if}}
       {{else}}
-        <button class='newBtn insta'>Link Your Instagram</button>
+        <button class='newBtn insta'><i class="fa fa-instagram"></i> &nbsp; Login</button>
         <h5 class='m-t-md'>Would you like @{{thatUser.profile.username}} to feature you on Instagram? Let us know and we can help set that up.</h5>
         {{> contactForm}}
       {{/if}}
@@ -67,8 +67,8 @@
   {{#if currentUser}}
     {{#if thisUser}}
       <div class='row'>
-        <div class='col-md-6'><a href="/edit"><button class='newBtn'><i class="fa fa-edit"></i> &nbsp; Update your account</button></a></div>
-        <div class='col-md-6'><button class='newBtn newBtn-outline mySearch'><i class="fa fa-search"></i> &nbsp; Search for someone to Ignite</button></div>
+        <div class='col-md-6'><a href="/edit"><button class='newBtn'><i class="fa fa-edit"></i> &nbsp; Edit</button></a></div>
+        <div class='col-md-6'><button class='newBtn newBtn-outline mySearch'><i class="fa fa-search"></i> &nbsp; Search</button></div>
       </div> 
     {{else}}
         <div class='row'>
@@ -77,12 +77,12 @@
         {{else}}
           <div class='col-md-6'>
             <a href="/"><button class='newBtn'>
-              Back to your profile
+              <i class="fa fa-child"></i> &nbsp; Profile
             </button></a>
           </div>
         {{/if}}  
         <div class='col-md-6'>
-          <button class='newBtn newBtn-outline mySearch'><i class="fa fa-search"></i> &nbsp; Search for someone to Ignite</button>
+          <button class='newBtn newBtn-outline mySearch'><i class="fa fa-search"></i> &nbsp; Search </button>
         </div>
       </div>  
     {{/if}}
@@ -118,11 +118,11 @@
         <h3 class="">
             {{today}}
         </h3>
-        <small><a href="/faq">current <br> <i class="fa fa-question-circle"></i></a></small>
+        <a href="/faq"><i class="fa fa-question-circle"></i></a>
       </div>
       <div class="col-md-9">
           <div class="text-center small ">
-              {{increase}}% growth rate
+              {{increase}}% growth
           </div>
           <div class="flot-chart" style="height: 160px">
               <div id='{{title}}' data-thisData="{{thisData}}" data-max="{{max}}" class="flot-chart-content"></div>

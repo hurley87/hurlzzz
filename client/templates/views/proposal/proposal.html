@@ -6,7 +6,7 @@
             <label for="name" class="control-label"  style=''>Introduction</label>
           </div>
           <div class="col-sm-12 m-t-xs">
-              <input type="text" class="form-control" id="intro" name="name" placeholder="Say hi and a bit about your business" value="">
+              <input type="text" class="form-control" id="intro" name="name" placeholder="Say hi and a bit about your business" value="" required>
           </div>
       </div>
       <div class="form-group">
@@ -14,7 +14,7 @@
             <label for="name" class="control-label"  style=''>Game Plan</label>
           </div>
           <div class="col-sm-12 m-t-xs">
-              <textarea type="text" class="form-control" id="plan" name="name" placeholder="Maybe" value="Anything special you would like @{{thatUser.profile.username}} to do?"></textarea>
+              <textarea type="text" class="form-control" id="plan" name="name" placeholder="Maybe" value="Anything special you would like @{{thatUser.profile.username}} to do?" required></textarea>
           </div>
       </div>
       <div class="form-group">
@@ -22,12 +22,12 @@
             <label for="name" class="control-label"  style=''>Perks</label>
           </div>
           <div class="col-sm-12 m-t-xs">
-              <input type="text" class="form-control" id="perks" name="name" placeholder="What's in it for @{{thatUser.profile.username}}?" value="">
+              <input type="text" class="form-control" id="perks" name="name" placeholder="What's in it for @{{thatUser.profile.username}}?" value="" required>
           </div>
       </div>
       <div class="form-group">
           <div class="col-sm-12">
-              <input id="submit" name="submit" type="submit" value="Send @{{thatUser.profile.username}} a message" class="newBtn">
+              <input id="submit" name="submit" type="submit" value="message @{{thatUser.profile.username}} " class="newBtn">
           </div>
       </div>
   </form>
