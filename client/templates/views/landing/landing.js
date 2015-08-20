@@ -9,11 +9,6 @@
         }
         Router.go('/edit');
         var user = Meteor.users.findOne(Meteor.userId());
-        if(user) {
-          analytics.identify(user._id, {
-            name: user.profile.username
-          });       
-        }
       });
     }
   });

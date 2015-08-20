@@ -23,10 +23,10 @@ Template.updateUser.events({
             };
         var user = Meteor.users.findOne(Meteor.userId());
         Meteor.call('updateUser', userDetails, user);
-        analytics.track('Update', {
-          userDetails: userDetails,
-          name: user.profile.username
-        });
+        analytics.identify(Meteor.userId(), {
+          '$name': user.profile.username,
+          '$email': user.profile.other.email
+        });    
         Router.go('/');
     }
 });
