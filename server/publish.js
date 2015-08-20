@@ -18,3 +18,11 @@ Meteor.publish('messages', function() {
 Meteor.publish('chats', function() {
 	return Chats.find({});
 });
+
+Meteor.publish('questions', function() {
+	return Questions.find({});
+});
+
+Meteor.publish('answers', function() {
+	return Answers.find({});
+});

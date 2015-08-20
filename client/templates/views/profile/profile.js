@@ -80,6 +80,42 @@ Template.profile.helpers({
       increase: increase,
       today: last
     };   
+  },
+  beenUpdated: function() {
+    var username = Router.current().params._id;
+    if(username) { 
+      var userId =  Meteor.users.find({ 'profile.username' : username }).fetch()[0]._id;
+    } else {
+      var userId = Meteor.userId();
+    }
+    var updates = Updates.find({
+      'updated._id' : userId
+    }).fetch();
+    var lastUpdate = _.last(updates);
+      if(lastUpdate) {
+      var time = lastUpdate.createdAt
+      var future = moment(lastUpdate.createdAt).add(1, 'days').calendar();
+      var dayAfter = time.setDate(time.getDate() + 1);
+      var today = new Date();
+
+      return today > dayAfter;
+    } else {
+      return true;
+    }
+  },
+  user: function() {
+    var id = Router.current().params._id;
+    if(!id && Meteor.userId()) { 
+      var user = Meteor.users.findOne(Meteor.userId());
+      if(user) {
+        return user.profile;
+      }
+    } else {
+      var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
+      if(user) {
+        return user.profile;
+      }
+    }
   }
 });
 
@@ -100,11 +136,7 @@ Template.profile.events({
         });       
       }
     });
-  }
-
-});
-
-Template.myStats.events({
+  },
   'click .updateThisUser': function(evt) {
     $(evt.target).hide();
     var updater = Meteor.users.findOne(Meteor.userId());
@@ -130,8 +162,9 @@ Template.myStats.events({
         snapper.open('right');
       }
     });
-  }
-}); 
+  }  
+
+});
 
 Template.myStats.helpers({
   user: function() {
@@ -180,28 +213,6 @@ Template.myStats.helpers({
     var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
     if(user && user.status) {
       return user.status.online;
-    }
-  },
-  beenUpdated: function() {
-    var username = Router.current().params._id;
-    if(username) { 
-      var userId =  Meteor.users.find({ 'profile.username' : username }).fetch()[0]._id;
-    } else {
-      var userId = Meteor.userId();
-    }
-    var updates = Updates.find({
-      'updated._id' : userId
-    }).fetch();
-    var lastUpdate = _.last(updates);
-      if(lastUpdate) {
-      var time = lastUpdate.createdAt
-      var future = moment(lastUpdate.createdAt).add(1, 'days').calendar();
-      var dayAfter = time.setDate(time.getDate() + 1);
-      var today = new Date();
-
-      return today > dayAfter;
-    } else {
-      return true;
     }
   },
   updater: function() {

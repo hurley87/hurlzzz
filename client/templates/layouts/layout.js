@@ -17,7 +17,6 @@ Template.layout.onRendered(function() {
 	        
 	    } else {
 	        snapper.open('left');
-	       
 	    }
 
 	});
@@ -31,6 +30,12 @@ Template.layout.onRendered(function() {
 	    }
 
 	});	
+
+	$('.snap-content').on('click', function() {
+		if( snapper.state().state == "right" || snapper.state().state == "left" ){
+	        snapper.close();
+	    }
+	});
 	$('.snap-drawer-left ul li a, .closeMe').on('click', function(){
 		snapper.close();
 	});

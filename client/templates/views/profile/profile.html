@@ -12,7 +12,7 @@
 
 <template name='profile'>
   <div class='row'>
-    <div class='col-md-8'>
+    <div class='col-md-8' style='padding-right: 15px;'>
       {{> myStats}}
       {{> gallery}}
       {{#if growth}}
@@ -26,16 +26,29 @@
       {{/if}}
     </div>
     <div class='col-md-4 messagePanel'>
-      {{#if currentUser}}
-        {{#if thisUser}}
-          <h5 class='m-t-md'>Want to boost your Instagram account? Get advice from one of our Instagram experts.</h5>
-          {{> contactForm}}
+        <p class='pull-right'><span style='cursor: pointer;' class='blueText mySearch'> Search</span></p><br><br>
+        {{#if currentUser}}
+        <p class='pull-right'><a href='/'>Profile</a></p>
+        <br><br>
+        <p class='pull-right'><a href='/questions'>Questions</a></p>
         {{else}}
+        <p class='pull-right'><a href='/'>Back home</a></p><br><br>
+        <p class='pull-right'><a href='/questions'>Questions</a></p>
+        {{/if}}
+      {{#if currentUser}}
+        {{#if beenUpdated}}
+            <button class='updateThisUser newBtn m-t-xxl'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button>
+            Ignite this account and gain points!
+        {{/if}}
+        {{#if thisUser}}
+          <h3>You have 0 points</h3>
+        {{else}}
+          <h3>0 points</h3>
           {{> proposal}}
         {{/if}}
       {{else}}
         <button class='newBtn insta'><i class="fa fa-instagram"></i> &nbsp; Login</button>
-        <h5 class='m-t-md'>Would you like @{{thatUser.profile.username}} to feature you on Instagram? Let us know and we can help set that up.</h5>
+        <h5 class='m-t-xl'>Would you like @{{thatUser.profile.username}} to feature you on Instagram? Let us know and we can help set that up.</h5>
         {{> contactForm}}
       {{/if}}
     </div>
@@ -56,37 +69,16 @@
         <div class='red'></div>
         {{/if}}
       </h5>
+      <p><a href="/edit"><i class="fa fa-edit"></i> Edit</a></p>
       <p>joined {{joined}}</p>
       <p>
          {{user.bio}}
       </p>
     </div>
-    <div class='col-md-3'><h3><span class='font-extra-bold text-success'>${{user.data.postValue}}</span><small>/per post</small></h3></div>
+    <div class='col-md-3'>
+      <h3><span class='font-extra-bold text-success'>${{user.data.postValue}}</span><small>/per post</small></h3>
+    </div>
   </div>
-  <br>
-  {{#if currentUser}}
-    {{#if thisUser}}
-      <div class='row'>
-        <div class='col-md-6'><a href="/edit"><button class='newBtn'><i class="fa fa-edit"></i> &nbsp; Edit</button></a></div>
-        <div class='col-md-6'><button class='newBtn newBtn-outline mySearch'><i class="fa fa-search"></i> &nbsp; Search</button></div>
-      </div> 
-    {{else}}
-        <div class='row'>
-        {{#if beenUpdated}}
-            <div class='col-md-6'><button class='updateThisUser newBtn'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button></div> 
-        {{else}}
-          <div class='col-md-6'>
-            <a href="/"><button class='newBtn'>
-              <i class="fa fa-child"></i> &nbsp; Profile
-            </button></a>
-          </div>
-        {{/if}}  
-        <div class='col-md-6'>
-          <button class='newBtn newBtn-outline mySearch'><i class="fa fa-search"></i> &nbsp; Search </button>
-        </div>
-      </div>  
-    {{/if}}
-  {{/if}} 
   <br> 
     <div class='row'>
       <div class='col-md-4'>

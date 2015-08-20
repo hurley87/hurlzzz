@@ -1,12 +1,13 @@
 <template name='leaderboard'>
     <div class="">
         {{> explore}}
+        <small>*by handle or location</small>
         {{> tabular table=TabularTables.Users selector=selector }}
     </div>
 </template>
 
 <template name='userDescription'>
-    <a href="{{id}}"><div class='userCard'>
+    <a href="{{pathFor 'instagrammer' _id=id}}"><div class='userCard'>
         <div class='row'>
             <div class='col-md-1'>
                 <img alt="logo" height='25' width='25' class="profile-img" src="{{img}}">

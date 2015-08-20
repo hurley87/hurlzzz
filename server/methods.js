@@ -134,6 +134,8 @@ Meteor.methods({
 
     Meteor.call('createUserUpdate', updater, user);
 
+
+
     if(user.profile.other.email) {
        Email.send({
         from: updater.profile.other.email,
@@ -149,6 +151,26 @@ Meteor.methods({
       updater: updater,
       updated: updated,
       createdAt: new Date()
+    });
+  },
+  createQuestion: function(user, question) {
+    Questions.insert({
+      user: user,
+      question: question,
+      createdAt: new Date()
+    });
+  },
+  createAnswer: function(answer) {
+    check(answer, Object);
+    Answers.insert(answer);
+  },
+  updateScore: function(answer) {
+    check(answer, Object);
+    var  newScore =  answer.score + 1;
+    Answers.update({ _id: answer._id }, {
+      $set: {
+        score : newScore
+      }
     });
   },
   proposal: function(proposal) {
@@ -192,6 +214,39 @@ Meteor.methods({
       subject: "Hot lead",
       text: message + "\n\n This is a lead from Ignition. From @" + username + '. \n\n His name is ' + name
     });
+
+  },
+  hasPoints: function(userId) {
+    return Points.findOne({ userId: userId});
+  },
+  addPoints: function(userId) {
+
+    var points = {
+      accounts: 0,
+      yourAccounts: 0,
+      questions: 0,
+      answers: 0,
+      hearts: 0,
+      userId: userId
+    };
+
+    Points.insert(points); 
+
+  },
+  updateYourAccountsPoints: function(userId) {
+    check(userId, String);
+    check(points, Object);
+    var newPoints = Points.findOne({ userId: userId}).accounts + 20;
+
+    if(hasPoints(userId)) {
+      Points.update({ userId: userId }, {
+        $set: {
+          accounts: newPoints
+        }
+      });
+    } else {
+      addPoints(userId);
+    }
 
   }
 });

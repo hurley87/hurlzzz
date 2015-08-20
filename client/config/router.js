@@ -12,17 +12,35 @@ Router.route('/', {
   }
 });
 
-Router.route('/contact', {
-  template: 'contact',
-  loadingTemplate: 'loading'
-});
-
 Router.route('/edit', {
   template: 'edit',
   loadingTemplate: 'loading',
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
     this.subscribe('updates');
+  }
+});
+
+Router.route('/questions', {
+  template: 'questions',
+  loadingTemplate: 'loading',
+  subscriptions: function() {
+    this.subscribe('allLeaderboardUsers');
+    this.subscribe('questions');
+    this.subscribe('answers');
+  }
+});
+
+Router.route('/question/:_id', {
+  template: 'questionPage',
+  loadingTemplate: 'loading',
+  subscriptions: function() {
+   this.subscribe('questions');
+   this.subscribe('answers');
+  },
+  data: function() {
+    var question = Questions.findOne(this.params._id);
+    return question;
   }
 });
 
@@ -44,6 +62,7 @@ Router.route('/about', function () {
 });
 
 Router.route('/:_id', {
+  name: 'instagrammer',
   template: 'profile',
   loadingTemplate: 'loading',
   subscriptions: function() {
