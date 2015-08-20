@@ -37,15 +37,15 @@
         {{/if}}
       {{#if currentUser}}
         {{#if thisUser}}
-          <h3>You have 0 points</h3>
+          <h3>You have {{points}} points</h3>
         {{else}}
-          <h3>0 points</h3>
+          <h3>{{points}} points</h3>
           {{> proposal}}
         {{/if}}
-        {{#if beenUpdated}}
+       
             <button class='updateThisUser newBtn m-t-lg'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button>
             Ignite this account and gain points!
-        {{/if}}
+      
       {{else}}
         <button class='newBtn insta'><i class="fa fa-instagram"></i> &nbsp; Login</button>
         <h5 class='m-t-xl'>Would you like @{{thatUser.profile.username}} to feature you on Instagram? Let us know and we can help set that up.</h5>

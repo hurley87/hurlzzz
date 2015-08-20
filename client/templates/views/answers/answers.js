@@ -15,6 +15,7 @@ Template.answerForm.events({
 		};
 
 		Meteor.call('createAnswer', answer);
+		Meteor.call('answerPoints', Meteor.userId());
 		$('#answer').val('');
 	}
 });
@@ -91,7 +92,10 @@ Template.answer.events({
 	  	var answerId = this._id;
 		var answer =  Answers.findOne({ _id : answerId});
 	  	Meteor.call('updateScore', answer);
-	  	analytics.track
+	  	Meteor.call('heartPoints', Meteor.userId());
+	  	analytics.track('heart', {
+	  		userId: Meteor.userId()
+	  	});
 	  }
 
 });

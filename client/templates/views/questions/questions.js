@@ -57,6 +57,7 @@ Template.questionForm.events({
         question: question
       });
     Meteor.call('createQuestion', user, question);
+    Meteor.call('questionPoints', user._id);
     Router.go('/questions');
     $('#text').val('');
   }

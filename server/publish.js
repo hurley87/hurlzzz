@@ -26,3 +26,7 @@ Meteor.publish('questions', function() {
 Meteor.publish('answers', function() {
 	return Answers.find({});
 });
+
+Meteor.publish('points', function() {
+	return Points.find({});
+});

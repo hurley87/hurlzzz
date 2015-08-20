@@ -116,6 +116,19 @@ Template.profile.helpers({
         return user.profile;
       }
     }
+  },
+  points: function() {
+    var username = Router.current().params._id;
+    var sum = 0
+    if(username) { 
+      var id = Meteor.users.find({ 'profile.username' : username }).fetch()[0]._id;
+      var points = Points.findOne({ userId: id });
+    } else {
+      var id = Meteor.userId();
+      var points = Points.findOne({ userId: id });
+    }
+    sum = points.accounts + points.yourAccounts + points.questions + points.answers + points.hearts;
+    return sum;
   }
 });
 
@@ -145,8 +158,10 @@ Template.profile.events({
     var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
     if(user) {
       Meteor.call('updateAnalytics', user, updater);
+      Meteor.call('updateYourAccountsPoints', user._id);
+      Meteor.call('updateAccountsPoints', updater._id);
       analytics.track('Ignite', {
-
+        user: user
       });
     }
   },

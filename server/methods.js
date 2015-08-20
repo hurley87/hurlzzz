@@ -235,18 +235,109 @@ Meteor.methods({
   },
   updateYourAccountsPoints: function(userId) {
     check(userId, String);
-    check(points, Object);
-    var newPoints = Points.findOne({ userId: userId}).accounts + 20;
-
-    if(hasPoints(userId)) {
+    var hasPoints = Meteor.call('hasPoints', userId);
+    if(hasPoints) {
+      var newPoints = Points.findOne({ userId: userId}).yourAccounts + 100;
+      Points.update({ userId: userId }, {
+        $set: {
+          yourAccounts: newPoints
+        }
+      });
+    } else {
+      Meteor.call('addPoints', userId);
+      Points.update({ userId: userId }, {
+        $set: {
+          yourAccounts: 100
+        }
+      });
+    }
+  },
+  updateAccountsPoints: function(userId) {
+    check(userId, String);
+    var hasPoints = Meteor.call('hasPoints', userId);
+    if(hasPoints) {
+      var newPoints = Points.findOne({ userId: userId}).accounts + 20;
       Points.update({ userId: userId }, {
         $set: {
           accounts: newPoints
         }
       });
     } else {
-      addPoints(userId);
+      Meteor.call('addPoints', userId);
+      Points.update({ userId: userId }, {
+        $set: {
+          accounts: 20
+        }
+      });
     }
-
-  }
+  },
+  questionPoints: function(userId) {
+    check(userId, String);
+    var hasPoints = Meteor.call('hasPoints', userId);
+    if(hasPoints) {
+      var newPoints = Points.findOne({ userId: userId}).questions + 15;
+      Points.update({ userId: userId }, {
+        $set: {
+          questions: newPoints
+        }
+      });
+    } else {
+      Meteor.call('addPoints', userId);
+      Points.update({ userId: userId }, {
+        $set: {
+          questions: 15
+        }
+      });
+    }  
+  },
+  answerPoints: function(userId) {
+    check(userId, String);
+    var hasPoints = Meteor.call('hasPoints', userId);
+    if(hasPoints) {
+      var newPoints = Points.findOne({ userId: userId}).answers + 5;
+      Points.update({ userId: userId }, {
+        $set: {
+          answers: newPoints
+        }
+      });
+    } else {
+      Meteor.call('addPoints', userId);
+      Points.update({ userId: userId }, {
+        $set: {
+          answers: 5
+        }
+      });
+    }  
+  },
+  heartPoints: function(userId) {
+    check(userId, String);
+    var hasPoints = Meteor.call('hasPoints', userId);
+    if(hasPoints) {
+      var newPoints = Points.findOne({ userId: userId}).hearts + 1;
+      Points.update({ userId: userId }, {
+        $set: {
+          hearts: newPoints
+        }
+      });
+    } else {
+      Meteor.call('addPoints', userId);
+      Points.update({ userId: userId }, {
+        $set: {
+          hearts: 1
+        }
+      });
+    }  
+  },
+  getPoints: function(userId) {
+    check(userId, String);
+    var pointsHash = Points.findOne({ userId: userId});
+    var points = _.values(pointsHash);
+    var sum = 0;
+    for(var i = 0; i < points.length; i++) {
+      if(!isNaN(points[i])) {
+        sum += points[i];
+      }
+    }
+    return sum;
+  } 
 });

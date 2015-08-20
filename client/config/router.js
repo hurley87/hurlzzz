@@ -9,6 +9,7 @@ Router.route('/', {
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
     this.subscribe('updates');
+    this.subscribe('points');
   }
 });
 
@@ -28,6 +29,7 @@ Router.route('/questions', {
     this.subscribe('allLeaderboardUsers');
     this.subscribe('questions');
     this.subscribe('answers');
+    
   }
 });
 
@@ -68,6 +70,7 @@ Router.route('/:_id', {
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
     this.subscribe('updates');
+    this.subscribe('points');
   }
 });
 
