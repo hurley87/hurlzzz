@@ -1,19 +1,23 @@
 <template name='edit'>
   <div class='myContent'>
     <div class='row'>
+      {{#if currentUser}}
       <h3 class='font-extra-bold text-center m-t-lg'>Your Instagram is worth <br><span class='text-success'>${{currentUser.profile.data.postValue}}</span> per post</h3>
       <h5 class='text-center m-t-lg'> Now it's time to start getting paid!</h5>
       <div class='m-t-sm'>
        {{> updateUser}}
       </div>
       <div class='clearfix'></div>
+      {{else}}
+      <h2 class='text-center'>Opps, looks like something went wrong when you tried to login. </h2>
+      <h2 class='text-center'><a href="/"><button style='max-width: 250px;' class='newBtn'>Home</button></a></h2>
+      {{/if}}
     </div>
   </div>
 </template>  
 
 <template name='updateUser'>
   <div class='col-md-4 col-md-offset-4' data-snap-ignore="true">
-    {{#if currentUser}}
     <form id='update' class="form-horizontal">
       <h4 style='padding-left: 0px;'>Email</h4>
       <div class="form-group">
@@ -29,9 +33,6 @@
         </div>
       </div>         
     </form>
-    {{else}}
-    <h2 class='text-center'>Opps, looks like something went wrong when you tried to login. </h2>
-    {{/if}}
   </div>
 </template> 
   
