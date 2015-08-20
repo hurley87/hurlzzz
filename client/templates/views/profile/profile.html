@@ -26,14 +26,14 @@
       {{/if}}
     </div>
     <div class='col-md-4 messagePanel'>
-        <p class='pull-right'><span style='cursor: pointer;' class='blueText mySearch'> Search</span></p><br><br>
+        <p><span style='cursor: pointer;' class='blueText mySearch'> Search</span></p><br>
         {{#if currentUser}}
-        <p class='pull-right'><a href='/'>Profile</a></p>
-        <br><br>
-        <p class='pull-right'><a href='/questions'>Questions</a></p>
+        <p><a href='/'>Profile</a></p>
+        <br>
+        <p><a href='/questions'>Questions</a></p>
         {{else}}
-        <p class='pull-right'><a href='/'>Back home</a></p><br><br>
-        <p class='pull-right'><a href='/questions'>Questions</a></p>
+        <p><a href='/'>Back home</a></p><br>
+        <p><a href='/questions'>Questions</a></p>
         {{/if}}
       {{#if currentUser}}
         {{#if thisUser}}

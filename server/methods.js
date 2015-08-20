@@ -180,17 +180,17 @@ Meteor.methods({
     var sender = proposal.sender;
 
     Email.send({
-      from: "dhurls99@gmail.com",
+      from: "dhurley@hashtagpaid.com",
       to: receiver.profile.other.email,
       subject: "@" + sender.profile.username + " wants you to feature them!" ,
-      text: "Hey " + receiver.profile.username + ", \n\n From: @" + sender.profile.username + ", \n\n Introduction: " + proposal.intro + ", \n\n Perks: " + proposal.perks + ", \n\n Game Plan: " + proposal.plan + ", \n\n Budget: $" + proposal.budget +"\n\n   Thanks, \n\n Dave"
+      text: "Hey " + receiver.profile.username + ", \n\n From: @" + sender.profile.username + ", \n\n Introduction: " + proposal.intro + ", \n\n Perks: " + proposal.perks + ", \n\n Game Plan: " + proposal.plan + "\n\n   Thanks, \n\n Dave"
     });
 
     Email.send({
-      from: "dhurls99@gmail.com",
+      from: "dhurley@hashtagpaid.com",
       to: "dhurley@hashtagpaid.com",
       subject: "@" + sender.profile.username + " wants you to feature them!" ,
-      text: "Hey " + receiver.profile.username + ", \n\n From: @" + sender.profile.username  + ", \n\n Introduction: " + proposal.intro + ", \n\n Perks: " + proposal.perks + ", \n\n Game Plan: " + proposal.plan + ", \n\n Budget: $" + proposal.budget +"\n\n   Thanks, \n\n Dave"
+      text: "Hey " + receiver.profile.username + ", \n\n From: @" + sender.profile.username  + ", \n\n Introduction: " + proposal.intro + ", \n\n Perks: " + proposal.perks + ", \n\n Game Plan: " + proposal.plan + "\n\n   Thanks, \n\n Dave"
     });
 
   },
@@ -202,7 +202,7 @@ Meteor.methods({
     });
 
     Email.send({
-      from: "dhurls99@gmail.com",
+      from: "dhurley@hashtagpaid.com",
       to: email,
       subject: "Thanks for inquiring about Ignition!",
       text: "Hey " + name + ", \n\n I'll get back to you as soon as I can. Things are busy but that doesn't mean I won't forget about you. \n\n  Thanks, \n\n Dave"
@@ -210,7 +210,7 @@ Meteor.methods({
 
     Email.send({
       from: email,
-      to: "dhurls99@gmail.com",
+      to: "dhurley@hashtagpaid.com",
       subject: "Hot lead",
       text: message + "\n\n This is a lead from Ignition. From @" + username + '. \n\n His name is ' + name
     });
@@ -327,17 +327,5 @@ Meteor.methods({
         }
       });
     }  
-  },
-  getPoints: function(userId) {
-    check(userId, String);
-    var pointsHash = Points.findOne({ userId: userId});
-    var points = _.values(pointsHash);
-    var sum = 0;
-    for(var i = 0; i < points.length; i++) {
-      if(!isNaN(points[i])) {
-        sum += points[i];
-      }
-    }
-    return sum;
   } 
 });

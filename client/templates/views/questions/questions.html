@@ -1,14 +1,14 @@
 <template name='questions'>
 	<div class='row'>
 		<div class='col-md-8'>
-			<h3 class='underline'>Questons</h3>
+			<h1 class='underline'>Questons</h1>
 			{{#each questions}}
 				{{> question}}
 			{{/each}}
 		</div>
 		<div class='col-md-4 messagePanel'>
 	      {{#if currentUser}}
-	      		<p class='pull-right'><a href="/">Profile</a></p>
+	      		<p><a href="/">Profile</a></p>
 	          <h5 class='m-t-md'>Want to boost your Instagram account? Get advice from one of our Instagram experts.</h5>
 				<h5>Anyone can ask a question.</h5>
 				<h5>Anybody can answer.</h5>
@@ -28,13 +28,13 @@
 <template name='question'>
 	<div class='questionStyle'>
 	<div class='row'>
-		<div class='col-md-1 text-center'>
+		<div class='col-md-1 text-center col-xs-6'>
 			<h3 class='blueText'>
 				{{votes}}
 			</h3>
 			<h3><small>hearts</small></h3>
 		</div>
-		<div class='col-md-2 text-center'>
+		<div class='col-md-2 text-center col-xs-6'>
 			<h3 class='blueText'>
 				{{answers}}
 			</h3>
@@ -70,11 +70,11 @@
 		</div>
 		<div class='col-md-4 messagePanel'>
 			{{#if currentUser}}
-			<p class='pull-right'><a href="/">Profile</a></p><br><br>
+			<p><a href="/">Profile</a></p><br><br>
 			{{else}}
-			<p class='pull-right'><a href="/">Home</a></p><br><br>
+			<p><a href="/">Home</a></p><br><br>
 			{{/if}}
-			<p class='pull-right'><a href="{{pathFor 'questions'}}">Questions</a></p>
+			<p><a href="{{pathFor 'questions'}}">Questions</a></p>
 			<br>
 			<h5>Anybody can answer.</h5>
 			<h5>Anyone can heart an answer as much as they want.</h5>

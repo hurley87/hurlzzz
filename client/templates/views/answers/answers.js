@@ -92,7 +92,7 @@ Template.answer.events({
 	  	var answerId = this._id;
 		var answer =  Answers.findOne({ _id : answerId});
 	  	Meteor.call('updateScore', answer);
-	  	Meteor.call('heartPoints', Meteor.userId());
+	  	Meteor.call('heartPoints', answer.user._id);
 	  	analytics.track('heart', {
 	  		userId: Meteor.userId()
 	  	});
