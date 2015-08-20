@@ -8,10 +8,6 @@ Template.questions.helpers({
 	}
 });
 
-Template.questionPage.helpers({
-
-});
-
 Template.question.helpers({
 	time: function() {
 		return moment(this.createdAt).fromNow();
@@ -56,10 +52,10 @@ Template.questionForm.events({
     evt.preventDefault();
     var question = $('#text').val();
     var user = Meteor.users.findOne(Meteor.userId());
-    analytics.track('Question', {
-      question: question,
-      user: user
-    });
+      analytics.track('question', {
+        user: user,
+        question: question
+      });
     Meteor.call('createQuestion', user, question);
     Router.go('/questions');
     $('#text').val('');
