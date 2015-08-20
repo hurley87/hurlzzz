@@ -127,8 +127,13 @@ Template.profile.helpers({
       var id = Meteor.userId();
       var points = Points.findOne({ userId: id });
     }
-    sum = points.accounts + points.yourAccounts + points.questions + points.answers + points.hearts;
-    return sum;
+    if(points) {
+      sum = points.accounts + points.yourAccounts + points.questions + points.answers + points.hearts;
+      return sum;      
+    } else {
+      return 0;
+    }
+
   }
 });
 
