@@ -36,15 +36,15 @@
         <p class='pull-right'><a href='/questions'>Questions</a></p>
         {{/if}}
       {{#if currentUser}}
-        {{#if beenUpdated}}
-            <button class='updateThisUser newBtn m-t-xxl'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button>
-            Ignite this account and gain points!
-        {{/if}}
         {{#if thisUser}}
           <h3>You have 0 points</h3>
         {{else}}
           <h3>0 points</h3>
           {{> proposal}}
+        {{/if}}
+        {{#if beenUpdated}}
+            <button class='updateThisUser newBtn m-t-lg'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button>
+            Ignite this account and gain points!
         {{/if}}
       {{else}}
         <button class='newBtn insta'><i class="fa fa-instagram"></i> &nbsp; Login</button>
