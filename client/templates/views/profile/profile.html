@@ -30,18 +30,15 @@
         {{#if currentUser}}
         <p><a href='/'>Profile</a></p>
         <br>
-        <p><a href='/questions'>Questions</a></p>
         {{else}}
         <p><a href='/'>Back home</a></p><br>
-        <p><a href='/questions'>Questions</a></p>
         {{/if}}
       {{#if currentUser}}
-        {{#if thisUser}}
-          <h3>You have {{points}} points</h3>
+<!--         {{#if thisUser}}
+          <h3>{{points}} points</h3>
         {{else}}
           <h3>{{points}} points</h3>
-          {{> proposal}}
-        {{/if}}
+        {{/if}} -->
         {{#if beenUpdated}}
             <button class='updateThisUser newBtn m-t-lg'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button>
             Ignite this account and gain points!
@@ -86,7 +83,6 @@
         <p>Update By: @{{updater.name}}</p>
       </div>
       <div class='col-md-4'>
-        <p>Location: {{user.other.city}}</p>
         <p>Followers: {{user.stats.followed_by}}</p>
 
       </div>
