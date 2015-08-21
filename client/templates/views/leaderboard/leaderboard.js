@@ -87,6 +87,7 @@ Template.leaderboard.onRendered(function() {
   $('.dataTables_paginate').parent().removeClass('col-xs-6').addClass('col-xs-12');
   $('#DataTables_Table_0_filter label').css({ 'float': 'left'});
   $('.dataTables_paginate').css({ 'float': 'left' });
+  $('#DataTables_Table_0_filter').hide();
 
   $("#valueInput").TouchSpin({
       min: 0,

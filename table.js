@@ -4,7 +4,7 @@ Meteor.isClient && Template.registerHelper('TabularTables', TabularTables);
 
 if (Meteor.isClient) {
   Session.set('value', 75);
-  Session.set('thisValue', 250);
+  Session.set('thisValue', 100);
 }
 
 TabularTables.Users = new Tabular.Table({
