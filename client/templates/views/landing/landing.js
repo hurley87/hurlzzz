@@ -9,7 +9,6 @@
         }
         Router.go('/edit');
         analytics.identify(Meteor.userId()); 
-        var user = Meteor.users.findOne(Meteor.userId());
       });
     }
   });
