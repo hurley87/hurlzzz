@@ -1,15 +1,11 @@
 <template name='dashboard'>
     {{#if currentUser }}
-      {{> profile}}
+      {{> Template.dynamic template=getBody }}
     {{else}}
       {{> landing}}
     {{/if}}
 </template>
-
-<template name='loading'>
-  {{> spinner}}
-</template> 
-
+<template name='loading'></template>  
 <template name='profile'>
   <div class='row'>
     <div class='col-md-8' style='padding-right: 15px;'>
@@ -26,23 +22,16 @@
       {{/if}}
     </div>
     <div class='col-md-4 messagePanel'>
-        <p><span style='cursor: pointer;' class='blueText mySearch'> Search</span></p><br>
-        {{#if currentUser}}
-        <p><a href='/'>Profile</a></p>
-        <br>
-        {{else}}
-        <p><a href='/'>Back home</a></p><br>
-        {{/if}}
       {{#if currentUser}}
-<!--         {{#if thisUser}}
-          <h3>{{points}} points</h3>
-        {{else}}
-          <h3>{{points}} points</h3>
-        {{/if}} -->
         {{#if beenUpdated}}
+          <h3>Ignite this profile and earn yourself 20 points.</h3>
           <button class='updateThisUser newBtn m-t-sm'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button>
+        {{else}}
+         <h3>Earn points by Igniting other profiles. You can only Ignite a profile once a day.</h3>
+         <button class='newBtn mySearch'>Search</button>  
         {{/if}}
       {{else}}
+        <h3>Login and help @{{user.username}} win a camera</h3>
         <button class='newBtn insta'><i class="fa fa-instagram"></i> &nbsp; Login</button>
       {{/if}}
     </div>
@@ -55,14 +44,14 @@
        <img alt="logo" height='100' width='100' class="profile-img" src="{{user.profile_picture}}">
     </div>
     <div class='col-md-7'>
-      <h5 class='username'>
+      <a href="https://instagram.com/{{user.username}}"><h5 class='username'>
         @{{user.username}}
         {{#if online}}
         <div class='green'></div>
         {{else}}
         <div class='red'></div>
         {{/if}}
-      </h5>
+      </h5></a>
       <p><a href="/edit"><i class="fa fa-edit"></i> Edit</a></p>
       <p>joined {{joined}}</p>
       <p>
@@ -70,16 +59,17 @@
       </p>
     </div>
     <div class='col-md-3'>
-      <h3><span class='font-extra-bold text-success'>${{user.data.postValue}}</span><small>/per post</small></h3>
+      <h3><span class='font-extra-bold text-success'>{{points}}</span><small> points</small></h3>
     </div>
   </div>
   <br> 
     <div class='row'>
       <div class='col-md-4'>
-        <p>Last Updated: {{updater.time}} </p>
-        <p>Update By: @{{updater.name}}</p>
+        <p>Last Ignited: {{updater.time}} </p>
+        <p>Ignited By: @{{updater.name}}</p>
       </div>
       <div class='col-md-4'>
+        <p>Value: ${{user.data.postValue}} per post</p>
         <p>Followers: {{user.stats.followed_by}}</p>
 
       </div>

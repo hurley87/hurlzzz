@@ -10,6 +10,7 @@ Router.route('/', {
     this.subscribe('allLeaderboardUsers');
     this.subscribe('updates');
     this.subscribe('points');
+    this.subscribe('referrals');
   }
 });
 
@@ -71,13 +72,6 @@ Router.route('/:_id', {
     this.subscribe('allLeaderboardUsers');
     this.subscribe('updates');
     this.subscribe('points');
+    this.subscribe('referrals');
   }
 });
-
-Router.onBeforeAction(function() {
-  GoogleMaps.load({
-    key: "AIzaSyAaZm16_mMzjs34LmNqaQaANCELQVY5lq4",
-    libraries: 'places'
-  });
-  this.next();
-}, { only: ['/edit'] });

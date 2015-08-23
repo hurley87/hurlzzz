@@ -327,5 +327,17 @@ Meteor.methods({
         }
       });
     }  
+  },
+  addReferral: function(userId) {
+    console.log(userId);
+    Referrals.insert({
+      userId: userId
+    });
+  },
+  addIgnite: function(userId) {
+    check(userId, String);
+    Ignites.insert({
+      
+    });
   } 
 });

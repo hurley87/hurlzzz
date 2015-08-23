@@ -116,24 +116,6 @@ Template.profile.helpers({
         return user.profile;
       }
     }
-  },
-  points: function() {
-    var username = Router.current().params._id;
-    var sum = 0
-    if(username) { 
-      var id = Meteor.users.find({ 'profile.username' : username }).fetch()[0]._id;
-      var points = Points.findOne({ userId: id });
-    } else {
-      var id = Meteor.userId();
-      var points = Points.findOne({ userId: id });
-    }
-    if(points) {
-      sum = points.accounts + points.yourAccounts + points.questions + points.answers + points.hearts;
-      return sum;      
-    } else {
-      return 0;
-    }
-
   }
 });
 
@@ -143,17 +125,12 @@ Template.profile.events({
     Meteor.loginWithInstagram(function (err, res) {
       if (err !== undefined) {
         console.log('sucess ' + res);
+        
       } else {
         console.log('login failed ' + err);
       }
-      Router.go('/edit');
-      var user = Meteor.users.findOne(Meteor.userId());
-      if(user) {
-        analytics.identify(user._id, {
-          name: user.profile.username
-        });       
-      }
     });
+    Router.go('/edit');       
   },
   'click .updateThisUser': function(evt) {
     $(evt.target).hide();
@@ -163,12 +140,28 @@ Template.profile.events({
     var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
     if(user) {
       Meteor.call('updateAnalytics', user, updater);
-      Meteor.call('updateYourAccountsPoints', user._id);
-      Meteor.call('updateAccountsPoints', updater._id);
+      Meteor.call('updateAccountsPoints', Meteor.userId());
+      Session.set('splashLoaded', false);
+      var loading = window.pleaseWait({
+        logo: '/logo.png',
+        backgroundColor: '#303232',
+        loadingHtml: '<p class="loading-message">' + pickRandom(messages) + '</p>'
+              +   '<div class="sk-spinner sk-spinner-wave">'
+          + ' <div class="sk-rect1"></div>'
+          + ' <div class="sk-rect2"></div>'
+          + ' <div class="sk-rect3"></div>'
+          + ' <div class="sk-rect4"></div>'
+          + ' <div class="sk-rect5"></div>'
+          + '</div>'
+      });
+      Meteor.setTimeout(function () {
+        loading.finish();
+        Session.set('splashLoaded', true);
+      }, 4000);
       analytics.track('Ignite', {
         user: user
       });
-    }
+    }  
   },
   'click .mySearch':function(evt) {
     evt.preventDefault();
@@ -271,6 +264,22 @@ Template.myStats.helpers({
         return false;
       }
     }
+  },
+  points: function() {
+    var username = Router.current().params._id;
+    if(username) { 
+      var id = Meteor.users.find({ 'profile.username' : username }).fetch()[0]._id;
+      var points = Points.findOne({ userId: id });
+    } else {
+      var id = Meteor.userId();
+      var points = Points.findOne({ userId: id });
+    }
+    if(points) {
+      return points.accounts;      
+    } else {
+      return 0;
+    }
+
   }
 });
 
@@ -317,26 +326,47 @@ Template.growthChart.rendered=function(){
     $.plot($("#" + this.data.title), chartData, options);
 };
 
+Template.loading.rendered = function () {
 
- 
+  var loading = window.pleaseWait({
+    logo: '/logo.png',
+    backgroundColor: '#303232',
+    loadingHtml: '<p class="loading-message">' + pickRandom(messages) + '</p>'
+          +   '<div class="sk-spinner sk-spinner-wave">'
+      + ' <div class="sk-rect1"></div>'
+      + ' <div class="sk-rect2"></div>'
+      + ' <div class="sk-rect3"></div>'
+      + ' <div class="sk-rect4"></div>'
+      + ' <div class="sk-rect5"></div>'
+      + '</div>'
+  });
 
-Meteor.Spinner.options = {
-    lines: 10, 
-    length: 40, // The length of each line
-    width: 15, // The line thickness
-    radius: 15, // The radius of the inner circle
-    corners: 1, // Corner roundness (0..1)
-    rotate: 0, // The rotation offset
-    direction: 1, // 1: clockwise, -1: counterclockwise
-    color: '#517fa4', // #rgb or #rrggbb
-    speed: 1.4, // Rounds per second
-    trail: 75, // Afterglow percentage
-    shadow: false, // Whether to render a shadow
-    hwaccel: false, // Whether to use hardware acceleration
-    className: 'spinner', // The CSS class to assign to the spinner
-    zIndex: 2e9, // The z-index (defaults to 2000000000)
-    top: '30px', // Top position relative to parent in px
-    left: '50%' // Left position relative to parent in px
+  Meteor.setTimeout(function () {
+    loading.finish();
+    Session.set('splashLoaded', true);
+  }, 4000);
 };
+
+Template.loading.destroyed = function () {
+  this.loading.finish();
+};
+
+var pickRandom = function (arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+};
+
+
+// Loading messages
+var messages = [
+  'Hey you. Welcome back!',
+  'You look nice today',
+  'Amazing things come to those who wait',
+  'You usually have to wait for that which is worth waiting for',
+  'Don\'t wait for opportunity. Create it.',
+  'A day without sunshine is like, you know, night.',
+  'My fake plants died because I did not pretend to water them.',
+  'Weather forecast for tonight: dark.'
+];
+
 
 Bert.defaults.hideDelay = 1500;

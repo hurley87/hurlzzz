@@ -25,6 +25,7 @@ fastclick@1.0.3
 fortawesome:fontawesome@4.4.0
 geojson-utils@1.0.3
 gwendall:session-json@0.1.7
+hilios:jquery.countdown@2.0.4
 html-tools@1.0.4
 htmljs@1.0.4
 http@1.1.0
@@ -77,6 +78,7 @@ observe-sequence@1.0.6
 okgrow:analytics@0.3.0
 okgrow:iron-router-autoscroll@0.0.8
 ordered-dict@1.0.3
+pcel:loading@1.0.3
 random@1.0.3
 reactive-dict@1.1.0
 reactive-var@1.0.5

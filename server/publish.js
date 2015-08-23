@@ -30,3 +30,7 @@ Meteor.publish('answers', function() {
 Meteor.publish('points', function() {
 	return Points.find({});
 });
+
+Meteor.publish('referrals', function() {
+	return Referrals.find({});
+});
