@@ -1,3 +1,38 @@
+.maxAttack {
+ position: fixed;
+ top: 40px;
+ height: 600px;
+ left: 0;
+ right: 0;
+ background-image: url('/hero.jpg');
+ background-size: cover;
+}
+
+.maxAttack .overlay {
+	position: absolute;
+	background-color: #000;
+	opacity: 0.5;
+	top: 0;
+	height: 600px;
+	left: 0;
+	right: 0;
+}
+
+.thisText {
+	position: absolute;
+	top: 125px;
+	z-index: 5;
+	width: 100%;
+}
+
+.thisText h1 {
+	font-size: 5em;
+}
+
+.thisText h4 {
+	font-size: 2.5em;
+}
+
 body {
 	background-color: #303232;
 	font-family: 'Lato', sans-serif !important;
@@ -75,8 +110,7 @@ footer a {
 }
 
 .algor {
-	
-	margin-top: 15px;
+	margin-top: 635px;
 }
 
 .theAds .phone {
