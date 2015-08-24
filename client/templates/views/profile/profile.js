@@ -355,18 +355,17 @@ var pickRandom = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 };
 
-
-// Loading messages
 var messages = [
   'Hey you. Welcome back!',
   'You look nice today',
   'Amazing things come to those who wait',
   'You usually have to wait for that which is worth waiting for',
   'Don\'t wait for opportunity. Create it.',
-  'A day without sunshine is like, you know, night.',
-  'My fake plants died because I did not pretend to water them.',
-  'Weather forecast for tonight: dark.'
+  'Pro Tip: Don\'t use Instagram to take photos',
+  'Pro Tip: Be consitent — Work in square',
+  'Pro Tip: Avoid Instagram Filters—Use editing apps',
+  'Pro Tip: Avoid Zoom',
+  'Pro Tip:  Staging is important',
+  'Pro Tip: Re-think perspective',
+  'Pro Tip: Take your time - do not hurry'
 ];
-
-
-Bert.defaults.hideDelay = 1500;
