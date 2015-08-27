@@ -21,18 +21,16 @@
         </div>
       {{/if}}
     </div>
-    <div class='col-md-4 messagePanel'>
+    <div class='col-md-4 messagePanel m-b-xxl'>
       {{#if currentUser}}
         {{#if beenUpdated}}
-          <h3>Ignite this profile and earn yourself 20 points.</h3>
-          <button class='updateThisUser newBtn m-t-sm'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button>
+          <button class='updateThisUser newBtn m-t-sm m-b-xxl'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button>
         {{else}}
-         <h3>Earn points by Igniting other profiles. You can only Ignite a profile once a day.</h3>
-         <button class='newBtn mySearch'>Search</button>  
+         <button class='newBtn mySearch m-b-xxl'>Search</button>  
         {{/if}}
       {{else}}
         <h3>Login with your Instgram.</h3>
-        <button class='newBtn insta'><i class="fa fa-instagram"></i> &nbsp; Login</button>
+        <button class='newBtn insta m-b-xxl'><i class="fa fa-instagram"></i> &nbsp; Login</button>
       {{/if}}
     </div>
   </div>
@@ -59,7 +57,7 @@
       </p>
     </div>
     <div class='col-md-3'>
-      <h3><span class='font-extra-bold text-success'>{{points}}</span><small> points</small></h3>
+      <h3><span class='font-extra-bold text-success'>${{user.data.postValue}}</span><small> per post</small></h3>
     </div>
   </div>
   <br> 

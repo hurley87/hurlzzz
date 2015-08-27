@@ -27,10 +27,30 @@
 
 .thisText h1 {
 	font-size: 5em;
+	font-weight: 700;
 }
 
 .thisText h4 {
 	font-size: 2.5em;
+}
+
+@media (max-width: 480px) {
+	.thisText {
+		position: absolute;
+		top: 55px;
+		z-index: 5;
+		width: 100%;
+	}
+	.thisText h1 {
+		font-size: 3em;
+		font-weight: 500;
+	}
+	.thisText h4 {
+		font-size: 2em;
+	    width: 95%;
+	    margin: auto;
+	    margin-top: 40px;
+	}
 }
 
 body {

@@ -109,8 +109,10 @@ Meteor.methods({
     }); 
 
     ig.user(user.profile.id, function(err, result, remaining, limit) {
-      currentFollowers.return(result.counts.followed_by);
-      stats.return(result.counts);
+      if(result) {
+        currentFollowers.return(result.counts.followed_by);
+        stats.return(result.counts);
+      }
     });
 
     Meteor.call('getData', recentPosts.wait(), stats.wait(), function(error, result) {

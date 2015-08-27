@@ -266,16 +266,20 @@ Template.myStats.helpers({
     }
   },
   points: function() {
-    var username = Router.current().params._id;
-    if(username) { 
-      var id = Meteor.users.find({ 'profile.username' : username }).fetch()[0]._id;
-      var points = Points.findOne({ userId: id });
-    } else {
-      var id = Meteor.userId();
-      var points = Points.findOne({ userId: id });
-    }
-    if(points) {
-      return points.accounts;      
+    if(Router.current().params) {
+      var username = Router.current().params._id;
+      if(username) { 
+        var id = Meteor.users.find({ 'profile.username' : username }).fetch()[0]._id;
+        var points = Points.findOne({ userId: id });
+      } else {
+        var id = Meteor.userId();
+        var points = Points.findOne({ userId: id });
+      }
+      if(points) {
+        return points.accounts;      
+      } else {
+        return 0;
+      }
     } else {
       return 0;
     }
