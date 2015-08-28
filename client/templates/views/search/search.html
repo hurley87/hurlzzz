@@ -1,5 +1,17 @@
 <template name="infiniteSearch">
-	<div class='row'>
+	<div class='row m-b-xxl'>
+		<div class='col-md-1 col-xs-12'>
+			<h1 style='margin-top: 0;' class='text-success text-center'>${{gt}}</h1>
+		</div>
+		<div class='col-md-10 col-xs-12 m-t-sm m-b-md'>
+			<div id='range'></div>
+		</div>
+		<div class='col-md-1 col-xs-12'>
+			<h1 style='margin-top: 0;' class='text-success text-center'>${{lt}}</h1>
+			
+		</div>
+	</div>
+	<div class='row m-t-xxl'>
 		{{#each users}}
 			<div class='col-md-3'>
 				{{> thisUser}}
@@ -7,7 +19,7 @@
 		{{/each}}
 	</div>
   	{{#if moreResults}}
-	    <button class='newBtn loadMore'>Load More</button>
+	    <button class='newBtn loadMore m-b-xxxl'>Load More</button>
 	{{/if}}
 </template>
 
