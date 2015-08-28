@@ -7,9 +7,7 @@
 		{{/each}}
 	</div>
   	{{#if moreResults}}
-	    <div id="showMoreResults" style="margin-left: 25px;">
-	        <span class="loading">Loading...</span>
-	    </div>
+	    <button class='newBtn loadMore'>Load More</button>
 	{{/if}}
 </template>
 
@@ -18,7 +16,7 @@
 	    <div class="panel-body" style='height: 210px;'>
 	        <img alt="logo" class="img-circle m-b" src="{{profile.profile_picture}}">
 	       	<h1 style='margin-top: 0;' class='pull-right text-success'>${{profile.data.postValue}}</h1>
-	        <h3>@{{profile.username}}</h3>
+	        <h5>@{{profile.username}}</h5>
 	        <p style='color: black;'>
 	            {{profile.bio}}
 	        </p>
