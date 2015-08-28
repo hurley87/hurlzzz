@@ -10,6 +10,6 @@
  Template.infiniteSearch.events({
  	'click .loadMore': function(evt, templ) {
  		evt.preventDefault();
- 		Session.set("usersLimit", Session.get("usersLimit") + 10);
+ 		Session.set("usersLimit", Session.get("usersLimit") + 8);
  	}
  });

@@ -8,9 +8,6 @@ Router.route('/', {
   loadingTemplate: 'loading',
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
-    this.subscribe('updates');
-    this.subscribe('points');
-    this.subscribe('referrals');
   }
 });
 
@@ -19,7 +16,6 @@ Router.route('/edit', {
   loadingTemplate: 'loading',
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
-    this.subscribe('updates');
   }
 });
 
@@ -50,10 +46,7 @@ Router.route('/question/:_id', {
 Router.route('/search', {
   name: 'search',
   template: 'infiniteSearch',
-  loadingTemplate: 'loading',
-  subscriptions: function() {
-
-  }
+  loadingTemplate: 'loading'
 });
 
 Router.route('/faq', function () {
