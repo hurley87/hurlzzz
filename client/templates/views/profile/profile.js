@@ -237,15 +237,14 @@ Template.myStats.helpers({
       var userId = Meteor.userId();
     }
 
-    var updates = Updates.find({
+    var update = Updates.find({
       'updated._id' : userId
-    }).fetch();
-    
-    var lastUpdate = _.last(updates);
-    if(lastUpdate) {
+    }, {limit: 1, sort: { createdAt: -1}}).fetch();
+
+    if(update[0]) {
       return {
-        name: lastUpdate.updater.profile.username,
-        time: moment(lastUpdate.createdAt).fromNow()
+        name: update[0].updater.profile.username,
+        time: moment(update[0].createdAt).fromNow()
       };
     } else {
       return {

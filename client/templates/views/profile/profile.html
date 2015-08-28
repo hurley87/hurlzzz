@@ -26,10 +26,10 @@
         {{#if beenUpdated}}
           <button class='updateThisUser newBtn m-t-sm m-b-xxl'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button>
         {{else}}
-         <button class='newBtn mySearch m-b-xxl'>Search</button>  
+         <a href="/search"><button class='newBtn m-b-xxl'>Search</button> </a> 
         {{/if}}
       {{else}}
-        <h3>Login with your Instgram.</h3>
+        <h3>Login with Instgram.</h3>
         <button class='newBtn insta m-b-xxl'><i class="fa fa-instagram"></i> &nbsp; Login</button>
       {{/if}}
     </div>
