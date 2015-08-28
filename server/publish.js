@@ -34,3 +34,4 @@ Meteor.publish('points', function() {
 Meteor.publish('referrals', function() {
 	return Referrals.find({});
 });
+

@@ -1,0 +1,34 @@
+<template name="infiniteSearch">
+	<div class='row'>
+		{{#each users}}
+			<div class='col-md-3'>
+				{{> thisUser}}
+			</div>
+		{{/each}}
+	</div>
+  	{{#if moreResults}}
+	    <div id="showMoreResults" style="margin-left: 25px;">
+	        <span class="loading">Loading...</span>
+	    </div>
+	{{/if}}
+</template>
+
+<template name='thisUser'>
+	<a href="/{{profile.username}}"><div class="hpanel hblue contact-panel">
+	    <div class="panel-body" style='height: 210px;'>
+	        <img alt="logo" class="img-circle m-b" src="{{profile.profile_picture}}">
+	       	<h1 style='margin-top: 0;' class='pull-right text-success'>${{profile.data.postValue}}</h1>
+	        <h3>@{{profile.username}}</h3>
+	        <p style='color: black;'>
+	            {{profile.bio}}
+	        </p>
+	    </div>
+	    <div class="panel-footer contact-footer">
+	        <div class="row">
+	            <div class="col-md-6 border-right"> <div class="contact-stat"><span>Followers </span> <strong>{{profile.stats.followed_by}}</strong></div> </div>
+	            <div class="col-md-6"> <div class="contact-stat"><span>Avg Likes: </span> <strong>{{profile.data.avgLikes}}</strong></div> </div>
+	        </div>
+	    </div>
+	</div></a>
+</template>
+

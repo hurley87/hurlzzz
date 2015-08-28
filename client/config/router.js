@@ -48,11 +48,11 @@ Router.route('/question/:_id', {
 });
 
 Router.route('/search', {
-  template: 'leaderboard',
+  name: 'search',
+  template: 'infiniteSearch',
   loadingTemplate: 'loading',
   subscriptions: function() {
-    this.subscribe('allLeaderboardUsers');
-    this.subscribe('updates');
+
   }
 });
 
@@ -71,7 +71,5 @@ Router.route('/:_id', {
   subscriptions: function() {
     this.subscribe('allLeaderboardUsers');
     this.subscribe('updates');
-    this.subscribe('points');
-    this.subscribe('referrals');
   }
 });
