@@ -24,9 +24,10 @@
     <div class='col-md-4 messagePanel m-b-xxl'>
       {{#if currentUser}}
         {{#if beenUpdated}}
-          <button class='updateThisUser newBtn m-t-sm m-b-xxl'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button>
+        <a href="/search"><button class='newBtn m-b-xxl'>Search</button> </a> 
         {{else}}
-         <a href="/search"><button class='newBtn m-b-xxl'>Search</button> </a> 
+         <button class='updateThisUser newBtn m-t-sm m-b-xxl'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button>
+         
         {{/if}}
       {{else}}
         <h3>Login with Instgram.</h3>

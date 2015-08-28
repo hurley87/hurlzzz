@@ -98,9 +98,9 @@ Template.profile.helpers({
       var dayAfter = time.setDate(time.getDate() + 1);
       var today = new Date();
 
-      return today > dayAfter;
+      return today < dayAfter;
     } else {
-      return true;
+      return false;
     }
   },
   user: function() {
