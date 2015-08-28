@@ -24,8 +24,8 @@ if (Meteor.isClient) {
 	        if (!target.data("visible")) {
 	            // console.log("target became visible (inside viewable area)");
 	            target.data("visible", true);
-	            Session.set("itemsLimit",
-	                Session.get("itemsLimit") + ITEMS_INCREMENT);
+	            Session.set("usersLimit",
+	                Session.get("usersLimit") + ITEMS_INCREMENT);
 	        }
 	    } else {
 	        if (target.data("visible")) {
