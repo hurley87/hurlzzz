@@ -10,9 +10,6 @@
  	},
  	gt: function() {
 		return Session.get("gt");
- 	},
- 	userCount: function() {
- 		return Meteor.users.find({}).count();
  	}
  });
 
@@ -27,8 +24,8 @@
     this.$("#range").noUiSlider({
       start: Session.get("slider"),
       connect: true,
-      margin: 250,
-      limit: 250,
+      margin: 150,
+      limit: 150,
       behaviour: 'tap-drag',
       range: {
 		'min': 40,
