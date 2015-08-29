@@ -116,6 +116,9 @@ Template.profile.helpers({
         return user.profile;
       }
     }
+  },
+  posts: function() {
+    return Posts.find({});
   }
 });
 

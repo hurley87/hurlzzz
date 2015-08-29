@@ -1,1 +1,0 @@
-UsersCount = new Meteor.Collection('users-count'); 

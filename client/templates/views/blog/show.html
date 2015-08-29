@@ -1,0 +1,19 @@
+<template name='post'>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="hpanel blog-article-box">
+                <div class="panel-heading">
+                    {{{title}}}
+                    {{{tagline}}}
+                    <div class="text-muted small">
+                        Written by <a href="/{{user.profile.username}}"><span class="font-bold">@{{user.profile.username}}</span></a> {{time createdAt}}
+                    </div>
+                </div>
+                <div class="panel-body">
+                    {{{content}}}
+                    <h1 class='pull-right'><a href="/{{user.profile.username}}">@{{user.profile.username}}</a></h1>
+                </div>
+            </div>
+        </div>
+    </div>	
+</template>	

@@ -1,9 +1,9 @@
-
+Posts = new Mongo.Collection('posts');
 /*
 * Allow
 */
 
-Meteor.users.allow({
+Posts.allow({
   update: function (userId, user, fields, modifier) {
     if(user._id === userId) {
       Meteor.users.update({_id: userId}, modifier);
@@ -17,7 +17,7 @@ Meteor.users.allow({
 * Deny
 */
 
-Meteor.users.deny({
+Posts.deny({
   insert: function(){
     // Deny user inserts on the client by default.
     return true;

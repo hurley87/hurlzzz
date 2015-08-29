@@ -1,0 +1,48 @@
+<template name='blog'>
+	<div class='row'>
+		<div class='col-md-8'>
+			<div class='row'>
+				{{#each items}}
+				<div class='col-md-6'>
+					{{> item post=this}}
+				</div>
+				{{/each}}
+			</div>
+		</div>
+		<div class='col-md-4'>
+			<div class='messagePanel'>
+				<h3>Post a post here</h3>
+				<a href="/blog/new"><button class='newBtn'>New Post</button></a>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name='item'>
+    <div class="hpanel blog-box contact-panel">
+        <div class="panel-heading">
+            <div class="media clearfix">
+                <a class="pull-left">
+                    <img src="{{post.user.profile.profile_picture}}" alt="profile-picture">
+                </a>
+                <div class="media-body">
+                    <small>Written by:<a href="/{{user.profile.username}}"> <span class="font-bold">@{{post.user.profile.username}}</span> </a></small>
+                    <br/>
+                    <small class="text-muted">Posted {{time}}</small>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <a href="/blog/{{post.slug}}"> <h4>{{{post.title}}}</h4></a>
+            <p>
+                {{{post.tagline}}}
+            </p>
+        </div>
+        <div class="panel-footer">
+    <span class="pull-right">
+        <i class="fa fa-comments-o"> </i> 22 comments
+    </span>
+            <i class="fa fa-eye"> </i> 142 views
+        </div>
+    </div>
+</template>

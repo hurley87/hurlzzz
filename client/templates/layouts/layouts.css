@@ -13,47 +13,12 @@
 	cursor: pointer;
 }
 
+.fa-search:hover, .fa-bars:hover {
+	color: #3498db;
+}
+
 #mySearch {
 	cursor: pointer;
 }
 
-.leftNav {
-	position: absolute;
-	left: 0;
-	top: 0px;
-	height: 100%;
-	width: 44px;
-	background-color: #3498db;
-	z-index: 3;
-	opacity: 0.1;
-	transition: 1s all ease;
-}
 
-.leftNav:hover {
-	opacity: 0.6;
-	cursor: pointer;
-}
-
-.rightNav {
-	position: absolute;
-	right: 0;
-	top: 0;
-	height: 100%;
-	width: 44px;
-	background-color: #3498db;
-	z-index: 3;
-	opacity: 0.1;
-	transition: 1s all ease;
-}
-
-.rightNav:hover {
-	
-	opacity: 0.4;
-	cursor: pointer;
-}
-
-@media (max-width: 480px) {
-	.rightNav, .leftNav {
-		display: none;
-	}
-}

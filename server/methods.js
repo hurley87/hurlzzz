@@ -157,5 +157,8 @@ Meteor.methods({
   },
   getUserCount: function() {
     return 115;
+  },
+  createPost: function(post) {
+    Posts.insert(post);
   } 
 });

@@ -21,18 +21,26 @@
         </div>
       {{/if}}
     </div>
-    <div class='col-md-4 messagePanel m-b-xxl'>
-      {{#if currentUser}}
-        {{#if beenUpdated}}
-        <a href="/search"><button class='newBtn m-b-xxl'>Search</button> </a> 
+    <div class='col-md-4 m-b-xxl'>
+      <div class='messagePanel m-b-sm'>
+        {{#if currentUser}}
+          {{#if beenUpdated}}
+          <a href="/search"><button class='newBtn m-b-xxl'>Search</button> </a> 
+          {{else}}
+          <h3>Looks like @{{user.username}}'s stats haven't been updated in awhile. Go ahead and ignite their profile!</h3>
+           <button class='updateThisUser newBtn m-t-sm m-b-xxl'><i class="fa fa-fire"></i> Ignite </button>
+          {{/if}}
         {{else}}
-         <button class='updateThisUser newBtn m-t-sm m-b-xxl'><i class="fa fa-fire"></i> Ignite @{{user.username}}</button>
-         
+          <h3>Login with Instgram.</h3>
+          <button class='newBtn insta m-b-xxl'><i class="fa fa-instagram"></i> &nbsp; Login</button>
         {{/if}}
-      {{else}}
-        <h3>Login with Instgram.</h3>
-        <button class='newBtn insta m-b-xxl'><i class="fa fa-instagram"></i> &nbsp; Login</button>
-      {{/if}}
+      </div>
+      {{#each posts}}
+        {{> item post=this}}
+      {{/each}}
+      <div class='messagePanel m-t-sm'>
+        <a href="/blog"><button class='newBtn newBtn-outline'>Blog</button></a>
+      </div>
     </div>
   </div>
 </template>
@@ -92,7 +100,6 @@
         <h3 class="">
             {{today}}
         </h3>
-        <a href="/faq"><i class="fa fa-question-circle"></i></a>
       </div>
       <div class="col-md-9">
           <div class="text-center small ">
