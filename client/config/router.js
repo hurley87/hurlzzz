@@ -23,7 +23,10 @@ Router.route('/edit', {
 Router.route('/search', {
   name: 'search',
   template: 'infiniteSearch',
-  loadingTemplate: 'loading'
+  loadingTemplate: 'loading',
+  subscriptions: function() {
+    this.subscribe('usersCount');
+  }
 });
 
 Router.route('/faq', function () {

@@ -154,5 +154,8 @@ Meteor.methods({
       updated: updated,
       createdAt: new Date()
     });
+  },
+  getUserCount: function() {
+    return 115;
   } 
 });
