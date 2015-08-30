@@ -5,7 +5,7 @@
         email: $('#firstEmail').val()
       };
       Meteor.call('addSlack', email);
-      Router.go('/blog');
+      Router.go('/search');
     },
     'submit #slack': function(evt, temp) {
       evt.preventDefault();
@@ -13,17 +13,15 @@
         email: $('#email').val()
       };
       Meteor.call('addSlack', email);
-      Router.go('/blog');
+      Router.go('/search');
     }
   });
 
-  Template.landing.helpers({
-    users: function() {
-      return Meteor.users.find({});
-    }
-  });
-
-
+Template.landing.helpers({
+  users: function() {
+    return Meteor.users.find({});
+  }
+});
 
 Template.landing.rendered = function () {
   $(document).ready(function(){

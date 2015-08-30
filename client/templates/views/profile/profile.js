@@ -143,7 +143,6 @@ Template.profile.events({
     var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
     if(user) {
       Meteor.call('updateAnalytics', user, updater);
-      Meteor.call('updateAccountsPoints', Meteor.userId());
       Session.set('splashLoaded', false);
       var loading = window.pleaseWait({
         logo: '/logo.png',
