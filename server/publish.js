@@ -3,6 +3,11 @@ Meteor.publish('allLeaderboardUsers', function() {
   return data;
 });
 
+Meteor.publish('topUsers', function() {
+  var data = Meteor.users.find({}, { sort: { 'profile.data.postValue': -1 }, limit: 4 });
+  return data;
+});
+
 Meteor.publish('updates', function() {
 	return Updates.find({});
 });

@@ -1,10 +1,10 @@
 <template name='newpost'>
+    {{#if currentUser}}
+    <div class='row'>
+        <h3 class='text-center'>Contribute to the community by sharing your ideas on life and Instagram.</h3>
+    </div>
 	<div class='row'>
 		<div class='col-md-12'>
-			<h1 class='m-b-sm'>
-				New Post
-			</h1>
-			<p class='m-b-lg'>Write something that is meaningful. Something that will inspire someone to do something important.</p>
 			<div class="hpanel blog-article-box">
                 <div class="panel-heading">
                 	<div style='height: auto;' class="col-sm-12 summernote title">
@@ -14,31 +14,39 @@
                 		<div class="text-muted small">write your tagline here</div>
                 	</div>
                     <div class="text-muted small">
-                        Written by <a href="/{{currentUser.profile.username}}"><span class="font-bold">@{{currentUser.profile.username}}</span></a>
+                     &nbsp;
                     </div>
                 </div>
                 <div class="panel-body">
                     <div style='height: auto;' class="col-sm-12 summernote content">
-                        <p>
-                           I work for a startup called <a href="http://www.hashtagpaid.com">#paid</a> and we are building a marketplace for Instagram influencers. Believe it or not, if your famous on Instagram, there are businesses willing to pay you to post about them. I’m sure you’ve already seen these types of ads in your feed but if you haven’t here’s an example,
-                        </p>
-                        <br/>
-                        <blockquote>
-                            <p><a href="https://instagram.com/p/4zxwt8t5yK/">Tilt ad created by @torriwebster.</a></p>
-                        </blockquote>
-                        <br/>
+                        <h3>
+                           Adding Links
+                        </h3>
+                        <p>Linking to outside sources help validate your ideas. </p>
+                        <p><a href="http://reachignition.com/blog">Ignition Blog</a></p>
+                        <br><br>
+                        <h3>Adding Images</h3>
+                        <p>Images can help tell your story. You can resize image and change their shape.</p>
+                        <img src="/hero.jpg" style='width: 100%;'>
+                        <br><br>
+                        <h3>Other Ideas</h3>
+                        <p>Change the color of text or add a table. Experiment with all the available options.</p>
                     </div>	
                     <h1 class='pull-right'><a href="/{{currentUser.profile.username}}">@{{currentUser.profile.username}}</a></h1>
                 </div>
             </div>
             <div class='row m-b-lg'>
-	            <div class='col-md-6'>
-	         		<a href="/blog"><button class="newBtn newBtn-outline">Back to Blog</button></a>   	
+	            <div class='col-md-4'>
+	         		<a href="/blog"><button class="newBtn newBtn-outline m-t-md">Back to Blog</button></a>   	
 	            </div>
-	            <div class='col-md-6'>
-		            <button id='submitPost' class="newBtn" type="submit">Submit Post</button>
+                <div class='col-md-4'>&nbsp;</div>
+	            <div class='col-md-4'>
+		            <button id='submitPost' class="newBtn  m-t-md" type="submit">Submit Post</button>
 	            </div>
             </div>
 		</div>
 	</div>
+    {{else}}
+    {{> blog}}
+    {{/if}}
 </template>	

@@ -160,5 +160,14 @@ Meteor.methods({
   },
   createPost: function(post) {
     Posts.insert(post);
-  } 
+  },
+  addSlack: function(email) {
+    Slacks.insert(email);
+    Email.send({
+      from: 'dhurls99@gmail.com',
+      to: 'dhurley@hashtagpaid.com',
+      subject: "add " + email.email,
+      text: "sweet "
+    }); 
+  }
 });

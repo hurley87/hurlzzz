@@ -22,42 +22,39 @@
       {{/if}}
     </div>
     <div class='col-md-4 m-b-xxl'>
-      <div class='messagePanel m-b-sm'>
+      <div class='m-b-lg'>
         {{#if currentUser}}
           {{#if beenUpdated}}
+          <h3>See how fast other accounts are growing. </h3>
           <a href="/search"><button class='newBtn m-b-xxl'>Search</button> </a> 
+          
           {{else}}
           <h3>Looks like @{{user.username}}'s stats haven't been updated in awhile. Go ahead and ignite their profile!</h3>
            <button class='updateThisUser newBtn m-t-sm m-b-xxl'><i class="fa fa-fire"></i> Ignite </button>
           {{/if}}
         {{else}}
-          <h3>Login with Instgram.</h3>
+        <h3>Find out how much your worth on Instagram.</h3>
           <button class='newBtn insta m-b-xxl'><i class="fa fa-instagram"></i> &nbsp; Login</button>
         {{/if}}
       </div>
       {{#each posts}}
         {{> item post=this}}
       {{/each}}
-      <div class='messagePanel m-t-sm'>
+      <div class='m-t-lg'>
+        <h3>Check out the blog</h3>
         <a href="/blog"><button class='newBtn newBtn-outline'>Blog</button></a>
       </div>
     </div>
   </div>
 </template>
-
 <template name='myStats'>
   <div class='row'>
     <div class='col-md-2'>
        <img alt="logo" height='100' width='100' class="profile-img" src="{{user.profile_picture}}">
     </div>
-    <div class='col-md-7'>
+    <div class='col-md-6'>
       <a href="https://instagram.com/{{user.username}}"><h5 class='username'>
         @{{user.username}}
-        {{#if online}}
-        <div class='green'></div>
-        {{else}}
-        <div class='red'></div>
-        {{/if}}
       </h5></a>
       <p><a href="/edit"><i class="fa fa-edit"></i> Edit</a></p>
       <p>joined {{joined}}</p>
@@ -65,27 +62,13 @@
          {{user.bio}}
       </p>
     </div>
-    <div class='col-md-3'>
+    <div class='col-md-4'>
       <h3><span class='font-extra-bold text-success'>${{user.data.postValue}}</span><small> per post</small></h3>
+      <p>Followers: {{user.stats.followed_by}}</p>
+      <p>Average Likes: {{user.data.avgLikes}} per post</p>
     </div>
   </div>
-  <br> 
-    <div class='row'>
-      <div class='col-md-4'>
-        <p>Last Ignited: {{updater.time}} </p>
-        <p>Ignited By: @{{updater.name}}</p>
-      </div>
-      <div class='col-md-4'>
-        <p>Value: ${{user.data.postValue}} per post</p>
-        <p>Followers: {{user.stats.followed_by}}</p>
-
-      </div>
-      <div class='col-md-4'>
-        <p>Average Likes: {{user.data.avgLikes}} per post</p>
-        <p>Average Comments: {{user.data.avgComments}} per post</p>
-      </div>
-    </div> 
-    <hr>
+  <br>  
 </template> 
 
 <template name='growthChart'>

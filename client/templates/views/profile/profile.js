@@ -223,39 +223,6 @@ Template.myStats.helpers({
       return
     } 
   },
-  online: function() {
-    var id = Router.current().params._id;
-    if(!id && Meteor.userId()) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
-    var user = Meteor.users.find({ 'profile.username' : id }).fetch()[0];
-    if(user && user.status) {
-      return user.status.online;
-    }
-  },
-  updater: function() {
-    var username = Router.current().params._id;
-    if(username) { 
-      var user = Meteor.users.find({ 'profile.username' : username }).fetch()[0]
-      var userId =  user._id;
-    } else {
-      var userId = Meteor.userId();
-    }
-
-    var update = Updates.find({
-      'updated._id' : userId
-    }, {limit: 1, sort: { createdAt: -1}}).fetch();
-
-    if(update[0]) {
-      return {
-        name: update[0].updater.profile.username,
-        time: moment(update[0].createdAt).fromNow()
-      };
-    } else {
-      return {
-        name: 'n/a',
-        time: 'n/a'
-      };
-    }
-  },
   thisUser: function() {
     var path = Router.current().location.get().path;
     if(Meteor.userId()) {
@@ -266,26 +233,6 @@ Template.myStats.helpers({
         return false;
       }
     }
-  },
-  points: function() {
-    if(Router.current().params) {
-      var username = Router.current().params._id;
-      if(username) { 
-        var id = Meteor.users.find({ 'profile.username' : username }).fetch()[0]._id;
-        var points = Points.findOne({ userId: id });
-      } else {
-        var id = Meteor.userId();
-        var points = Points.findOne({ userId: id });
-      }
-      if(points) {
-        return points.accounts;      
-      } else {
-        return 0;
-      }
-    } else {
-      return 0;
-    }
-
   }
 });
 

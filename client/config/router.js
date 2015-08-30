@@ -4,31 +4,22 @@ Router.configure({
 });
 
 Router.route('/', {
-  template: 'dashboard',
+  template: 'landingPage',
   loadingTemplate: 'loading',
   subscriptions: function() {
-    this.subscribe('allLeaderboardUsers');
-    this.subscribe('updates');
-    var username = Meteor.users.findOne(Meteor.userId()).profile.username;
-    this.subscribe('userPosts', username);
+    this.subscribe('topUsers');
   }
 });
 
 Router.route('/edit', {
   template: 'edit',
-  loadingTemplate: 'loading',
-  subscriptions: function() {
-    this.subscribe('allLeaderboardUsers');
-  }
+  loadingTemplate: 'loading'
 });
 
 Router.route('/search', {
   name: 'search',
   template: 'infiniteSearch',
-  loadingTemplate: 'loading',
-  subscriptions: function() {
-    this.subscribe('usersCount');
-  }
+  loadingTemplate: 'loading'
 });
 
 Router.route('/about', function () {

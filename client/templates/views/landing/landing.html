@@ -1,6 +1,6 @@
 <template name='landingPage'>
 	  {{#if currentUser }}
-      {{> profile}}
+      {{> blog}}
     {{else}}
       {{> landing}}
     {{/if}}
@@ -8,44 +8,33 @@
 
 <template name="landing">
   <div class='row maxAttack text-center'>
-    <div class='thisText'>
+    <div class='thisText padding-sm'>
       <h1 class='white'>Become an Instagram Pro</h1>
-      <h4 class='white m-t-lg'>Learn what it takes to ignite your account. <br> Start by finding out how much your account is worth.</h4>
-    
-      <p class='m-t-xxxl'><div style='z-index: 5;' class='col-md-2 col-md-offset-5'><button class='newBtn insta'><i class="fa fa-instagram"></i> &nbsp; Login</button></div></p>
+      <h4 class='white m-t-lg'>Join a Slack community for people who love Instagram</h4>
+      <form id='slackForm'>
+        <div class='row m-t-xxxl padding-sm'>
+          <div class='col-md-2 col-md-offset-4 m-b-lg'>
+            <input id='firstEmail' type='text' class='form-control' placeholder='Email' style='height: 52px;' required>
+          </div>
+          <div style='z-index: 5;' class='col-md-2'>
+            <input type='submit' class='newBtn' value='Request Invite'>
+          </div>
+        </div>
+      </form>
     </div>
     <div class='overlay'></div>
   </div>
   <div class='algor text-center m-b-xxxl'>
-    <h1>Based on your followers, likes and comments<br>we calculate the value of your Instagram account</h1>
-    <h1 class='m-t-lg m-b-lg'><img style='border-radius: 75px;' height='75' width='75' src="{{featured.profile.profile_picture}}"> @{{featured.profile.username}}</h1>
-    <div class='row  m-b-xxxl'>
-      <div class='col-md-3'>
-       <h3>Followers</h3>
-       <h1><i class="fa fa-user fa-3x blueText"></i></h1>
-       <h1>{{featured.profile.stats.followed_by}}</h1>
-      
-     </div>
-      <div class='col-md-3'>
-        <h3>Avg Likes</h3>
-        <h1><i class="fa fa-heart fa-3x blueText"></i></h1>
-        <h1>{{featured.profile.data.avgLikes}}</h1>
-        
-      </div>
-      <div class='col-md-3'>
-        <h3>Avg Comments</h3>
-        <h1><i class="fa fa-comment fa-3x blueText"></i></h1>
-        <h1>{{featured.profile.data.avgComments}}</h1>
-        
-      </div>
-      <div class='col-md-3'>
-        <h3>Value</h3>
-        <h1><i class="fa fa-money fa-3x blueText"></i></h1>
-        <h1 class='font-extra-bold text-success'>${{featured.profile.data.postValue}}</h1>
-      </div>
+    <h1 class='m-b-xxxl'>Based on your followers, likes and comments<br>we calculate the value of your Instagram account</h1>
+    <div class='row  m-t-xxxl'>
+      {{#each users}}
+        <div class='col-md-3 text-left'>
+          {{> thisUser}}
+        </div>
+      {{/each}}
     </div>
-    <div class='row m-t-xxxl m-b-lg'>
-      <div class='col-md-4 col-md-offset-4'><button class='newBtn insta'><i class="fa fa-calculator"></i> &nbsp; Calculate</button></div>
+    <div class='row m-t-xl m-b-lg'>
+      <div class='col-md-4 col-md-offset-4'><a href="/search"><button class='newBtn'><i class="fa fa-search"></i> &nbsp; Search</button></a></div>
     </div>
   </div>
   <h1 class='blueSpacer'></h1>
@@ -63,10 +52,18 @@
       </div>
       <div class='col-md-6'>
         <h1 class='m-t-xxxl'>Everyday, people on Instagram are getting paid to create beautiful ads</h1>
-        <h3 class='m-t-lg'>The <a href="/about">market for Instagram influencers</a> is growing. Get advice on how to improve the value of your account. </h3>
-        <h3 class='m-t-xxxl'>Find out what it takes to join <a href="">#ThePaidCrew</a>.</h3>
+        <h3 class='m-t-lg'> Get advice on how to improve the value of your account and find out what it takes to join <a href="">#ThePaidCrew</a>. </h3>
         <div class='row m-t-lg'>
-          <div class='col-md-6'><button class='newBtn insta'><i class="fa fa-instagram"></i> &nbsp; Login</button></div>
+        <form id='slack'>
+          <div class='row m-t-lg padding-sm'>
+            <div class='col-md-6 m-b-lg'>
+              <input id='email' type='text' class='form-control' placeholder='Email' style='height: 52px;' required>
+            </div>
+            <div style='z-index: 5;' class='col-md-6'>
+              <input type='submit' class='newBtn' value='Request Invite'>
+            </div>
+          </div>
+        </form>
         </div>
       </div>
     </div>
