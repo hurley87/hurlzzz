@@ -75,7 +75,6 @@ Router.route('/:_id', {
   template: 'profile',
   loadingTemplate: 'loading',
   subscriptions: function() {   
-    this.subscribe('updates');
     this.subscribe('userPosts', this.params._id);
   }
 });

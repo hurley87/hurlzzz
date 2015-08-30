@@ -137,6 +137,7 @@ Template.profile.events({
   },
   'click .updateThisUser': function(evt) {
     $(evt.target).hide();
+    $('.igniteMe').hide();
     var updater = Meteor.users.findOne(Meteor.userId());
     var id = Router.current().params._id;
     if(!id) { id = Meteor.users.findOne(Meteor.userId()).profile.username}
