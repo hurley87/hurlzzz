@@ -1,0 +1,42 @@
+<template name='editpost'>
+    {{#if currentUser}}
+    <div class='row'>
+        <h3 class='text-center'>Only @{{user.profile.username}} can update or delete this post.</h3>
+    </div>
+	<div class='row'>
+		<div class='col-md-12'>
+		    <div class="hpanel blog-article-box">
+		        <div class="panel-heading">
+		            <div style='height: auto;' class="col-sm-12 summernote title">
+		                {{{title}}}
+		            </div>
+		            <div style='height: auto;' class="col-sm-12 summernote tagline">
+		                <div class="text-muted small">{{{tagline}}}</div>
+		            </div>
+		            <div class="text-muted small">
+		             &nbsp;
+		            </div>
+		        </div>
+		        <div class="panel-body">
+		            <div style='height: auto;' class="col-sm-12 summernote content">
+		                {{{content}}}
+		            </div>  
+		        </div>
+		    </div>
+		    {{#if thisUser}}
+            <div class='row m-b-lg'>
+	            <div class='col-md-4'>
+	         		<button id='deletePost' class="newBtn newBtn-outline m-t-md">Delete post</button>	
+	            </div>
+                <div class='col-md-4'>&nbsp;</div>
+	            <div class='col-md-4'>
+		            <button id='updatePost' class="newBtn  m-t-md">Update Post</button>
+	            </div>
+            </div>
+            {{/if}}
+		</div>
+	</div>
+    {{else}}
+        {{> blog}}
+    {{/if}}
+</template>	

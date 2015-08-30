@@ -169,5 +169,14 @@ Meteor.methods({
       subject: "add " + email.email,
       text: "sweet "
     }); 
+  },
+  updatePost: function(post, id) {
+    console.log(post);
+    Posts.update(id, {
+      $set: post
+    });
+  },
+  removePost: function(post) {
+    Posts.remove(post._id);
   }
 });

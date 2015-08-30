@@ -55,6 +55,20 @@ Router.route('/blog/:_id', {
   }    
 });
 
+Router.route('/blog/:_id/edit', {
+  name: 'editpost',
+  template: 'editpost',
+  loadingTemplate: 'loading',
+  data: function() {
+    var slug = this.params._id;
+    console.log(slug);
+    var thisPost = Posts.find({ slug: slug }).fetch()[0];
+    return thisPost;   
+  },
+  subscriptions: function() {
+    this.subscribe('thisPost', this.params._id).wait();
+  }  
+});
 
 Router.route('/:_id', {
   name: 'instagrammer',

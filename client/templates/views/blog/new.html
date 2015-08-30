@@ -1,43 +1,14 @@
 <template name='newpost'>
     {{#if currentUser}}
     <div class='row'>
-        <h3 class='text-center'>Contribute to the community by sharing your ideas on life and Instagram.</h3>
+        <h3 class='text-center'>Share your ideas with the community <br> Each post must have a title, tagline, and content.</h3>
     </div>
 	<div class='row'>
 		<div class='col-md-12'>
-			<div class="hpanel blog-article-box">
-                <div class="panel-heading">
-                	<div style='height: auto;' class="col-sm-12 summernote title">
-                		<h1>Write your title here</h1>
-                	</div>
-                    <div style='height: auto;' class="col-sm-12 summernote tagline">
-                		<div class="text-muted small">write your tagline here</div>
-                	</div>
-                    <div class="text-muted small">
-                     &nbsp;
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div style='height: auto;' class="col-sm-12 summernote content">
-                        <h3>
-                           Adding Links
-                        </h3>
-                        <p>Linking to outside sources help validate your ideas. </p>
-                        <p><a href="http://reachignition.com/blog">Ignition Blog</a></p>
-                        <br><br>
-                        <h3>Adding Images</h3>
-                        <p>Images can help tell your story. You can resize image and change their shape.</p>
-                        <img src="/hero.jpg" style='width: 100%;'>
-                        <br><br>
-                        <h3>Other Ideas</h3>
-                        <p>Change the color of text or add a table. Experiment with all the available options.</p>
-                    </div>	
-                    <h1 class='pull-right'><a href="/{{currentUser.profile.username}}">@{{currentUser.profile.username}}</a></h1>
-                </div>
-            </div>
+            {{> postForm}}
             <div class='row m-b-lg'>
 	            <div class='col-md-4'>
-	         		<a href="/blog"><button class="newBtn newBtn-outline m-t-md">Back to Blog</button></a>   	
+	         		<a href="/blog"><button class="newBtn newBtn-outline m-t-md">Blog</button></a>   	
 	            </div>
                 <div class='col-md-4'>&nbsp;</div>
 	            <div class='col-md-4'>
@@ -47,6 +18,40 @@
 		</div>
 	</div>
     {{else}}
-    {{> blog}}
+        {{> blog}}
     {{/if}}
 </template>	
+
+<template name='postForm'>
+    <div class="hpanel blog-article-box">
+        <div class="panel-heading">
+            <div style='height: auto;' class="col-sm-12 summernote title">
+                <h1>1. Write your title here.</h1>
+            </div>
+            <div style='height: auto;' class="col-sm-12 summernote tagline">
+                <div class="text-muted small">2. Write your tagline here.</div>
+            </div>
+            <div class="text-muted small">
+             &nbsp;
+            </div>
+        </div>
+        <div class="panel-body">
+            <div style='height: auto;' class="col-sm-12 summernote content">
+                <h1>3. Write your content here.</h1>
+                <br>
+                <h3>
+                   Adding Links
+                </h3>
+                <p>Linking to outside sources help validate your ideas. </p>
+                <p><a href="http://reachignition.com/blog">Ignition Blog</a></p>
+                <br><br>
+                <h3>Adding Images</h3>
+                <p>Images can help tell your story. You can resize image and change their shape.</p>
+                <img src="/hero.jpg" style='width: 100%;'>
+                <br><br>
+                <h3>Other Ideas</h3>
+                <p>Change the color of text or add a table. Experiment with all the available options.</p>
+            </div>  
+        </div>
+    </div>
+</template>    

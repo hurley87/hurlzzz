@@ -1,13 +1,26 @@
 <template name="infiniteSearch">
-	<div class='row m-b-xxl'>
-		<div class='col-md-1 col-xs-12'>
-			<h1 style='margin-top: 0;' class='text-success text-center'>${{gt}}</h1>
+	<div class='row m-b-lg'>
+        <div class='col-md-4'>
+            <a href="/blog"><button class='newBtn newBtn-outline'>Blog</button></a>
+        </div>
+        <div class='col-md-4'>&nbsp;</div>
+        <div class='col-md-4'>
+            {{#if currentUser}}
+            	<a href="/{{currentUser.profile.username}}"> <button class='newBtn'>Profile</button></a>
+            {{else}}
+            <button class='newBtn insta'><i class="fa fa-instagram"></i> &nbsp; Login</button>
+            {{/if}}
+        </div>
+    </div>
+	<div class='row m-b-xl'>
+		<div class='col-md-2 col-xs-12'>
+			<h1 style='margin-top: 0;' class='text-success text-right'>${{gt}}</h1>
 		</div>
-		<div class='col-md-10 col-xs-12 m-t-sm m-b-md'>
+		<div class='col-md-8 col-xs-12 m-t-sm m-b-md'>
 			<div id='range'></div>
 		</div>
-		<div class='col-md-1 col-xs-12'>
-			<h1 style='margin-top: 0;' class='text-success text-center'>${{lt}}</h1>
+		<div class='col-md-2 col-xs-12'>
+			<h1 style='margin-top: 0;' class='text-success text-left'>${{lt}}</h1>
 			
 		</div>
 	</div>

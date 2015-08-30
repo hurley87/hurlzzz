@@ -18,3 +18,13 @@ Template.post.onRendered(function() {
 		console.log(content);
 	});
 });
+Template.post.helpers({
+	thisUser: function() {
+		if(this.user) {
+			return this.user._id == Meteor.userId();
+		} else {
+			return false;
+		}
+		
+	}
+});	

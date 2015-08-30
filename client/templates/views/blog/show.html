@@ -6,7 +6,11 @@
         <div class='col-md-4'>&nbsp;</div>
         <div class='col-md-4'>
             {{#if currentUser}}
-            <a href="/search"><button class='newBtn'>Search</button></a>
+                {{#if thisUser}}
+                <a href="/blog/{{slug}}/edit"><button class='newBtn'>Update Post</button></a>
+                {{else}}
+                <a href="/search"><button class='newBtn'>Search</button></a>
+                {{/if}}
             {{else}}
             <button class='newBtn insta'><i class="fa fa-instagram"></i> &nbsp; Login</button>
             {{/if}}

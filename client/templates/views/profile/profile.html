@@ -103,12 +103,12 @@
   </div>
   <div class="row">
     {{#each posts}}
-      <div class='col-md-3'>
+      <a href="https://instagram.com/{{user.username}}"><div class='col-md-3'>
             <div><img src="{{images.thumbnail.url}}"></div>
         <div>
-          <i class="fa fa-heart"></i> {{likes.count}}  &nbsp; <i class="fa fa-comment"></i>  {{comments.count}} 
+          <i class="fa fa-heart"></i> {{likes.count}}  &nbsp;  &nbsp; <i class="fa fa-comment"></i>  {{comments.count}} 
         </div>
-      </div> 
+      </div></a>
     {{/each}}
   </div>
   </div>
