@@ -7,7 +7,7 @@ Template.edit.events({
     } else {
       console.log('login failed ' + err);
     }
-    Router.go('/search');
+    Router.go('/thanks');
     analytics.identify(Meteor.userId()); 
   });
 }
@@ -30,6 +30,6 @@ Template.updateUser.events({
         '$name': user.profile.username,
         '$email': user.profile.other.email
       });    
-      Router.go('/search');
+      Router.go('/thanks');
   }
 });

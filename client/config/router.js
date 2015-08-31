@@ -16,6 +16,11 @@ Router.route('/edit', {
   loadingTemplate: 'loading'
 });
 
+Router.route('/thanks', {
+  template: 'thanks',
+  loadingTemplate: 'loading'
+});
+
 Router.route('/search', {
   name: 'search',
   template: 'infiniteSearch',

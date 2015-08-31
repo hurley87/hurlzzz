@@ -41,6 +41,7 @@ iron:url@1.0.9
 isotope:isotope@2.1.0_1
 jchristman:collection-scroller@1.0.7_1
 jeremy:geocomplete@1.6.5_7
+joshowens:shareit@0.3.1
 jquery@1.11.3_2
 json@1.0.3
 kevohagan:sweetalert@1.0.0
@@ -93,6 +94,7 @@ session@1.1.0
 shcherbin:slickjs@1.5.8
 spacebars@1.0.6
 spacebars-compiler@1.0.6
+spiderable@1.0.7
 templating@1.1.1
 themeteorchef:bert@1.1.0
 tracker@1.0.7

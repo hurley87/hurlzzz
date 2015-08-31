@@ -1,0 +1,20 @@
+<template name='thanks'>
+    <div class='row'>
+      {{#if currentUser}}
+      <h3 class='font-extra-bold text-center m-t-lg'>Your Worth ${{currentUser.profile.data.postValue}} per post!</h3>
+      <div class='m-t-xxl text-center'>
+       {{> shareit}}
+      </div>
+      <h5 class='text-center m-t-sm'></h5>
+      <div class='clearfix'></div>
+      <div class='row m-t-xxl'>
+      	<div class='col-md-3'>&nbsp;</div>
+      	<div class='col-md-3'><a href="/search"><button class='newBtn newBtn-outline'>Search</button></a></div>
+      	<div class='col-md-3'><a href="/{{currentUser.profile.username}}"><button class='newBtn'>Profile</button></a></div>
+      </div>
+      {{else}}
+      <h2 class='text-center'>Find out how much your worth, per post, on Instagram.</h2>
+      <h2 class='text-center'><button style='max-width: 250px;' class='newBtn insta'><i class="fa fa-instagram"></i> &nbsp; Login</button></h2>
+      {{/if}}
+    </div>
+</template>	

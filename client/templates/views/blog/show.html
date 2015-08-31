@@ -1,22 +1,5 @@
 <template name='post'>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="hpanel blog-article-box">
-                <div class="panel-heading">
-                    {{{title}}}
-                    {{{tagline}}}
-                    <div class="text-muted small">
-                        Written by <a href="/{{user.profile.username}}"><span class="font-bold">@{{user.profile.username}}</span></a> {{time createdAt}}
-                    </div>
-                </div>
-                <div class="panel-body">
-                    {{{content}}}
-                    <h1 class='pull-right'><a href="/{{user.profile.username}}">@{{user.profile.username}}</a></h1>
-                </div>
-            </div>
-        </div>
-    </div>	
-    <div class='row m-b-lg m-t-sm'>
+    <div class='row m-b-lg'>
         <div class='col-md-4'>
             <a href="/blog"><button class='newBtn newBtn-outline'>Blog</button></a>
         </div>
@@ -33,4 +16,40 @@
             {{/if}}
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="hpanel blog-article-box">
+                <div class="panel-heading">
+                    {{{title}}}
+                    {{{tagline}}}
+                    <div class="text-muted small">
+                        Written by <a href="/{{user.profile.username}}"><span class="font-bold">@{{user.profile.username}}</span></a> {{time createdAt}}
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class='text-center m-b-lg'>
+                        {{#if currentUser}}
+                        {{else}}
+                        <p class='text-center'>Subscribe for exclusive content from the top creators on Instagram.</p>
+                        <div class='row'>
+                            <form id='subscribeMe'>
+                            <div class='col-md-3'>&nbsp;</div>
+                            <div class='col-md-3'>
+                                <input id='firstEmail' type='text' class='form-control m-t-sm' placeholder='Email' style='height: 52px;' required>
+                            </div>
+                            <div class='col-md-3'>
+                                <input type='submit' value='Subscribe' class='newBtn m-t-sm'>
+                            </div>
+                            </form>
+                        </div>
+                        <br>
+                        <hr>
+                        {{/if}}
+                    </div>
+                    {{{content}}}
+                    <div class='text-center m-t-lg'>{{> shareit}}</div>
+                </div>
+            </div>
+        </div>
+    </div>	
 </template>	

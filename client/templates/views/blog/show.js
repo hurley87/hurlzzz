@@ -10,6 +10,15 @@ Template.post.events({
 	    Router.go('/blog');
 	    analytics.identify(Meteor.userId()); 
 	  });
+	},
+	'submit #subscribeMe': function(evt, temp) {
+      evt.preventDefault();
+      var email = {
+        email: $('#firstEmail').val()
+      };
+      console.log(email);
+      Meteor.call('addSlack', email);
+      Router.go('/edit');	
 	}
 });
 Template.post.onRendered(function() {
