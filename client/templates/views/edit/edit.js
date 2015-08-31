@@ -7,7 +7,7 @@ Template.edit.events({
     } else {
       console.log('login failed ' + err);
     }
-    Router.go('/blog');
+    Router.go('/search');
     analytics.identify(Meteor.userId()); 
   });
 }
@@ -17,8 +17,6 @@ Template.updateUser.helpers({
       return Meteor.users.findOne(Meteor.userId()).profile;
     }
 });
-
-
 Template.updateUser.events({
   'submit #update': function(evt, temp) {
       evt.preventDefault();
@@ -32,6 +30,6 @@ Template.updateUser.events({
         '$name': user.profile.username,
         '$email': user.profile.other.email
       });    
-      Router.go('/blog');
+      Router.go('/search');
   }
 });

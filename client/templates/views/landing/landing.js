@@ -5,7 +5,7 @@
         email: $('#firstEmail').val()
       };
       Meteor.call('addSlack', email);
-      Router.go('/search');
+      Router.go('/edit');
     },
     'submit #slack': function(evt, temp) {
       evt.preventDefault();
@@ -14,7 +14,7 @@
       };
       Meteor.call('addSlack', email);
      
-      Router.go('/search');
+      Router.go('/edit');
     }
   });
 
