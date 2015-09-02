@@ -13,7 +13,6 @@
         email: $('#email').val()
       };
       Meteor.call('addSlack', email);
-     
       Router.go('/edit');
     }
   });

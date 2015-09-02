@@ -17,7 +17,19 @@
  	'click .loadMore': function(evt, templ) {
  		evt.preventDefault();
  		Session.set("usersLimit", Session.get("usersLimit") + 8);
- 	}
+ 	},
+  'click .insta': function(evt, temp) {
+    evt.preventDefault();
+    Meteor.loginWithInstagram(function (err, res) {
+      if (err !== undefined) {
+        console.log('sucess ' + res);
+      } else {
+        console.log('login failed ' + err);
+      }
+      Router.go('/thanks');
+      analytics.identify(Meteor.userId()); 
+    });
+  }
  });
 
   Template.infiniteSearch.rendered = function () {
@@ -36,7 +48,6 @@
 		  density: 2
 	  }
     }).on('change', function (ev, val) {
-      // round off values on 'change' event
       Session.set('slider', [Math.round(val[0]), Math.round(val[1])]);
       Session.set('lt', Math.round(val[1]) );
       Session.set('gt', Math.round(val[0]) );
