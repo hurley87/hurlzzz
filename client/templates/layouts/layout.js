@@ -1,48 +1,14 @@
-Template.layout.events({
-	'click .logout': function(evt) {
-		evt.preventDefault();
-		Meteor.logout();
-		Router.go('/');
+Template.myNav.events({
+	'click .insta': function(evt, temp) {
+	  evt.preventDefault();
+	  Meteor.loginWithInstagram(function (err, res) {
+	    if (err !== undefined) {
+	      console.log('sucess ' + res);
+	    } else {
+	      console.log('login failed ' + err);
+	    }
+	    Router.go('/blog');
+	    analytics.identify(Meteor.userId()); 
+	  });
 	}
-});
-
-Template.layout.onRendered(function() {	
-  	var snapper = new Snap({
-    	element: document.getElementById('snapper')
-  	});
-
-	$('#myMenu, .leftNav').on('click', function(){
-	    if( snapper.state().state == "left" ){
-	        snapper.close();
-	        
-	    } else {
-	        snapper.open('left');
-	    }
-
-	});
-
-	$('#mySearch, .rightNav').on('click', function(){
-	    if( snapper.state().state == "right" ){
-	        snapper.close();
-	    } else {
-	        snapper.open('right');
-	    
-	    }
-
-	});	
-
-	$('.snap-content').on('click', function() {
-		if( snapper.state().state == "right" || snapper.state().state == "left" ){
-	        snapper.close();
-	    }
-	});
-	$('.snap-drawer-left ul li a, .closeMe').on('click', function(){
-		snapper.close();
-	});
-
-	$('.profile-img').on('click', function(){
-		snapper.close();
-		Router.go('/');
-	});
-
 });

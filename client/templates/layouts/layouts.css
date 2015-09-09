@@ -7,18 +7,3 @@
 	top: 0;
 	z-index: 4;
 }
-
-
-#myMenu {
-	cursor: pointer;
-}
-
-.fa-search:hover, .fa-bars:hover {
-	color: #3498db;
-}
-
-#mySearch {
-	cursor: pointer;
-}
-
-

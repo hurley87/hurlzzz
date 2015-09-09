@@ -1,17 +1,4 @@
 <template name='blog'>
-    <div class='row'>
-        <div class='col-md-4'>
-         <a href="/edit"><button class='newBtn newBtn-outline'>Subscribe</button></a>    
-        </div>
-        <div class='col-md-4'>&nbsp;</div>
-        <div class='col-md-4'>
-            {{#if currentUser}}
-            <a href="/blog/new"><button class='newBtn'>New Post</button></a>
-            {{else}}
-            <button class='newBtn insta'><i class="fa fa-instagram"></i> &nbsp; Login</button>
-            {{/if}}
-        </div>
-    </div>
 	<div class='row m-t-md'>
     	{{#each items}}
         	<div class='col-md-4'>
