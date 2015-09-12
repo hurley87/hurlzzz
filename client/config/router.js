@@ -64,7 +64,7 @@ Router.route('/blog/:_id', {
     return thisPost;   
   },
   subscriptions: function() {
-    this.subscribe('thisPost', this.params._id).wait();
+    this.subscribe('posts');
   }    
 });
 
