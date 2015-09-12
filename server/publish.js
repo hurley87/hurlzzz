@@ -20,8 +20,8 @@ Meteor.publish('thisPost', function(slug) {
 	return Posts.find({ slug: slug });
 });
 
-Meteor.publish('userPosts', function(username) {
-	return Posts.find({ 'user.profile.username': username }, { sort: { createdAt: -1 }, limit: 3 });
+Meteor.publish('userPosts', function() {
+	return Posts.find({}, { sort: { createdAt: -1 }, limit: 3 });
 });
 
 Meteor.publish('searchUsers', function(limit, gt, lt) {

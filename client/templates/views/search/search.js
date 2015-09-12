@@ -36,12 +36,10 @@
     this.$("#range").noUiSlider({
       start: Session.get("slider"),
       connect: true,
-      margin: 150,
-      limit: 150,
       behaviour: 'tap-drag',
       range: {
-		'min': 40,
-		'max': 500
+  		'min': 40,
+  		'max': 500
       },
 	  pips: { // Show a scale with the slider
 		  mode: 'steps',

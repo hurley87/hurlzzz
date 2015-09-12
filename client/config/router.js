@@ -88,7 +88,7 @@ Router.route('/:_id', {
   template: 'profile',
   loadingTemplate: 'loading',
   subscriptions: function() {   
-    this.subscribe('userPosts', this.params._id);
+    this.subscribe('userPosts');
   }
 });
 
