@@ -8,6 +8,7 @@ Router.route('/', {
   loadingTemplate: 'loading',
   subscriptions: function() {
     this.subscribe('topUsers');
+    this.subscribe('posts');
   }
 });
 
