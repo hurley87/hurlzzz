@@ -25,13 +25,10 @@
 
 <template name='thisUser'>
 	<a href="/{{profile.username}}"><div class="hpanel hblue contact-panel">
-	    <div class="panel-body" style='height: 210px;'>
+	    <div class="panel-body" style='height: 130px;'>
 	        <img alt="logo" class="img-circle m-b" src="{{profile.profile_picture}}">
 	       	<h1 style='margin-top: 0;' class='pull-right text-success'>${{profile.data.postValue}}</h1>
 	        <h5>@{{profile.username}}</h5>
-	        <p style='color: black;'>
-	            {{profile.bio}}
-	        </p>
 	    </div>
 	    <div class="panel-footer contact-footer">
 	        <div class="row">
